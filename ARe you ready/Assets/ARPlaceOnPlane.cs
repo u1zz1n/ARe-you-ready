@@ -31,9 +31,9 @@ public class ARPlaceOnPlane : MonoBehaviour
             List<ARRaycastHit> hits = new List<ARRaycastHit>();
             if(arRaycaster.Raycast(touch.position, hits, TrackableType.Planes))
             {
-                Pose placementPose = hits[0].pose; //frist hit place
+                Pose placementPose = hits[0].pose; //first hit place
 
-                if(!spawnObject)
+                if (!spawnObject)
                 {
                     spawnObject = Instantiate(placeObject, placementPose.position, placementPose.rotation);
                 }
@@ -57,13 +57,13 @@ public class ARPlaceOnPlane : MonoBehaviour
 
         if(hits.Count > 0) //After the raycast, if you find a location to desplay, put object that location
         {
-            Pose placementPose = hits[0].pose; //frist hit place
+            Pose placementPose = hits[0].pose; //first hit place
             placeObject.SetActive(true);
             placeObject.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
         }
         else
         {
-            //placeObject.SetActive(false); //no plane to desplay
+            //placeObject.SetActive(false); //no plane to display
         }
     }
 }
