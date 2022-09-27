@@ -39,8 +39,8 @@ public class ARPlaceOnPlane : MonoBehaviour
                 }
                 else
                 {
-                    spawnObject.transform.position = placementPose.position;
-                    spawnObject.transform.rotation = placementPose.rotation;
+                    //spawnObject.transform.position = placementPose.position;
+                    //spawnObject.transform.rotation = placementPose.rotation;
                 }
             }
 
