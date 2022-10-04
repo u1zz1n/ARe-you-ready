@@ -7,8 +7,15 @@ using UnityEngine.XR.ARSubsystems;
 public class ARPlaceOnPlane : MonoBehaviour
 {
     public ARRaycastManager arRaycaster;
+    
     public GameObject placeObject;
+    public GameObject placeObject2;
+
     GameObject spawnObject;
+    GameObject spawnObject2;
+
+    public static int selectedObject = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,14 +40,24 @@ public class ARPlaceOnPlane : MonoBehaviour
             {
                 Pose placementPose = hits[0].pose; //first hit place
 
-                if (!spawnObject)
+                if(selectedObject == 0)
                 {
-                    spawnObject = Instantiate(placeObject, placementPose.position, placementPose.rotation);
+                    if (!spawnObject)
+                    {
+                        spawnObject = Instantiate(placeObject, placementPose.position, placementPose.rotation);
+                    }
+                    else
+                    {
+                        //spawnObject.transform.position = placementPose.position;
+                        //spawnObject.transform.rotation = placementPose.rotation;
+                    }
                 }
-                else
+                else if(selectedObject == 1)
                 {
-                    //spawnObject.transform.position = placementPose.position;
-                    //spawnObject.transform.rotation = placementPose.rotation;
+                    if (!spawnObject2)
+                    {
+                        spawnObject2 = Instantiate(placeObject2, placementPose.position, placementPose.rotation);
+                    }
                 }
             }
 
