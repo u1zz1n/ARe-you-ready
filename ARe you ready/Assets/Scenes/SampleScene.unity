@@ -313,8 +313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 574a78bce8f1ad1409c81a9733f7803a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placedObjects:
-  - {fileID: 4443627184359244936, guid: 5b442f04853e4b84badfc2a574550fb4, type: 3}
+  placedObjects: []
   activeColor: {r: 1, g: 0, b: 0, a: 1}
   inactiveColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   arCamera: {fileID: 89841242}
