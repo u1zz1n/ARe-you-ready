@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4643411221322500034}
   - component: {fileID: 4715527574255309232}
   - component: {fileID: 5002764643108609707}
+  - component: {fileID: 4317584944994477385}
   m_Layer: 0
   m_Name: waterbottle
   m_TagString: Untagged
@@ -121,3 +122,17 @@ MonoBehaviour:
   IsSelected: 0
   IsLocked: 0
   OverlayDisplayText: 
+--- !u!136 &4317584944994477385
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4622751165326385306}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.17537867
+  m_Height: 0.85118955
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.21044275, z: 0}
