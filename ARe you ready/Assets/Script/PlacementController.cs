@@ -14,6 +14,8 @@ public class PlacementController : MonoBehaviour
 
     //[SerializeField]
     //private Button dismissButton;
+    [SerializeField]
+    private bool applyScalingPerObject = false;
 
     [SerializeField]
     private Slider scaleSlider;
@@ -24,6 +26,9 @@ public class PlacementController : MonoBehaviour
     private GameObject placedObject;
 
     private Vector2 touchPosition = default;
+
+    private ARSessionOrigin aRSessionOrigin; 
+
     private ARRaycastManager arRaycastManager;
     private bool onTouchHold = false;
 
@@ -42,29 +47,37 @@ public class PlacementController : MonoBehaviour
 
     void Awake() {
         arRaycastManager = GetComponent<ARRaycastManager>();
+        aRSessionOrigin = GetComponent<ARSessionOrigin>();
         //dismissButton.onClick.AddListener(Dismiss);
         scaleSlider.onValueChanged.AddListener(ScaleChanged);
     }
 
     private void ScaleChanged(float newValue)
     {
-        if(lastSelectedObject != null && lastSelectedObject.Selected) {
+        if(applyScalingPerObject)
+        {
+            if(lastSelectedObject != null && lastSelectedObject.Selected) 
             {
                 lastSelectedObject.transform.localScale = Vector3.one * newValue;
             }
         }
+        else{
+            aRSessionOrigin.transform.localScale = Vector3.one * newValue;
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if(Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
 
             if(EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+            {
                 return;
+            }
 
             touchPosition = touch.position;
 
@@ -89,43 +102,29 @@ public class PlacementController : MonoBehaviour
                             }
                         }
                     }
+                }
 
-                    if(arRaycastManager.Raycast(touchPosition, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
+                if(arRaycastManager.Raycast(touchPosition, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
+                {
+                    Pose hitPose = hits[0].pose;
+
+                    if(lastSelectedObject == null)
                     {
-                        Pose hitPose = hits[0].pose;
-
-                        if(lastSelectedObject == null)
-                        {
-                            lastSelectedObject = Instantiate(placedPrefab, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
-                        }
+                        lastSelectedObject = Instantiate(placedPrefab, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
                     }
+                }
+            }
 
-                    if(touch.phase == TouchPhase.Moved)
-                    {
-                        if(arRaycastManager.Raycast(touchPosition, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
-                        {
-                            Pose hitPose = hits[0].pose;
+            if(touch.phase == TouchPhase.Moved)
+            {
+                if(arRaycastManager.Raycast(touchPosition, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
+                {
+                    Pose hitPose = hits[0].pose;
 
-                            if(lastSelectedObject != null && lastSelectedObject.Selected) {
+                    if(lastSelectedObject != null && lastSelectedObject.Selected) {
                             
-                                lastSelectedObject.transform.parent.position = hitPose.position;
-                                lastSelectedObject.transform.parent.rotation = hitPose.rotation;
-                            }
-                        }
-                    }
-
-                    if(touch.phase == TouchPhase.Moved)
-                    {
-                        if(arRaycastManager.Raycast(touchPosition, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
-                        {
-                            Pose hitPose = hits[0].pose;
-
-                            if(lastSelectedObject != null && lastSelectedObject.Selected)
-                            {
-                                lastSelectedObject.transform.parent.position = hitPose.position;
-                                lastSelectedObject.transform.parent.rotation = hitPose.rotation;
-                            }
-                        }
+                        lastSelectedObject.transform.parent.position = hitPose.position;
+                        lastSelectedObject.transform.parent.rotation = hitPose.rotation;
                     }
                 }
             }
