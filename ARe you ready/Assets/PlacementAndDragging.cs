@@ -11,12 +11,6 @@ public class PlacementAndDragging : MonoBehaviour
     [SerializeField]
     private GameObject placedPrefab;
 
-    //[SerializeField]
-    //private GameObject welcomePanel;
-
-    //[SerializeField]
-    //private Button dismissButton;
-
     [SerializeField]
     private Camera arCamera;
 
@@ -24,7 +18,7 @@ public class PlacementAndDragging : MonoBehaviour
 
     private Vector2 touchPosition = default;
 
-    private ARRaycastManager arRaycastManager;
+    public ARRaycastManager arRaycastManager;
 
     private bool onTouchHold = false;
 
@@ -32,20 +26,12 @@ public class PlacementAndDragging : MonoBehaviour
 
     private PlacementObject lastSelectedObject;
 
-    //[SerializeField]
-    //private Button redButton, greenButton, blueButton;
+    //public Text hihi;
 
+    int count = 0;
     void Awake()
     {
-        arRaycastManager = GetComponent<ARRaycastManager>();
-        //dismissButton.onClick.AddListener(Dismiss);
-
-        //if (redButton != null && greenButton != null && blueButton != null)
-        //{
-        //    redButton.onClick.AddListener(() => ChangePrefabSelection("ARRed"));
-        //    greenButton.onClick.AddListener(() => ChangePrefabSelection("ARGreen"));
-        //    blueButton.onClick.AddListener(() => ChangePrefabSelection("ARBlue"));
-        //}
+        //arRaycastManager = GetComponent<ARRaycastManager>();
     }
 
     private void ChangePrefabSelection(string name)
@@ -61,7 +47,6 @@ public class PlacementAndDragging : MonoBehaviour
             Debug.Log($"Unable to find a game object with name {name}");
         }
     }
-    //private void Dismiss() => welcomePanel.SetActive(false);
 
     private GameObject PlacedPrefab
     {
@@ -83,13 +68,11 @@ public class PlacementAndDragging : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // do not capture events unless the welcome panel is hidden
-        //if (welcomePanel.activeSelf)
-        //    return;
-
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
+
+            //count++;
 
             touchPosition = touch.position;
 
@@ -121,6 +104,8 @@ public class PlacementAndDragging : MonoBehaviour
 
         if (arRaycastManager.Raycast(touchPosition, hits, UnityEngine.XR.ARSubsystems.TrackableType.Planes))
         {
+            //hihi.text = "Count: " + count.ToString();
+
             Pose hitPose = hits[0].pose;
 
             if (lastSelectedObject == null)
