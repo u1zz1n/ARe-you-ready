@@ -283,8 +283,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arRaycaster: {fileID: 792440161}
-  placeObject: {fileID: 6708287479122816036, guid: 0579e0abee501ad4888f70739cd0946f, type: 3}
-  placeObject2: {fileID: 3417040187919691379, guid: 025658c134b984048876962c13184bd3, type: 3}
+  placeObject: {fileID: 1216505430168376, guid: 57e3542e6c16dfd40972c0b1b0899afb, type: 3}
+  placeObject2: {fileID: 6708287479122816036, guid: 0579e0abee501ad4888f70739cd0946f, type: 3}
 --- !u!4 &177525307
 Transform:
   m_ObjectHideFlags: 0
@@ -859,8 +859,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1760703bbd54c04488a8d10600262ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlanePrefab: {fileID: 1877411386}
-  m_DetectionMode: -1
+  m_PlanePrefab: {fileID: 3381907094555113509, guid: b0e5bf97556dc4d4fac097466cc6f376, type: 3}
+  m_DetectionMode: 1
 --- !u!114 &792440160
 MonoBehaviour:
   m_ObjectHideFlags: 0
