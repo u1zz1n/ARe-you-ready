@@ -10,6 +10,8 @@ public class PlacementAndDragging : MonoBehaviour
     // Start is called before the first frame update
 
     public static bool placeBowling;
+    public static bool RollBowling;
+
     private bool ballspawn;
 
     public ARRaycastManager arRaycastManager;
@@ -87,6 +89,7 @@ public class PlacementAndDragging : MonoBehaviour
     void Start()
     {
         placeBowling = false;
+        RollBowling = false;
         ballspawn = false;
         scaleSlider.onValueChanged.AddListener(ScaleChanged);
     }
@@ -166,12 +169,21 @@ public class PlacementAndDragging : MonoBehaviour
             }
         }
     }
+
+    void Rolling()
+    {
+
+    }
     // Update is called once per frame
     void Update()
     {
-        if(placeBowling)
+        if(RollBowling)
         {
             hihi.text = "CLICK";
+            Rolling();
+        }
+        else if(placeBowling)
+        {
             PlaceBowlingBall();            
         }
         else{

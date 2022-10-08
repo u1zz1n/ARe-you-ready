@@ -10,4 +10,9 @@ public class bowlingbutton : MonoBehaviour
         PlacementAndDragging.placeBowling = true;
         //PlacementAndDragging.placeBowling = true;
     }
+
+    public void clickRollButton()
+    {
+        PlacementAndDragging.RollBowling = true;
+    }
 }
