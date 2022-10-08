@@ -4,9 +4,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
-
-[RequireComponent(typeof(ARRaycastManager))]
-
 public class PlacementController : MonoBehaviour
 {
     [SerializeField]

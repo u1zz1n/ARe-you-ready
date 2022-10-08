@@ -300,7 +300,6 @@ GameObject:
   m_Component:
   - component: {fileID: 177525307}
   - component: {fileID: 177525308}
-  - component: {fileID: 177525309}
   m_Layer: 0
   m_Name: ObjectSpawner
   m_TagString: Untagged
@@ -335,26 +334,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8abe0211e6d41f4794bc2ba7952935c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placedPrefab: {fileID: 3094128089967939173, guid: 5b442f04853e4b84badfc2a574550fb4, type: 3}
-  arCamera: {fileID: 89841242}
   arRaycastManager: {fileID: 792440161}
---- !u!114 &177525309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 177525305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 574a78bce8f1ad1409c81a9733f7803a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  placedObjects: []
+  aRSessionOrigin: {fileID: 792440157}
+  arCamera: {fileID: 89841242}
+  placedPrefab: {fileID: 4622751165326385306, guid: b4ea097667952c34493a5bd5fa11395d, type: 3}
   activeColor: {r: 1, g: 0, b: 0, a: 1}
   inactiveColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  arCamera: {fileID: 89841242}
   displayOverlay: 0
+  applyScalingPerObject: 0
+  scaleSlider: {fileID: 1075451255}
+  hihi: {fileID: 782628377}
 --- !u!1 &211583367
 GameObject:
   m_ObjectHideFlags: 0
@@ -1100,7 +1089,6 @@ GameObject:
   - component: {fileID: 792440160}
   - component: {fileID: 792440159}
   - component: {fileID: 792440161}
-  - component: {fileID: 792440163}
   m_Layer: 0
   m_Name: AR Session Origin
   m_TagString: Untagged
@@ -1150,7 +1138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PlanePrefab: {fileID: 3381907094555113509, guid: b0e5bf97556dc4d4fac097466cc6f376, type: 3}
-  m_DetectionMode: -1
+  m_DetectionMode: 1
 --- !u!114 &792440160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1177,21 +1165,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RaycastPrefab: {fileID: 177525305}
---- !u!114 &792440163
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 792440156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f4ce8c059bab7b4f9dcffbf65271638, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  placedPrefab: {fileID: 3094128089967939173, guid: 5b442f04853e4b84badfc2a574550fb4, type: 3}
-  scaleSlider: {fileID: 1075451255}
-  arCamera: {fileID: 89841242}
 --- !u!1 &1030995895
 GameObject:
   m_ObjectHideFlags: 0
@@ -1294,7 +1267,7 @@ RectTransform:
   m_GameObject: {fileID: 1075451253}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.8518226, y: 1, z: 1}
+  m_LocalScale: {x: 3.8518226, y: 4.0661, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 615953657}
@@ -1305,7 +1278,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 216}
+  m_AnchoredPosition: {x: 0, y: 119}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1075451255
@@ -1335,7 +1308,7 @@ MonoBehaviour:
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
+    m_FadeDuration: 3
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -1353,7 +1326,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1030995896}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 50
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:

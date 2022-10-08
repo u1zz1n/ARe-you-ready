@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
 
@@ -8,45 +9,42 @@ public class PlacementAndDragging : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    [SerializeField]
-    private GameObject placedPrefab;
+    public ARRaycastManager arRaycastManager;
+    public ARSessionOrigin aRSessionOrigin;
 
     [SerializeField]
     private Camera arCamera;
 
+    [SerializeField]
+    private GameObject placedPrefab;
+
     private PlacementObject[] placedObjects;
 
+    private static List<ARRaycastHit> hits = new List<ARRaycastHit>();
     private Vector2 touchPosition = default;
 
-    public ARRaycastManager arRaycastManager;
 
-    private bool onTouchHold = false;
+    ///////select object
+    [SerializeField]
+    private Color activeColor = Color.red;
 
-    private static List<ARRaycastHit> hits = new List<ARRaycastHit>();
+    [SerializeField]
+    private Color inactiveColor = Color.gray;
+
+    [SerializeField]
+    private bool displayOverlay = false;
 
     private PlacementObject lastSelectedObject;
 
-    //public Text hihi;
+    private bool onTouchHold = false;
 
-    int count = 0;
-    void Awake()
-    {
-        //arRaycastManager = GetComponent<ARRaycastManager>();
-    }
+    [SerializeField]
+    private bool applyScalingPerObject = false;
 
-    private void ChangePrefabSelection(string name)
-    {
-        GameObject loadedGameObject = Resources.Load<GameObject>($"Prefabs/{name}");
-        if (loadedGameObject != null)
-        {
-            PlacedPrefab = loadedGameObject;
-            Debug.Log($"Game object with name {name} was loaded");
-        }
-        else
-        {
-            Debug.Log($"Unable to find a game object with name {name}");
-        }
-    }
+    [SerializeField]
+    private Slider scaleSlider;
+
+    public Text hihi;
 
     private GameObject PlacedPrefab
     {
@@ -60,19 +58,42 @@ public class PlacementAndDragging : MonoBehaviour
         }
     }
 
+    void Awake()
+    {
+    }
+
+    /*private void ChangePrefabSelection(string name)
+    {
+        GameObject loadedGameObject = Resources.Load<GameObject>($"Prefabs/{name}");
+        if (loadedGameObject != null)
+        {
+            PlacedPrefab = loadedGameObject;
+            Debug.Log($"Game object with name {name} was loaded");
+        }
+        else
+        {
+            Debug.Log($"Unable to find a game object with name {name}");
+        }
+    }*/
+
     void Start()
     {
-        
+        scaleSlider.onValueChanged.AddListener(ScaleChanged);
     }
 
     // Update is called once per frame
     void Update()
     {
+        hihi.text = "scale is " + scaleSlider.value.ToString();
+
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
 
-            //count++;
+            if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+            {
+                return;
+            }
 
             touchPosition = touch.position;
 
@@ -82,15 +103,32 @@ public class PlacementAndDragging : MonoBehaviour
             {
                 Ray ray = arCamera.ScreenPointToRay(touch.position);
                 RaycastHit hitObject;
+
                 if (Physics.Raycast(ray, out hitObject))
                 {
                     lastSelectedObject = hitObject.transform.GetComponent<PlacementObject>();
+
                     if (lastSelectedObject != null)
                     {
                         PlacementObject[] allOtherObjects = FindObjectsOfType<PlacementObject>();
+
                         foreach (PlacementObject placementObject in allOtherObjects)
                         {
-                            placementObject.Selected = placementObject == lastSelectedObject;
+                            MeshRenderer meshRenderer = placementObject.GetComponent<MeshRenderer>();
+
+                            if (placementObject != lastSelectedObject)
+                            {
+                                placementObject.Selected = false;
+                                meshRenderer.material.color = inactiveColor;
+                            }
+                            else
+                            {
+                                placementObject.Selected = true;
+                                meshRenderer.material.color = activeColor;
+                            }
+
+                            if (displayOverlay)
+                                placementObject.ToggleOverlay();
                         }
                     }
                 }
@@ -100,26 +138,39 @@ public class PlacementAndDragging : MonoBehaviour
             {
                 lastSelectedObject.Selected = false;
             }
-        }
 
-        if (arRaycastManager.Raycast(touchPosition, hits, UnityEngine.XR.ARSubsystems.TrackableType.Planes))
-        {
-            //hihi.text = "Count: " + count.ToString();
-
-            Pose hitPose = hits[0].pose;
-
-            if (lastSelectedObject == null)
+            if (arRaycastManager.Raycast(touchPosition, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
             {
-                lastSelectedObject = Instantiate(placedPrefab, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
-            }
-            else
-            {
-                if (lastSelectedObject.Selected)
+                Pose hitPose = hits[0].pose;
+
+                if (lastSelectedObject == null)
                 {
-                    lastSelectedObject.transform.position = hitPose.position;
-                    lastSelectedObject.transform.rotation = hitPose.rotation;
+                    lastSelectedObject = Instantiate(placedPrefab, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
+                }
+                else
+                {
+                    if (lastSelectedObject.Selected)
+                    {
+                        lastSelectedObject.transform.position = hitPose.position;
+                        lastSelectedObject.transform.rotation = hitPose.rotation;
+                    }
                 }
             }
+        }
+    }
+
+    private void ScaleChanged(float newValue)
+    {
+        if (applyScalingPerObject)
+        {
+            if (lastSelectedObject != null && lastSelectedObject.Selected)
+            {
+                lastSelectedObject.transform.localScale = Vector3.one * newValue;
+            }
+        }
+        else
+        {
+            aRSessionOrigin.transform.localScale = Vector3.one * newValue;
         }
     }
 }
