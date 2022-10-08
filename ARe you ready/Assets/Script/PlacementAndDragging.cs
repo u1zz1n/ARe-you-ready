@@ -10,6 +10,7 @@ public class PlacementAndDragging : MonoBehaviour
     // Start is called before the first frame update
 
     public static bool placeBowling;
+    public static bool RollBowling;
     private bool ballspawn;
 
     public ARRaycastManager arRaycastManager;
