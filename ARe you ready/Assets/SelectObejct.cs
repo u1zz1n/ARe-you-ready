@@ -6,13 +6,13 @@ public class SelectObejct : MonoBehaviour
 {
     public void changeObejct()
     {
-        if (ARPlaceOnPlane.selectedObject == 0)
+        if (PlacementAndDragging.spawnObjectNum <= PlacementAndDragging.spawnObjectLength + 1)
         {
-            ARPlaceOnPlane.selectedObject++;
+            PlacementAndDragging.spawnObjectNum++;
         }
         else
         {
-            ARPlaceOnPlane.selectedObject--;
+            PlacementAndDragging.spawnObjectNum = 0;
         }
     }
 }
