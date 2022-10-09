@@ -13,6 +13,9 @@ public class PlacementAndDragging : MonoBehaviour
     public static bool RollBowling;
     private bool ballspawn;
 
+    public static int spawnObjectNum = 0;
+    public static int spawnObjectLength = 0;
+
     public ARRaycastManager arRaycastManager;
     public ARSessionOrigin aRSessionOrigin;
 
@@ -20,7 +23,7 @@ public class PlacementAndDragging : MonoBehaviour
     private Camera arCamera;
 
     [SerializeField]
-    private GameObject placedPrefab;
+    private List<GameObject> placedPrefabs = new List<GameObject>();
 
     [SerializeField]
     private GameObject bowingBall;
@@ -57,15 +60,15 @@ public class PlacementAndDragging : MonoBehaviour
     {
         get
         {
-            return placedPrefab;
+            return placedPrefabs[spawnObjectNum];
         }
         set
         {
-            placedPrefab = value;
+            placedPrefabs[spawnObjectNum] = value;
         }
     }
 
-    
+
 
     void Awake()
     {
@@ -90,107 +93,121 @@ public class PlacementAndDragging : MonoBehaviour
         placeBowling = false;
         ballspawn = false;
         scaleSlider.onValueChanged.AddListener(ScaleChanged);
+        spawnObjectLength = placedObjects.Length;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //hihi.text = "scale is " + scaleSlider.value.ToString();
+
+        if (Input.touchCount > 0)
         {
-            hihi.text = "scale is " + scaleSlider.value.ToString();
+           //printObjectName();
+           Touch touch = Input.GetTouch(0);
 
-            if (Input.touchCount > 0)
+           if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+           {
+               return;
+           }
+
+           touchPosition = touch.position;
+
+           List<ARRaycastHit> hits = new List<ARRaycastHit>();
+
+           if (touch.phase == TouchPhase.Began)
+           {
+               Ray ray = arCamera.ScreenPointToRay(touch.position);
+               RaycastHit hitObject;
+
+               if (Physics.Raycast(ray, out hitObject))
+               {
+                   lastSelectedObject = hitObject.transform.GetComponent<PlacementObject>();
+
+                   if (lastSelectedObject != null)
+                   {
+                       PlacementObject[] allOtherObjects = FindObjectsOfType<PlacementObject>();
+
+                       foreach (PlacementObject placementObject in allOtherObjects)
+                       {
+                           MeshRenderer meshRenderer = placementObject.GetComponent<MeshRenderer>();
+
+                           if (placementObject != lastSelectedObject)
+                           {
+                               placementObject.Selected = false;
+                               meshRenderer.material.color = inactiveColor;
+                           }
+                           else
+                           {
+                               placementObject.Selected = true;
+                               meshRenderer.material.color = activeColor;
+                           }
+
+                           if (displayOverlay)
+                               placementObject.ToggleOverlay();
+                       }
+                   }
+               }
+           }
+
+           if (touch.phase == TouchPhase.Ended)
+           {
+               lastSelectedObject.Selected = false;
+           }
+
+            if (arRaycastManager.Raycast(touchPosition, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
             {
-                Touch touch = Input.GetTouch(0);
+                Pose hitPose = hits[0].pose;
 
-                if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                if (placeBowling)
                 {
-                    return;
-                }
-
-                touchPosition = touch.position;
-
-                List<ARRaycastHit> hits = new List<ARRaycastHit>();
-
-                if (touch.phase == TouchPhase.Began)
-                {
-                    Ray ray = arCamera.ScreenPointToRay(touch.position);
-                    RaycastHit hitObject;
-
-                    if (Physics.Raycast(ray, out hitObject))
+                    if (lastSelectedObject == null && !ballspawn)
                     {
-                        lastSelectedObject = hitObject.transform.GetComponent<PlacementObject>();
-
-                        if (lastSelectedObject != null)
-                        {
-                            PlacementObject[] allOtherObjects = FindObjectsOfType<PlacementObject>();
-
-                            foreach (PlacementObject placementObject in allOtherObjects)
-                            {
-                                MeshRenderer meshRenderer = placementObject.GetComponent<MeshRenderer>();
-
-                                if (placementObject != lastSelectedObject)
-                                {
-                                    placementObject.Selected = false;
-                                    meshRenderer.material.color = inactiveColor;
-                                }
-                                else
-                                {
-                                    placementObject.Selected = true;
-                                    meshRenderer.material.color = activeColor;
-                                }
-
-                                if (displayOverlay)
-                                    placementObject.ToggleOverlay();
-                            }
-                        }
-                    }
-                }
-
-                if (touch.phase == TouchPhase.Ended)
-                {
-                    lastSelectedObject.Selected = false;
-                }
-
-                if (arRaycastManager.Raycast(touchPosition, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
-                {
-                    Pose hitPose = hits[0].pose;
-
-                    if (placeBowling)
-                    {
-                        if (lastSelectedObject == null && !ballspawn)
-                        {
-                            ballspawn = true;
-                            lastSelectedObject = Instantiate(bowingBall, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
-                        }
-                        else
-                        {
-                            if (lastSelectedObject.Selected)
-                            {
-                                lastSelectedObject.transform.position = hitPose.position;
-                                lastSelectedObject.transform.rotation = hitPose.rotation;
-                            }
-                        }
+                        ballspawn = true;
+                        lastSelectedObject = Instantiate(bowingBall, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
                     }
                     else
                     {
-                        if (lastSelectedObject == null)
+                        if (lastSelectedObject.Selected)
                         {
-                            lastSelectedObject = Instantiate(placedPrefab, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
-                        }
-                        else
-                        {
-                            if (lastSelectedObject.Selected)
-                            {
-                                lastSelectedObject.transform.position = hitPose.position;
-                                lastSelectedObject.transform.rotation = hitPose.rotation;
-                            }
+                            lastSelectedObject.transform.position = hitPose.position;
+                            lastSelectedObject.transform.rotation = hitPose.rotation;
                         }
                     }
                 }
-
+                else
+                {
+                    if (lastSelectedObject == null)
+                    {
+                        lastSelectedObject = Instantiate(placedPrefabs[spawnObjectNum], hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
+                    }
+                    else
+                    {
+                        if (lastSelectedObject.Selected)
+                        {
+                            lastSelectedObject.transform.position = hitPose.position;
+                            lastSelectedObject.transform.rotation = hitPose.rotation;
+                        }
+                    }
+                }
             }
         }
-        
+       
+    }
+    private void printObjectName()
+    {
+        if (spawnObjectNum == 0)
+        {
+            hihi.text = "Object Num 0: " + placedObjects[0].name.ToString();
+        }
+        else if (spawnObjectNum == 1)
+        {
+            hihi.text = "Object Num 1: " + placedObjects[1].name.ToString();
+        }
+        else if (spawnObjectNum == 2)
+        {
+            hihi.text = "Object Num 2: " + placedObjects[2].name.ToString();
+        }
     }
 
     private void ScaleChanged(float newValue)

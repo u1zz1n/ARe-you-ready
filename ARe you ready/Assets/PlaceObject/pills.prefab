@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2102085194104725863}
   - component: {fileID: 2029589019617418697}
   - component: {fileID: 8870436077177579671}
+  - component: {fileID: 4230982694966513361}
   m_Layer: 0
   m_Name: pills
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 2125162124483271677}
   m_LocalRotation: {x: -0, y: -0.66371346, z: -0, w: -0.747987}
   m_LocalPosition: {x: 0.1292, y: 0.10242002, z: -0.0832}
-  m_LocalScale: {x: 0.21121144, y: 0.21121144, z: 0.21121144}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -120,3 +121,16 @@ MonoBehaviour:
   IsSelected: 0
   IsLocked: 0
   OverlayDisplayText: 
+--- !u!65 &4230982694966513361
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125162124483271677}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.15768434, y: 0.302796, z: 0.15528876}
+  m_Center: {x: 0, y: 0.0143500045, z: 0}
