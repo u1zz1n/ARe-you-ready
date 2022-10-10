@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,9 @@ public class PlacementAndDragging : MonoBehaviour
 
     public ARRaycastManager arRaycastManager;
     public ARSessionOrigin aRSessionOrigin;
+    public ARPlaneManager aRPlaneManager;
+
+    public Button planeButton;
 
     [SerializeField]
     private Camera arCamera;
@@ -90,21 +94,55 @@ public class PlacementAndDragging : MonoBehaviour
 
     void Start()
     {
+        spawnObjectNum = 0;
         placeBowling = false;
         ballspawn = false;
         scaleSlider.onValueChanged.AddListener(ScaleChanged);
         spawnObjectLength = placedObjects.Length;
     }
 
+    public void TogglePlaneDetection()
+    {
+        //hihi.text = "sisisisi";
+        aRPlaneManager.enabled = !aRPlaneManager.enabled;
+
+        foreach (ARPlane plane in aRPlaneManager.trackables)
+        {
+            plane.gameObject.SetActive(aRPlaneManager.enabled);
+        }
+
+        planeButton.GetComponentInChildren<Text>().text = aRPlaneManager.enabled ?
+        "Enable" : "Disable";
+        
+        if (aRPlaneManager.enabled)
+        {
+            PlacementObject[] allOtherObjects = FindObjectsOfType<PlacementObject>();
+
+            foreach (PlacementObject placementObject in allOtherObjects)
+            {
+                placementObject.gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            PlacementObject[] allOtherObjects = FindObjectsOfType<PlacementObject>();
+
+            foreach (PlacementObject placementObject in allOtherObjects)
+            {
+                placementObject.gameObject.SetActive(false);
+            }
+        }
+    }
     // Update is called once per frame
     void Update()
     {
         //hihi.text = "scale is " + scaleSlider.value.ToString();
 
+        printObjectName();
+
         if (Input.touchCount > 0)
         {
-           //printObjectName();
-           Touch touch = Input.GetTouch(0);
+            Touch touch = Input.GetTouch(0);
 
            if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
            {
@@ -165,6 +203,7 @@ public class PlacementAndDragging : MonoBehaviour
                     {
                         ballspawn = true;
                         lastSelectedObject = Instantiate(bowingBall, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
+                        //RollBall.ballReady = true;
                     }
                     else
                     {
@@ -198,15 +237,19 @@ public class PlacementAndDragging : MonoBehaviour
     {
         if (spawnObjectNum == 0)
         {
-            hihi.text = "Object Num 0: " + placedObjects[0].name.ToString();
+            hihi.text = "Water Bottle";
         }
         else if (spawnObjectNum == 1)
         {
-            hihi.text = "Object Num 1: " + placedObjects[1].name.ToString();
+            hihi.text = "Bowling Pin";
         }
         else if (spawnObjectNum == 2)
         {
-            hihi.text = "Object Num 2: " + placedObjects[2].name.ToString();
+            hihi.text = "Pill";
+        }
+        else if (spawnObjectNum == 3)
+        {
+            hihi.text = "Bowling Pin Set";
         }
     }
 

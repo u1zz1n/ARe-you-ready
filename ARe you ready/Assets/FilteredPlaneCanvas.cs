@@ -10,7 +10,7 @@ public class FilteredPlaneCanvas : MonoBehaviour
     [SerializeField] private Toggle bigPlaneToggle;
 
     private FilteredPlane filterPlane;
-
+    private PlacementAndDragging placeDragging;
     public bool VerticalPlaneToggle 
     { 
         get => verticalPlaneToggle.isOn; 
