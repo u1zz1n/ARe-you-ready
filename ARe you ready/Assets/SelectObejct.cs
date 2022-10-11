@@ -6,7 +6,7 @@ public class SelectObejct : MonoBehaviour
 {
     public void changeObejct()
     {
-        if (PlacementAndDragging.spawnObjectNum <= PlacementAndDragging.spawnObjectLength + 1)
+        if (PlacementAndDragging.spawnObjectNum <= PlacementAndDragging.spawnObjectLength + 2)
         {
             PlacementAndDragging.spawnObjectNum++;
         }

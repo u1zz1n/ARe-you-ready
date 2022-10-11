@@ -22,6 +22,7 @@ public class PlacementAndDragging : MonoBehaviour
     public ARPlaneManager aRPlaneManager;
 
     public Button planeButton;
+    public Button planeButton2;
 
     [SerializeField]
     private Camera arCamera;
@@ -55,8 +56,8 @@ public class PlacementAndDragging : MonoBehaviour
     [SerializeField]
     private bool applyScalingPerObject = false;
 
-    [SerializeField]
-    private Slider scaleSlider;
+    //[SerializeField]
+    //private Slider scaleSlider;
 
     public Text hihi;
 
@@ -97,7 +98,7 @@ public class PlacementAndDragging : MonoBehaviour
         spawnObjectNum = 0;
         placeBowling = false;
         ballspawn = false;
-        scaleSlider.onValueChanged.AddListener(ScaleChanged);
+        //scaleSlider.onValueChanged.AddListener(ScaleChanged);
         spawnObjectLength = placedObjects.Length;
     }
 
@@ -112,8 +113,23 @@ public class PlacementAndDragging : MonoBehaviour
         }
 
         planeButton.GetComponentInChildren<Text>().text = aRPlaneManager.enabled ?
-        "Enable" : "Disable";
-        
+        "Disable" : "Enable";
+    }
+
+    public void TogglePlaneDetection2()
+    {
+        //hihi.text = "sisisisi";
+        aRPlaneManager.enabled = !aRPlaneManager.enabled;
+
+        foreach (ARPlane plane in aRPlaneManager.trackables)
+        {
+            plane.gameObject.SetActive(aRPlaneManager.enabled);
+        }
+
+        planeButton2.GetComponentInChildren<Text>().text = aRPlaneManager.enabled ?
+        "Remove" : "Restart";
+
+
         if (aRPlaneManager.enabled)
         {
             PlacementObject[] allOtherObjects = FindObjectsOfType<PlacementObject>();
@@ -137,6 +153,7 @@ public class PlacementAndDragging : MonoBehaviour
     void Update()
     {
         //hihi.text = "scale is " + scaleSlider.value.ToString();
+        //spawnObjectLength = placedObjects.Length;
 
         printObjectName();
 

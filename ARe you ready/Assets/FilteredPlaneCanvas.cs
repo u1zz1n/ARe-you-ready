@@ -64,9 +64,9 @@ public class FilteredPlaneCanvas : MonoBehaviour
 
     private void CheckIfAllAreTrue()
     {
-        if(VerticalPlaneToggle && HorizontalPlaneToggle && BigPlaneToggle)
-        {
-            Debug.Log("ready!");
-        }
+        //if(VerticalPlaneToggle && HorizontalPlaneToggle && BigPlaneToggle)
+        //{
+        //    Debug.Log("ready!");
+        //}
     }
 }
