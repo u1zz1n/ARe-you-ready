@@ -54,12 +54,14 @@ public class PlacementAndDragging : MonoBehaviour
     private bool onTouchHold = false;
 
     [SerializeField]
-    private bool applyScalingPerObject = false;
+    private bool applyScalingPerObject;
 
-    //[SerializeField]
-    //private Slider scaleSlider;
+    [SerializeField]
+    private Slider scaleSlider;
 
-    public Text hihi;
+    public Text placeObejctName;
+    public Text scaleCheck;
+    public Text checkLog;
 
     private GameObject PlacedPrefab
     {
@@ -98,7 +100,7 @@ public class PlacementAndDragging : MonoBehaviour
         spawnObjectNum = 0;
         placeBowling = false;
         ballspawn = false;
-        //scaleSlider.onValueChanged.AddListener(ScaleChanged);
+        scaleSlider.onValueChanged.AddListener(ScaleChanged);
         spawnObjectLength = placedObjects.Length;
     }
 
@@ -248,25 +250,24 @@ public class PlacementAndDragging : MonoBehaviour
                 }
             }
         }
-       
     }
     private void printObjectName()
     {
         if (spawnObjectNum == 0)
         {
-            hihi.text = "Water Bottle";
+            placeObejctName.text = "Water Bottle";
         }
         else if (spawnObjectNum == 1)
         {
-            hihi.text = "Bowling Pin";
+            placeObejctName.text = "Bowling Pin";
         }
         else if (spawnObjectNum == 2)
         {
-            hihi.text = "Pill";
+            placeObejctName.text = "Pill";
         }
         else if (spawnObjectNum == 3)
         {
-            hihi.text = "Bowling Pin Set";
+            placeObejctName.text = "Bowling Pin Set";
         }
     }
 
@@ -274,14 +275,22 @@ public class PlacementAndDragging : MonoBehaviour
     {
         if (applyScalingPerObject)
         {
-            if (lastSelectedObject != null && lastSelectedObject.Selected)
+            if (lastSelectedObject != null/* && lastSelectedObject.Selected*/)
             {
+                aRSessionOrigin.MakeContentAppearAt(lastSelectedObject.transform, Quaternion.identity);
                 lastSelectedObject.transform.localScale = Vector3.one * newValue;
+                scaleCheck.text = "Name: " + lastSelectedObject.name + "scale: " + lastSelectedObject.transform.localScale;
             }
         }
         else
         {
-            aRSessionOrigin.transform.localScale = Vector3.one * newValue;
+            PlacementObject[] allOtherObjects = FindObjectsOfType<PlacementObject>();
+
+            foreach (PlacementObject placementObject in allOtherObjects)
+            {
+                aRSessionOrigin.MakeContentAppearAt(placementObject.gameObject.transform, Quaternion.identity);
+                placementObject.gameObject.transform.localScale = Vector3.one * newValue;
+            }
         }
     }
 }
