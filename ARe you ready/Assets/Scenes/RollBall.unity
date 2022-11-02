@@ -611,8 +611,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c355a39c996024469ecbeaa07d07f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arRaycastManager: {fileID: 792440161}
+  aRSessionOrigin: {fileID: 792440157}
+  aRPlaneManager: {fileID: 792440159}
+  arCamera: {fileID: 89841242}
+  bowingBall: {fileID: 457156912}
+  displayOverlay: 0
   throwForceInXandY: 1
   throwForceInZ: 50
+  debugLog: {fileID: 1397259656}
 --- !u!54 &457156918
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -643,7 +650,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsSelected: 0
   IsLocked: 0
-  scaleValue: 1
   OverlayDisplayText: 
 --- !u!1 &585424095
 GameObject:
@@ -969,7 +975,6 @@ MonoBehaviour:
   activeColor: {r: 1, g: 0, b: 0, a: 1}
   inactiveColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   displayOverlay: 0
-  hihi: {fileID: 1914578558}
 --- !u!4 &856933375
 Transform:
   m_ObjectHideFlags: 0
@@ -1080,7 +1085,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 217, y: -592}
+  m_AnchoredPosition: {x: 217, y: -702.1}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1397259656
