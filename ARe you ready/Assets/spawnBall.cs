@@ -13,9 +13,16 @@ public class spawnBall : MonoBehaviour
 
     public void Spawn()
     {
-        debugLog.text = "spawn complete"; 
-        Instantiate(ball, new Vector3(0f, 1f, -8f), Quaternion.identity);
+        debugLog.text = "Ready to spawn ball"; 
+        PlacingAndDragging.spawnable = true;
+        //Instantiate(ball, new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z), Quaternion.identity);
     }
-
+    
+    public void roll()
+    {
+        debugLog.text = "Ready to roll ball";
+        PlacingAndDragging.spawnable = false;
+        swipeBall.rollable = true;
+    }
 
 }

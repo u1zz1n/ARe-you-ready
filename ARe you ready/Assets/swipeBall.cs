@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class swipeBall : MonoBehaviour
 {
+    static public bool rollable = false;
+
     Vector2 startPos, endPos, direction;
     float touchTimeStart, touchTimeFinish, timeInterval;
 
     [SerializeField]
-    float throwForceInXandY = 1f;
+    float throwForceInXandY = 0f;
 
     [SerializeField]
-    float throwForceInZ = 50f;
+    float throwForceInZ = 5f;
 
     Rigidbody rb;
 
@@ -24,13 +26,13 @@ public class swipeBall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && rollable)
         {
             touchTimeStart = Time.time;
             startPos = Input.GetTouch(0).position;
         }
 
-        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
+        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended && rollable) 
         {
             touchTimeFinish = Time.time;
             timeInterval = touchTimeFinish - touchTimeStart;
