@@ -5,6 +5,7 @@ using UnityEngine;
 public class swipeBall : MonoBehaviour
 {
     static public bool rollable = false;
+    private bool startroll = false;
 
     Vector2 startPos, endPos, direction;
     float touchTimeStart, touchTimeFinish, timeInterval;
@@ -41,7 +42,7 @@ public class swipeBall : MonoBehaviour
             direction = startPos - endPos;
 
             rb.isKinematic = false;
-            rb.AddForce(-direction.x * throwForceInXandY, -direction.y * throwForceInXandY, throwForceInZ / timeInterval);
+            rb.AddForce(-direction.x * 1f, 0, throwForceInZ * 1f);
             
             Destroy(gameObject, 3f);
         }
