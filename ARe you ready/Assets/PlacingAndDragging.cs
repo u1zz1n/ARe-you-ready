@@ -133,9 +133,9 @@ public class PlacingAndDragging : MonoBehaviour
                         }
                     }
 
-                    spawnable = false;
+                    //spawnable = false;
                 }
-                else
+                else if(!swipeBall.rollable)
                 {
                     if (lastSelectedObject == null)
                     {

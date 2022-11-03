@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7740588929085456029}
   - component: {fileID: 7406359247792047482}
   - component: {fileID: 4862336595948840255}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: pin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsSelected: 0
   IsLocked: 0
+  scaleValue: 1
   OverlayDisplayText: 
 --- !u!65 &4862336595948840255
 BoxCollider:
