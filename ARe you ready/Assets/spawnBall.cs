@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class spawnBall : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class spawnBall : MonoBehaviour
     [SerializeField]
     public Text debugLog;
 
+    private void Awake() {
+        PlacingAndDragging.spawnable = false;
+        swipeBall.rollable = false;
+    }
     public void Spawn()
     {
         debugLog.text = "Ready to spawn ball"; 
@@ -25,4 +30,8 @@ public class spawnBall : MonoBehaviour
         swipeBall.rollable = true;
     }
 
+    public void restart()
+    {
+        SceneManager.LoadScene("RollBall");
+    }
 }

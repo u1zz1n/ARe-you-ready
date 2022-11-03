@@ -43,6 +43,10 @@ public class swipeBall : MonoBehaviour
     public Text debugLog;
 
     // Start is called before the first frame update
+    private void Awake() {
+        rollable = false;
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody> ();     
@@ -139,7 +143,7 @@ public class swipeBall : MonoBehaviour
             direction = startPos - endPos;
 
             rb.isKinematic = false;
-            rb.AddForce(-direction.x * 1f, 0, -direction.y * 1f);
+            rb.AddForce(-direction.x * 0.3f, 0, -direction.y * 0.3f);
             
             Destroy(gameObject, 3f);
         }

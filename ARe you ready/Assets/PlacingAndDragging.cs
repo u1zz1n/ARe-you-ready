@@ -35,6 +35,9 @@ public class PlacingAndDragging : MonoBehaviour
     private PlacementObject lastSelectedObject;
     private bool onTouchHold = false;
 
+    private void Awake() {
+        spawnable = false;
+    }
     // Start is called before the first frame update
     void Start()
     {
