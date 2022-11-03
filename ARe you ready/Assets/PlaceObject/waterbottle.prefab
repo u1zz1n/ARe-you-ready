@@ -122,6 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsSelected: 0
   IsLocked: 0
+  scaleValue: 1
   OverlayDisplayText: 
 --- !u!136 &4317584944994477385
 CapsuleCollider:
