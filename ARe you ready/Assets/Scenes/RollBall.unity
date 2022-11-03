@@ -137,7 +137,6 @@ GameObject:
   - component: {fileID: 89841245}
   - component: {fileID: 89841244}
   - component: {fileID: 89841243}
-  - component: {fileID: 89841248}
   m_Layer: 0
   m_Name: AR Camera
   m_TagString: MainCamera
@@ -254,20 +253,6 @@ Transform:
   m_Father: {fileID: 792440158}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &89841248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 89841241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8391e4dfe883264dbb55017c70a5524, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ball: {fileID: 457156912}
-  debugLog: {fileID: 1397259656}
 --- !u!1 &277312947
 GameObject:
   m_ObjectHideFlags: 0
@@ -732,6 +717,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsSelected: 0
   IsLocked: 0
+  scaleValue: 1
   OverlayDisplayText: 
 --- !u!1 &585424095
 GameObject:
@@ -1020,7 +1006,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa17d122634046b4a8e23048891fafc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RaycastPrefab: {fileID: 0}
+  m_RaycastPrefab: {fileID: 856933373}
 --- !u!1 &856933373
 GameObject:
   m_ObjectHideFlags: 0
@@ -1055,9 +1041,11 @@ MonoBehaviour:
   aRPlaneManager: {fileID: 792440159}
   arCamera: {fileID: 89841242}
   bowingBall: {fileID: 457156912}
+  placedPrefab: {fileID: 8144715833165340945, guid: c97835bc58a90824ebc03e3515633ee4, type: 3}
   activeColor: {r: 1, g: 0, b: 0, a: 1}
   inactiveColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   displayOverlay: 0
+  sisi: {fileID: 1914578558}
 --- !u!4 &856933375
 Transform:
   m_ObjectHideFlags: 0
@@ -6136,7 +6124,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 89841248}
+      - m_Target: {fileID: 1635175895}
         m_TargetAssemblyTypeName: spawnBall, Assembly-CSharp
         m_MethodName: roll
         m_Mode: 1
@@ -6186,6 +6174,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1568512943}
   m_CullTransparentMesh: 1
+--- !u!1 &1635175894
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1635175896}
+  - component: {fileID: 1635175895}
+  m_Layer: 0
+  m_Name: bowlingSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1635175895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635175894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8391e4dfe883264dbb55017c70a5524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ball: {fileID: 457156912}
+  debugLog: {fileID: 1397259656}
+--- !u!4 &1635175896
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635175894}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 540, y: 960, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1914578556
 GameObject:
   m_ObjectHideFlags: 0
@@ -6350,7 +6384,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 89841248}
+      - m_Target: {fileID: 1635175895}
         m_TargetAssemblyTypeName: spawnBall, Assembly-CSharp
         m_MethodName: restart
         m_Mode: 1
@@ -6484,7 +6518,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 89841248}
+      - m_Target: {fileID: 1635175895}
         m_TargetAssemblyTypeName: spawnBall, Assembly-CSharp
         m_MethodName: Spawn
         m_Mode: 1

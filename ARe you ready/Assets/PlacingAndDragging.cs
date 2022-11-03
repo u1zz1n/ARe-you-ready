@@ -23,6 +23,9 @@ public class PlacingAndDragging : MonoBehaviour
     private static List<ARRaycastHit> hits = new List<ARRaycastHit>();
     private Vector2 touchPosition = default;
 
+    [SerializeField]
+    private GameObject placedPrefab;
+
     ///////select object
     [SerializeField]
     private Color activeColor = Color.red;
@@ -34,6 +37,18 @@ public class PlacingAndDragging : MonoBehaviour
     private bool displayOverlay = false;
     private PlacementObject lastSelectedObject;
     private bool onTouchHold = false;
+
+    private GameObject PlacedPrefab
+    {
+        get
+        {
+            return placedPrefab;
+        }
+        set
+        {
+            placedPrefab = value;
+        }
+    }
 
     private void Awake() {
         spawnable = false;
@@ -47,7 +62,7 @@ public class PlacingAndDragging : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.touchCount > 0 && spawnable)
+        if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
 
@@ -103,18 +118,39 @@ public class PlacingAndDragging : MonoBehaviour
             {
                 Pose hitPose = hits[0].pose;
                 
-                if (lastSelectedObject == null)
-                {
-                    lastSelectedObject = Instantiate(bowingBall, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
+                if(spawnable)
+                {                 
+                    if (lastSelectedObject == null)
+                    {
+                        lastSelectedObject = Instantiate(bowingBall, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
+                    }
+                    else
+                    {
+                        if (lastSelectedObject.Selected)
+                        {
+                            lastSelectedObject.transform.position = hitPose.position;
+                            lastSelectedObject.transform.rotation = hitPose.rotation;
+                        }
+                    }
+
+                    spawnable = false;
                 }
                 else
                 {
-                    if (lastSelectedObject.Selected)
+                    if (lastSelectedObject == null)
                     {
-                        lastSelectedObject.transform.position = hitPose.position;
-                        lastSelectedObject.transform.rotation = hitPose.rotation;
+                        lastSelectedObject = Instantiate(placedPrefab, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
+                    }
+                    else
+                    {
+                        if (lastSelectedObject.Selected)
+                        {
+                            lastSelectedObject.transform.position = hitPose.position;
+                            lastSelectedObject.transform.rotation = hitPose.rotation;
+                        }
                     }
                 }
+  
             }
         }
     }

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7040526213104044867}
   - component: {fileID: 4334269894721386734}
+  - component: {fileID: -259812607899847715}
   m_Layer: 0
   m_Name: BowlingPins
   m_TagString: Untagged
@@ -55,6 +56,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6373144, y: 0.7454055, z: 1.5122495}
   m_Center: {x: 0.03843969, y: 0.12729725, z: -0.63299394}
+--- !u!114 &-259812607899847715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8144715833165340945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c3418925882f1c4ea1a03482be03fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsSelected: 0
+  IsLocked: 0
+  scaleValue: 1
+  OverlayDisplayText: 
 --- !u!1001 &321492137547743027
 PrefabInstance:
   m_ObjectHideFlags: 0

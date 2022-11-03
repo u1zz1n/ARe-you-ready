@@ -60,12 +60,17 @@ public class swipeBall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
-        if(time > 2f && rollable)
+        if(rollable)
         {
-            startroll = true;
-            debugLog.text = "You can roll now";
+            time += Time.deltaTime;
+
+            if (time > 2f)
+            {
+                startroll = true;
+                debugLog.text = "You can roll now";
+            }
         }
+
 
 
         if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && rollable && startroll)
