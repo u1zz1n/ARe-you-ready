@@ -11,6 +11,8 @@ public class swipeBall : MonoBehaviour
     static public bool rollable = false;
     private bool startroll = false;
 
+    float time = 0f;
+
     public ARRaycastManager arRaycastManager;
     public ARSessionOrigin aRSessionOrigin;
     public ARPlaneManager aRPlaneManager;
@@ -45,95 +47,35 @@ public class swipeBall : MonoBehaviour
     // Start is called before the first frame update
     private void Awake() {
         rollable = false;
+        startroll = false;
+        time = 0f;
     }
 
     void Start()
     {
         rb = GetComponent<Rigidbody> ();     
+        debugLog.text = "Cool time to roll";
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*
-        if(Input.touchCount > 0 && rollable)
+        time += Time.deltaTime;
+        if(time > 2f && rollable)
         {
-            Touch touch = Input.GetTouch(0);
-
-            if(EventSystem.current.IsPointerOverGameObject(touch.fingerId))
-            {
-                return;
-            }
-
-            //touchPosition = touch.position;
-            List<ARRaycastHit> hits = new List<ARRaycastHit>();
-
-            if(touch.phase == TouchPhase.Began)
-            {
-                Ray ray = arCamera.ScreenPointToRay(touch.position);
-                RaycastHit hitObject;
-
-                if(Physics.Raycast(ray, out hitObject))
-                {
-                    lastSelectedObject = hitObject.transform.GetComponent<PlacementObject>();
-
-                    if(lastSelectedObject != null)
-                    {
-                        PlacementObject[] allOtherObjects = FindObjectsOfType<PlacementObject>();
-
-                        foreach (PlacementObject placementObject in allOtherObjects)
-                        {
-                           MeshRenderer meshRenderer = placementObject.GetComponent<MeshRenderer>();
-
-                           if (placementObject != lastSelectedObject)
-                           {
-                               //placementObject.Selected = false;
-                               //meshRenderer.material.color = inactiveColor;
-                           }
-                           else
-                           {
-                                if(placementObject == bowingBall)
-                                {
-                                    debugLog.text = "Roll start";
-                                    startroll = true;
-                                    touchTimeStart = Time.time;
-                                    startPos = Input.GetTouch(0).position;
-                                }
-                               placementObject.Selected = true;
-                               //meshRenderer.material.color = activeColor;
-                           }
-
-                           if (displayOverlay)
-                               placementObject.ToggleOverlay();
-                        }
-                    }
-                }
-            }
-
-            if(touch.phase == TouchPhase.Ended && rollable && startroll) 
-            {
-                debugLog.text = "Rolling";
-                touchTimeFinish = Time.time;
-                timeInterval = touchTimeFinish - touchTimeStart;
-            
-                endPos = Input.GetTouch(0).position;
-                direction = startPos - endPos;
-
-                rb.isKinematic = false;
-                rb.AddForce(-direction.x * 1f, 0, throwForceInZ * 1f);
-            
-                Destroy(gameObject, 3f);
-            }
+            startroll = true;
+            debugLog.text = "You can roll now";
         }
-        */
-        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && rollable)
+
+
+        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && rollable && startroll)
         {
             debugLog.text = "Roll start";
             touchTimeStart = Time.time;
             startPos = Input.GetTouch(0).position;
         }
 
-        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended && rollable) 
+        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended && rollable && startroll) 
         {
             debugLog.text = "Rolling";
             touchTimeFinish = Time.time;
