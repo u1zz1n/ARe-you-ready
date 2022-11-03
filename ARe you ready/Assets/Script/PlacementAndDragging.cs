@@ -9,11 +9,6 @@ using UnityEngine.XR.ARFoundation;
 public class PlacementAndDragging : MonoBehaviour
 {
     // Start is called before the first frame update
-
-    public static bool placeBowling;
-    public static bool RollBowling;
-    private bool ballspawn;
-
     public static int spawnObjectNum = 0;
     public static int spawnObjectLength = 0;
 
@@ -98,8 +93,6 @@ public class PlacementAndDragging : MonoBehaviour
     void Start()
     {
         spawnObjectNum = 0;
-        placeBowling = false;
-        ballspawn = false;
         scaleSlider.onValueChanged.AddListener(ScaleChanged);
         spawnObjectLength = placedObjects.Length;
     }
@@ -216,38 +209,19 @@ public class PlacementAndDragging : MonoBehaviour
             {
                 Pose hitPose = hits[0].pose;
 
-                if (placeBowling)
+                if (lastSelectedObject == null)
                 {
-                    if (lastSelectedObject == null && !ballspawn)
-                    {
-                        ballspawn = true;
-                        lastSelectedObject = Instantiate(bowingBall, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
-                        //RollBall.ballReady = true;
-                    }
-                    else
-                    {
-                        if (lastSelectedObject.Selected)
-                        {
-                            lastSelectedObject.transform.position = hitPose.position;
-                            lastSelectedObject.transform.rotation = hitPose.rotation;
-                        }
-                    }
+                    lastSelectedObject = Instantiate(placedPrefabs[spawnObjectNum], hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
                 }
                 else
                 {
-                    if (lastSelectedObject == null)
+                    if (lastSelectedObject.Selected)
                     {
-                        lastSelectedObject = Instantiate(placedPrefabs[spawnObjectNum], hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
-                    }
-                    else
-                    {
-                        if (lastSelectedObject.Selected)
-                        {
-                            lastSelectedObject.transform.position = hitPose.position;
-                            lastSelectedObject.transform.rotation = hitPose.rotation;
-                        }
+                        lastSelectedObject.transform.position = hitPose.position;
+                        lastSelectedObject.transform.rotation = hitPose.rotation;
                     }
                 }
+                
             }
         }
     }
@@ -277,9 +251,20 @@ public class PlacementAndDragging : MonoBehaviour
         {
             if (lastSelectedObject != null/* && lastSelectedObject.Selected*/)
             {
-                aRSessionOrigin.MakeContentAppearAt(lastSelectedObject.transform, Quaternion.identity);
-                lastSelectedObject.transform.localScale = Vector3.one * newValue;
-                scaleCheck.text = "Name: " + lastSelectedObject.name + "scale: " + lastSelectedObject.transform.localScale;
+                if (lastSelectedObject.name == "BowlingPins")
+                {
+                    for (int i = 0; i < lastSelectedObject.transform.childCount; i++)
+                    {
+                        aRSessionOrigin.MakeContentAppearAt(lastSelectedObject.transform.GetChild(i).gameObject.transform, Quaternion.identity);
+                        lastSelectedObject.transform.GetChild(i).gameObject.transform.localScale = Vector3.one * newValue;
+                    }
+                }
+                else
+                {
+                    aRSessionOrigin.MakeContentAppearAt(lastSelectedObject.transform, Quaternion.identity);
+                    lastSelectedObject.transform.localScale = Vector3.one * newValue;
+                    scaleCheck.text = "Name: " + lastSelectedObject.name + "scale: " + lastSelectedObject.transform.localScale;
+                }
             }
         }
         else
