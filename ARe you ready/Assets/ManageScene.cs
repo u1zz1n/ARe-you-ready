@@ -15,4 +15,9 @@ public class ManageScene : MonoBehaviour
     {
         SceneManager.LoadScene("RollBall");
     }
+
+    public void mainMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
 }
