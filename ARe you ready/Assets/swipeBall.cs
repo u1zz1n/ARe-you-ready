@@ -129,7 +129,7 @@ public class swipeBall : MonoBehaviour
             startPos = Input.GetTouch(0).position;
         }
 
-        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended && rollable && startroll) 
+        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended && rollable) 
         {
             debugLog.text = "Rolling";
             touchTimeFinish = Time.time;
@@ -139,7 +139,7 @@ public class swipeBall : MonoBehaviour
             direction = startPos - endPos;
 
             rb.isKinematic = false;
-            rb.AddForce(-direction.x * 1f, 0, throwForceInZ * 1f);
+            rb.AddForce(-direction.x * 1f, 0, -direction.y * 1f);
             
             Destroy(gameObject, 3f);
         }
