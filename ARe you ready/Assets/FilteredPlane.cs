@@ -13,6 +13,8 @@ public class FilteredPlane : MonoBehaviour
     public event Action OnHorizontalPlaneFound;
     public event Action OnBigPlaneFound;
 
+    public static bool isBig = false;
+
     private ARPlaneManager arPlaneManager;
     private List<ARPlane> arPlanes;
 
@@ -37,7 +39,12 @@ public class FilteredPlane : MonoBehaviour
 
             if(plane.extents.x * plane.extents.y >= dismenstionsForBigPlane.x * dismenstionsForBigPlane.y)
             {
+                isBig = true;
                 OnBigPlaneFound.Invoke();
+            }
+            else
+            {
+                isBig = false;
             }
         }
     }

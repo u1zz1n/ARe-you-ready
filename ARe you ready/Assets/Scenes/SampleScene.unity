@@ -1334,7 +1334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ad02080e7585664bacdc2e4d3b3a300, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dismenstionsForBigPlane: {x: 0, y: 0}
+  dismenstionsForBigPlane: {x: 1, y: 1}
 --- !u!114 &628445270
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -54,6 +54,8 @@ public class PlacementAndDragging : MonoBehaviour
     [SerializeField]
     private Slider scaleSlider;
 
+    static float saveScaleSliderAll = 1;
+
     public Text placeObejctName;
     public Text scaleCheck;
     public Text checkLog;
@@ -150,80 +152,99 @@ public class PlacementAndDragging : MonoBehaviour
         //hihi.text = "scale is " + scaleSlider.value.ToString();
         //spawnObjectLength = placedObjects.Length;
 
-        printObjectName();
-
-        if (Input.touchCount > 0)
+        if (FilteredPlane.isBig)
         {
-            Touch touch = Input.GetTouch(0);
-
-           if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
-           {
-               return;
-           }
-
-           touchPosition = touch.position;
-
-           List<ARRaycastHit> hits = new List<ARRaycastHit>();
-
-           if (touch.phase == TouchPhase.Began)
-           {
-               Ray ray = arCamera.ScreenPointToRay(touch.position);
-               RaycastHit hitObject;
-
-               if (Physics.Raycast(ray, out hitObject))
-               {
-                   lastSelectedObject = hitObject.transform.GetComponent<PlacementObject>();
-
-                   if (lastSelectedObject != null)
-                   {
-                       PlacementObject[] allOtherObjects = FindObjectsOfType<PlacementObject>();
-
-                       foreach (PlacementObject placementObject in allOtherObjects)
-                       {
-                           MeshRenderer meshRenderer = placementObject.GetComponent<MeshRenderer>();
-
-                           if (placementObject != lastSelectedObject)
-                           {
-                               placementObject.Selected = false;
-                               meshRenderer.material.color = inactiveColor;
-                           }
-                           else
-                           {
-                               placementObject.Selected = true;
-                               meshRenderer.material.color = activeColor;
-                           }
-
-                           if (displayOverlay)
-                               placementObject.ToggleOverlay();
-                       }
-                   }
-               }
-           }
-
-           if (touch.phase == TouchPhase.Ended)
-           {
-               lastSelectedObject.Selected = false;
-           }
-
-            if (arRaycastManager.Raycast(touchPosition, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
+            foreach (ARPlane plane in aRPlaneManager.trackables)
             {
-                Pose hitPose = hits[0].pose;
-
-                if (lastSelectedObject == null)
+                if(plane.extents.x * plane.extents.y >= 1 * 1)
                 {
-                    lastSelectedObject = Instantiate(placedPrefabs[spawnObjectNum], hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
+                    scaleCheck.text = "stop finding";
+
+                    aRPlaneManager.enabled = false;
                 }
                 else
                 {
-                    if (lastSelectedObject.Selected)
+                    aRPlaneManager.enabled = false; 
+                    plane.gameObject.SetActive(aRPlaneManager.enabled);
+                }
+            }
+
+            printObjectName();
+
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+
+                if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                {
+                    return;
+                }
+
+                touchPosition = touch.position;
+
+                List<ARRaycastHit> hits = new List<ARRaycastHit>();
+
+                if (touch.phase == TouchPhase.Began)
+                {
+                    Ray ray = arCamera.ScreenPointToRay(touch.position);
+                    RaycastHit hitObject;
+
+                    if (Physics.Raycast(ray, out hitObject))
                     {
-                        lastSelectedObject.transform.position = hitPose.position;
-                        lastSelectedObject.transform.rotation = hitPose.rotation;
+                        lastSelectedObject = hitObject.transform.GetComponent<PlacementObject>();
+
+                        if (lastSelectedObject != null)
+                        {
+                            PlacementObject[] allOtherObjects = FindObjectsOfType<PlacementObject>();
+
+                            foreach (PlacementObject placementObject in allOtherObjects)
+                            {
+                                MeshRenderer meshRenderer = placementObject.GetComponent<MeshRenderer>();
+
+                                if (placementObject != lastSelectedObject)
+                                {
+                                    placementObject.Selected = false;
+                                    meshRenderer.material.color = inactiveColor;
+                                }
+                                else
+                                {
+                                    placementObject.Selected = true;
+                                    meshRenderer.material.color = activeColor;
+                                }
+
+                                if (displayOverlay)
+                                    placementObject.ToggleOverlay();
+                            }
+                        }
                     }
                 }
-                
+
+                if (touch.phase == TouchPhase.Ended)
+                {
+                    lastSelectedObject.Selected = false;
+                }
+
+                if (arRaycastManager.Raycast(touchPosition, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
+                {
+                    Pose hitPose = hits[0].pose;
+
+                    if (lastSelectedObject == null)
+                    {
+                        lastSelectedObject = Instantiate(placedPrefabs[spawnObjectNum], hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
+                    }
+                    else
+                    {
+                        if (lastSelectedObject.Selected)
+                        {
+                            lastSelectedObject.transform.position = hitPose.position;
+                            lastSelectedObject.transform.rotation = hitPose.rotation;
+                        }
+                    }
+
+                }
             }
         }
+        
     }
     private void printObjectName()
     {
@@ -276,6 +297,8 @@ public class PlacementAndDragging : MonoBehaviour
                 aRSessionOrigin.MakeContentAppearAt(placementObject.gameObject.transform, Quaternion.identity);
                 placementObject.gameObject.transform.localScale = Vector3.one * newValue;
             }
+
+            saveScaleSliderAll = newValue;
         }
     }
 }
