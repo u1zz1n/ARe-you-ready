@@ -59,6 +59,10 @@ public class PlacementAndDragging : MonoBehaviour
     public Text placeObejctName;
     public Text scaleCheck;
     public Text checkLog;
+    public Text checkLog2;
+
+    bool useDisableButton = false;
+    bool isCheck = false;
 
     private GameObject PlacedPrefab
     {
@@ -97,12 +101,23 @@ public class PlacementAndDragging : MonoBehaviour
         spawnObjectNum = 0;
         scaleSlider.onValueChanged.AddListener(ScaleChanged);
         spawnObjectLength = placedObjects.Length;
+        useDisableButton = false;
     }
 
     public void TogglePlaneDetection()
     {
-        //hihi.text = "sisisisi";
+        if (aRPlaneManager.enabled == false)
+        {
+            useDisableButton = !useDisableButton;
+        }      
+
+        
         aRPlaneManager.enabled = !aRPlaneManager.enabled;
+
+        if(useDisableButton)
+        {
+            aRPlaneManager.enabled = false;
+        }
 
         foreach (ARPlane plane in aRPlaneManager.trackables)
         {
@@ -115,8 +130,17 @@ public class PlacementAndDragging : MonoBehaviour
 
     public void TogglePlaneDetection2()
     {
-        //hihi.text = "sisisisi";
+        if (aRPlaneManager.enabled == false)
+        {
+            useDisableButton = !useDisableButton;
+        }
+
         aRPlaneManager.enabled = !aRPlaneManager.enabled;
+
+        if (useDisableButton)
+        {
+            aRPlaneManager.enabled = false;
+        }
 
         foreach (ARPlane plane in aRPlaneManager.trackables)
         {
@@ -149,25 +173,34 @@ public class PlacementAndDragging : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        isCheck = aRPlaneManager.enabled;
+        checkLog.text = "use : " + useDisableButton + "  enable : " + isCheck;
+
         //hihi.text = "scale is " + scaleSlider.value.ToString();
         //spawnObjectLength = placedObjects.Length;
 
         if (FilteredPlane.isBig)
         {
-            foreach (ARPlane plane in aRPlaneManager.trackables)
-            {
-                if(plane.extents.x * plane.extents.y >= 1 * 1)
-                {
-                    scaleCheck.text = "stop finding";
+            checkLog2.text = "Please Do not Move";
 
-                    aRPlaneManager.enabled = false;
-                }
-                else
+            if (!useDisableButton)
+            {
+                foreach (ARPlane plane in aRPlaneManager.trackables)
                 {
-                    aRPlaneManager.enabled = false; 
-                    plane.gameObject.SetActive(aRPlaneManager.enabled);
+                    if (plane.extents.x * plane.extents.y >= 1 * 1)
+                    {
+                        aRPlaneManager.enabled = false;
+                    }
+                    else
+                    {
+                        aRPlaneManager.enabled = false;
+                        plane.gameObject.SetActive(aRPlaneManager.enabled);
+
+                    }
                 }
             }
+
+            checkLog2.text = "Done!";
 
             printObjectName();
 
@@ -231,6 +264,7 @@ public class PlacementAndDragging : MonoBehaviour
                     if (lastSelectedObject == null)
                     {
                         lastSelectedObject = Instantiate(placedPrefabs[spawnObjectNum], hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
+                        lastSelectedObject.Size = 1;
                     }
                     else
                     {
@@ -272,6 +306,8 @@ public class PlacementAndDragging : MonoBehaviour
         {
             if (lastSelectedObject != null/* && lastSelectedObject.Selected*/)
             {
+                lastSelectedObject.Size += (newValue * 0.1f);
+
                 if (lastSelectedObject.name == "BowlingPins")
                 {
                     for (int i = 0; i < lastSelectedObject.transform.childCount; i++)
@@ -283,7 +319,7 @@ public class PlacementAndDragging : MonoBehaviour
                 else
                 {
                     aRSessionOrigin.MakeContentAppearAt(lastSelectedObject.transform, Quaternion.identity);
-                    lastSelectedObject.transform.localScale = Vector3.one * newValue;
+                    lastSelectedObject.transform.localScale = Vector3.one * lastSelectedObject.Size;
                     scaleCheck.text = "Name: " + lastSelectedObject.name + "scale: " + lastSelectedObject.transform.localScale;
                 }
             }
@@ -294,9 +330,25 @@ public class PlacementAndDragging : MonoBehaviour
 
             foreach (PlacementObject placementObject in allOtherObjects)
             {
+                if(placementObject.PreSliderValue > newValue)
+                {
+                    placementObject.Size -= (newValue * 0.1f);
+                }
+                else
+                {
+                    placementObject.Size += (newValue * 0.1f);
+                }
+
+                placementObject.PreSliderValue = newValue;
                 aRSessionOrigin.MakeContentAppearAt(placementObject.gameObject.transform, Quaternion.identity);
-                placementObject.gameObject.transform.localScale = Vector3.one * newValue;
+                placementObject.gameObject.transform.localScale = Vector3.one * placementObject.Size;
+                if(placementObject.gameObject.transform.localScale.x <= 0 || placementObject.gameObject.transform.localScale.y <= 0 || placementObject.gameObject.transform.localScale.z <= 0)
+                {
+                    placementObject.gameObject.transform.localScale = new Vector3(0, 0, 0);
+                }
+                scaleCheck.text = "Name: " + newValue + "scale: " + placementObject.Size;
             }
+
 
             saveScaleSliderAll = newValue;
         }

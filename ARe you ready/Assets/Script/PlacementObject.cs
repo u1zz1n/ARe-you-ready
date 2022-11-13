@@ -11,6 +11,12 @@ public class PlacementObject : MonoBehaviour
     [SerializeField]
     private bool IsLocked;
 
+    [SerializeField]
+    private float objectSize = 1;
+
+    [SerializeField]
+    private float preSliderValue = 1;
+
     public bool Selected
     {
         get
@@ -32,6 +38,30 @@ public class PlacementObject : MonoBehaviour
         set
         {
             IsLocked = value;
+        }
+    }
+
+    public float Size
+    {
+        get
+        {
+            return this.objectSize;
+        }
+        set
+        {
+            objectSize = value;
+        }
+    }
+
+    public float PreSliderValue
+    {
+        get
+        {
+            return this.preSliderValue;
+        }
+        set
+        {
+            preSliderValue = value;
         }
     }
 
