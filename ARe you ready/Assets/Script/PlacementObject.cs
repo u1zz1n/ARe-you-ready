@@ -122,21 +122,40 @@ public class PlacementObject : MonoBehaviour
 
     private void ScaleChanged(float newValue)
     {
-         this.Size += (newValue * 0.1f);
+        if (this.PreSliderValue > newValue)
+        {
+            this.Size -= (newValue * 0.1f);
+        }
+        else
+        {
+            this.Size += (newValue * 0.1f);
+        }
 
-         if (this.name == "BowlingPins")
+        this.PreSliderValue = newValue;
+
+        if (this.name == "BowlingPins")
          {
              for (int i = 0; i < this.transform.childCount; i++)
              {
-                 aRSessionOrigin.MakeContentAppearAt(this.transform.GetChild(i).gameObject.transform, Quaternion.identity);
-                this.transform.GetChild(i).gameObject.transform.localScale = Vector3.one * newValue;
-             }
+                aRSessionOrigin.MakeContentAppearAt(this.transform.GetChild(i).gameObject.transform, Quaternion.identity);
+                this.transform.GetChild(i).gameObject.transform.localScale = Vector3.one * this.Size;
+
+                if (this.gameObject.transform.localScale.x <= 0 || this.gameObject.transform.localScale.y <= 0 || this.gameObject.transform.localScale.z <= 0)
+                {
+                    this.gameObject.transform.localScale = new Vector3(0, 0, 0);
+                }
+            }
          }
          else
          {
             aRSessionOrigin.MakeContentAppearAt(this.transform, Quaternion.identity);
             this.transform.localScale = Vector3.one * this.Size;
-         }
+
+            if (this.gameObject.transform.localScale.x <= 0 || this.gameObject.transform.localScale.y <= 0 || this.gameObject.transform.localScale.z <= 0)
+            {
+                this.gameObject.transform.localScale = new Vector3(0, 0, 0);
+            }
+        }
          
     }
 }
