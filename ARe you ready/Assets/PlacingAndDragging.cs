@@ -79,7 +79,7 @@ public class PlacingAndDragging : MonoBehaviour
                 Ray ray = arCamera.ScreenPointToRay(touch.position);
                 RaycastHit hitObject;
 
-                if(Physics.Raycast(ray, out hitObject))
+                if(Physics.Raycast(ray, out hitObject) && spawnable)
                 {
                     lastSelectedObject = hitObject.transform.GetComponent<PlacementObject>();
 
