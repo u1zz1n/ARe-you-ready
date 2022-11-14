@@ -10,6 +10,7 @@ public class swipeBall : MonoBehaviour
 {
     static public bool rollable = false;
     private bool startroll = false;
+    string btnName;
 
     float time = 0f;
 
@@ -54,7 +55,7 @@ public class swipeBall : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody> ();     
-        debugLog.text = "Cool time to roll";
+        //debugLog.text = "Cool time to roll";
     }
 
     // Update is called once per frame
@@ -64,23 +65,55 @@ public class swipeBall : MonoBehaviour
         {
             time += Time.deltaTime;
 
-            if (time > 2f)
+            if (time > 0.5f)
             {
                 startroll = true;
-                debugLog.text = "You can roll now";
+                //debugLog.text = "You can roll now";
             }
         }
 
+        if(Input.touchCount > 0 && startroll)
+        {
+            if(Input.touches[0].phase == TouchPhase.Began)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                RaycastHit Hit;
+                if(Physics.Raycast(ray, out Hit))
+                {
+                    btnName = Hit.transform.name;
+                    if(btnName == "Sphere(Clone)")
+                    {
+                        debugLog.text = "detect sphere";
+                        touchTimeStart = Time.time;
+                        startPos = Input.GetTouch(0).position;
+                    }
+                }
+            }
 
+            if(Input.GetTouch(0).phase == TouchPhase.Ended)
+            {
+                debugLog.text = "Rolling";
+                touchTimeFinish = Time.time;
+                timeInterval = touchTimeFinish - touchTimeStart;
+            
+                endPos = Input.GetTouch(0).position;
+                direction = startPos - endPos;
 
-        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && rollable && startroll)
+                rb.isKinematic = false;
+                rb.AddForce(-direction.x * 0.3f, 0, -direction.y * 0.3f);
+            
+                Destroy(gameObject, 3f);
+            }
+        }
+        /*
+        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && startroll)
         {
             debugLog.text = "Roll start";
             touchTimeStart = Time.time;
             startPos = Input.GetTouch(0).position;
         }
 
-        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended && rollable && startroll) 
+        if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended && startroll) 
         {
             debugLog.text = "Rolling";
             touchTimeFinish = Time.time;
@@ -94,6 +127,6 @@ public class swipeBall : MonoBehaviour
             
             Destroy(gameObject, 3f);
         }
-        
+        */
     }
 }
