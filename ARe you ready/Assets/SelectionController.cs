@@ -69,9 +69,6 @@ public class SelectionController : MonoBehaviour
                 current.Selected = true;
                 meshRenderer.material.color = activeColor;
             }
-
-            if (displayOverlay)
-                current.ToggleOverlay();
         }
     }
 }

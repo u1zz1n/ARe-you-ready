@@ -113,6 +113,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsSelected: 0
   IsLocked: 0
+  objectSize: 1
+  preSliderValue: 1
+  scaleSlider: {fileID: 0}
   OverlayDisplayText: 
 --- !u!54 &4545194195998924023
 Rigidbody:

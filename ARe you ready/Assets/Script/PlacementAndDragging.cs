@@ -102,6 +102,7 @@ public class PlacementAndDragging : MonoBehaviour
         scaleSlider.onValueChanged.AddListener(ScaleChanged);
         spawnObjectLength = placedObjects.Length;
         useDisableButton = false;
+        FilteredPlane.isBig = false;
     }
 
     public void TogglePlaneDetection()
@@ -178,10 +179,10 @@ public class PlacementAndDragging : MonoBehaviour
 
         //hihi.text = "scale is " + scaleSlider.value.ToString();
         //spawnObjectLength = placedObjects.Length;
+        checkLog2.text = "if horizontal check toggle, please do not move and wait";
 
         if (FilteredPlane.isBig)
         {
-            checkLog2.text = "Please Do not Move";
 
             if (!useDisableButton)
             {
@@ -244,18 +245,15 @@ public class PlacementAndDragging : MonoBehaviour
                                     placementObject.Selected = true;
                                     meshRenderer.material.color = activeColor;
                                 }
-
-                                if (displayOverlay)
-                                    placementObject.ToggleOverlay();
                             }
                         }
                     }
                 }
 
-                if (touch.phase == TouchPhase.Ended)
-                {
-                    lastSelectedObject.Selected = false;
-                }
+                //if (touch.phase == TouchPhase.Ended)
+                //{
+                //    lastSelectedObject.Selected = false;
+                //}
 
                 if (arRaycastManager.Raycast(touchPosition, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
                 {
@@ -265,6 +263,7 @@ public class PlacementAndDragging : MonoBehaviour
                     {
                         lastSelectedObject = Instantiate(placedPrefabs[spawnObjectNum], hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
                         lastSelectedObject.Size = 1;
+                        //lastSelectedObject.Selected = true;
                     }
                     else
                     {
