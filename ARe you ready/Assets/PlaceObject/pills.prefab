@@ -120,6 +120,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsSelected: 0
   IsLocked: 0
+  objectSize: 1
+  preSliderValue: 1
+  scaleSlider: {fileID: 0}
   OverlayDisplayText: 
 --- !u!65 &4230982694966513361
 BoxCollider:

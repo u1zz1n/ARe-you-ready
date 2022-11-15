@@ -137,9 +137,6 @@ public class PlacingAndDragging : MonoBehaviour
                                placementObject.Selected = true;
                                meshRenderer.material.color = activeColor;
                            }
-
-                           if (displayOverlay)
-                               placementObject.ToggleOverlay();
                         }
                     }
                 }

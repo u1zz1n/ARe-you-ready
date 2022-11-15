@@ -100,6 +100,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsSelected: 0
   IsLocked: 0
+  objectSize: 1
+  preSliderValue: 1
+  scaleSlider: {fileID: 6206846339958433749, guid: b6d035ea6d2a3824791538b4986e46b8, type: 3}
   OverlayDisplayText: 
 --- !u!136 &8710148029805416084
 CapsuleCollider:
