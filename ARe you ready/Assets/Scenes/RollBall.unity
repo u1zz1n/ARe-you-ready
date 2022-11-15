@@ -717,6 +717,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsSelected: 0
   IsLocked: 0
+  objectSize: 1
+  preSliderValue: 1
   OverlayDisplayText: 
 --- !u!1 &521960747
 GameObject:
@@ -1116,6 +1118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b343727f50f79a54bbd9a7fe6be6683a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugLog: {fileID: 1397259656}
   arRaycastManager: {fileID: 792440161}
   aRSessionOrigin: {fileID: 792440157}
   aRPlaneManager: {fileID: 792440159}
@@ -1124,6 +1127,8 @@ MonoBehaviour:
   placedPrefab: {fileID: 8101101543418896200, guid: 9b28e63118d911f4ea1d2b069243498a, type: 3}
   activeColor: {r: 1, g: 0, b: 0, a: 1}
   inactiveColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  OriginPinColor: {r: 1, g: 1, b: 1, a: 1}
+  OriginBallColor: {r: 1, g: 0, b: 0, a: 1}
   displayOverlay: 0
 --- !u!4 &856933375
 Transform:

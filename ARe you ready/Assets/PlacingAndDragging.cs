@@ -9,6 +9,11 @@ using UnityEngine.XR.ARFoundation;
 public class PlacingAndDragging : MonoBehaviour
 {
     static public bool spawnable = false;
+    bool LimitBall = false;
+    bool changeColor = false;
+
+    [SerializeField]
+    public Text debugLog;
 
     public ARRaycastManager arRaycastManager;
     public ARSessionOrigin aRSessionOrigin;
@@ -34,6 +39,12 @@ public class PlacingAndDragging : MonoBehaviour
     private Color inactiveColor = Color.gray;
 
     [SerializeField]
+    private Color OriginPinColor = Color.white;
+
+    [SerializeField]
+    private Color OriginBallColor = Color.red;
+
+    [SerializeField]
     private bool displayOverlay = false;
     private PlacementObject lastSelectedObject;
     private bool onTouchHold = false;
@@ -52,16 +63,41 @@ public class PlacingAndDragging : MonoBehaviour
 
     private void Awake() {
         spawnable = false;
+        changeColor = false;
+        LimitBall = false;
     }
     // Start is called before the first frame update
     void Start()
     {
-        
+        //OriginPinColor =  placedPrefab.GetComponent<MeshRenderer>().material.color;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(swipeBall.rollable && !changeColor)
+        {
+            changeColor = true;
+            PlacementObject[] allOtherObjects = FindObjectsOfType<PlacementObject>();
+            foreach (PlacementObject placementObject in allOtherObjects)
+            {
+                
+                MeshRenderer meshRenderer = placementObject.GetComponent<MeshRenderer>();
+                //placementObject.Selected = false;
+
+                if(placementObject.transform.name == "pin(Clone)")
+                {
+                    debugLog.text = "Pin";
+                    meshRenderer.material.color = OriginPinColor;
+                }
+                else if(placementObject.transform.name == "Sphere(Clone)")
+                {
+                    //debugLog.text = "Spehre";
+                    meshRenderer.material.color = OriginBallColor;
+                }          
+            }
+        }
+
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -79,7 +115,7 @@ public class PlacingAndDragging : MonoBehaviour
                 Ray ray = arCamera.ScreenPointToRay(touch.position);
                 RaycastHit hitObject;
 
-                if(Physics.Raycast(ray, out hitObject) && spawnable)
+                if(Physics.Raycast(ray, out hitObject) && !swipeBall.rollable)
                 {
                     lastSelectedObject = hitObject.transform.GetComponent<PlacementObject>();
 
@@ -120,8 +156,9 @@ public class PlacingAndDragging : MonoBehaviour
                 
                 if(spawnable)
                 {                 
-                    if (lastSelectedObject == null)
+                    if (lastSelectedObject == null && !LimitBall)
                     {
+                        LimitBall = true;
                         lastSelectedObject = Instantiate(bowingBall, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
                     }
                     else

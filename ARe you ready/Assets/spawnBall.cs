@@ -16,7 +16,7 @@ public class spawnBall : MonoBehaviour
         PlacingAndDragging.spawnable = false;
         swipeBall.rollable = false;
     }
-    public void Spawn()
+    public void Spawn() //UI ball
     {
         //debugLog.text = "Ready to spawn ball"; 
         PlacingAndDragging.spawnable = true;

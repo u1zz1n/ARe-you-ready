@@ -83,7 +83,7 @@ public class swipeBall : MonoBehaviour
                     btnName = Hit.transform.name;
                     if(btnName == "Sphere(Clone)")
                     {
-                        debugLog.text = "detect sphere";
+                        //debugLog.text = "detect sphere";
                         touchTimeStart = Time.time;
                         startPos = Input.GetTouch(0).position;
                     }
@@ -92,7 +92,7 @@ public class swipeBall : MonoBehaviour
 
             if(Input.GetTouch(0).phase == TouchPhase.Ended)
             {
-                debugLog.text = "Rolling";
+                //debugLog.text = "Rolling";
                 touchTimeFinish = Time.time;
                 timeInterval = touchTimeFinish - touchTimeStart;
             
