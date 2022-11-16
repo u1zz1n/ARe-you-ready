@@ -18,6 +18,11 @@ public class FilteredPlane : MonoBehaviour
     private ARPlaneManager arPlaneManager;
     private List<ARPlane> arPlanes;
 
+    void Start()
+    {
+        isBig = false;
+    }
+
     private void OnPlanesChanged(ARPlanesChangedEventArgs args)
     {
         if (args.added != null && args.added.Count > 0)
