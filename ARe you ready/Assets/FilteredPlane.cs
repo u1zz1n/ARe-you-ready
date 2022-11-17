@@ -47,10 +47,10 @@ public class FilteredPlane : MonoBehaviour
                 isBig = true;
                 OnBigPlaneFound.Invoke();
             }
-            else
-            {
-                isBig = false;
-            }
+            //else
+            //{
+                //isBig = false;
+            //}
         }
     }
 
