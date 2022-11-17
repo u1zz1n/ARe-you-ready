@@ -184,10 +184,12 @@ public class PlacementAndDragging : MonoBehaviour
 
         //hihi.text = "scale is " + scaleSlider.value.ToString();
         //spawnObjectLength = placedObjects.Length;
-        checkLog2.text = "if horizontal check toggle, please do not move and wait";
+        checkLog2.text = "Please continue to try to recognize the plane until 'Done' appears";
 
         if (FilteredPlane.isBig)
         {
+            checkLog2.text = "Wait for seconds";
+
             if (!useDisableButton)
             {
                 foreach (ARPlane plane in aRPlaneManager.trackables)
@@ -317,10 +319,16 @@ public class PlacementAndDragging : MonoBehaviour
 
             placementObject.Size = newVal;
             placementObject.PreSliderValue = newValue;
+            placementObject.PreEachSliderValue = newValue;
 
             aRSessionOrigin.MakeContentAppearAt(placementObject.gameObject.transform, Quaternion.identity);
 
             placementObject.gameObject.transform.localScale = new Vector3(placementObject.gameObject.transform.localScale.x - newVal, placementObject.gameObject.transform.localScale.y - newVal, placementObject.gameObject.transform.localScale.z - newVal);
+
+            if(placementObject.gameObject.transform.localScale.x <= 0 || placementObject.gameObject.transform.localScale.y <= 0 || placementObject.gameObject.transform.localScale.x <= 0)
+            {
+                placementObject.gameObject.transform.localScale = new Vector3(0, 0, 0);
+            }
 
             scaleCheck.text = "change: " + newVal + "scale: " + placementObject.Size;
         }

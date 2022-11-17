@@ -20,6 +20,9 @@ public class PlacementObject : MonoBehaviour
     private float preSliderValue = 1;
 
     [SerializeField]
+    private float preEachSliderValue = 1;
+
+    [SerializeField]
     private Slider scaleSlider;
     
     [SerializeField]
@@ -82,6 +85,18 @@ public class PlacementObject : MonoBehaviour
         }
     }
 
+    public float PreEachSliderValue
+    {
+        get
+        {
+            return this.preEachSliderValue;
+        }
+        set
+        {
+            preEachSliderValue = value;
+        }
+    }
+
     public Slider ScaleSlider
     {
         get
@@ -118,7 +133,7 @@ public class PlacementObject : MonoBehaviour
         //checkText.text = "select: " + scaleSliders.transform.position;
         scaleSliders.gameObject.SetActive(Selected);
         scaleSliders.transform.position = camera.WorldToScreenPoint(new Vector3(this.transform.position.x, this.transform.position.y + 0.5f, this.transform.position.z));
-        scaleSliders.value = preSliderValue;
+        scaleSliders.value = preEachSliderValue;
         PlacementAndDragging.forAll = false;
     }
 
@@ -126,14 +141,18 @@ public class PlacementObject : MonoBehaviour
     {
        if(PlacementAndDragging.forAll == false)
         {
-            float newVal = this.PreSliderValue - newValue;
+            float newVal = this.preEachSliderValue - newValue;
 
             this.Size = newVal;
-            this.PreSliderValue = newValue;
+            this.preEachSliderValue = newValue;
 
             aRSessionOrigin.MakeContentAppearAt(this.transform, Quaternion.identity);
             this.gameObject.transform.localScale = new Vector3(this.gameObject.transform.localScale.x - newVal, this.gameObject.transform.localScale.y - newVal, this.gameObject.transform.localScale.z - newVal);
 
+            if (this.gameObject.transform.localScale.x <= 0 || this.gameObject.transform.localScale.y <= 0 || this.gameObject.transform.localScale.x <= 0)
+            {
+                this.gameObject.transform.localScale = new Vector3(0, 0, 0);
+            }
         }
     }
 }
