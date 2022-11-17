@@ -54,15 +54,18 @@ public class PlacementAndDragging : MonoBehaviour
     [SerializeField]
     private Slider scaleSlider;
 
-    static float saveScaleSliderAll = 1;
-
     public Text placeObejctName;
     public Text scaleCheck;
     public Text checkLog;
     public Text checkLog2;
+    //public Text checkLog3;
+    public Text checkLog4;
+
 
     bool useDisableButton = false;
     bool isCheck = false;
+
+    public static bool forAll = true;
 
     private GameObject PlacedPrefab
     {
@@ -103,6 +106,8 @@ public class PlacementAndDragging : MonoBehaviour
         spawnObjectLength = placedObjects.Length;
         useDisableButton = false;
         FilteredPlane.isBig = false;
+        aRPlaneManager.enabled = true;
+        forAll = true;
     }
 
     public void TogglePlaneDetection()
@@ -175,7 +180,7 @@ public class PlacementAndDragging : MonoBehaviour
     void Update()
     {
         isCheck = aRPlaneManager.enabled;
-        checkLog.text = "use : " + useDisableButton + "  enable : " + isCheck;
+        checkLog.text = "use : " + useDisableButton + "  enable : " + isCheck + " big :  " + FilteredPlane.isBig;
 
         //hihi.text = "scale is " + scaleSlider.value.ToString();
         //spawnObjectLength = placedObjects.Length;
@@ -183,7 +188,6 @@ public class PlacementAndDragging : MonoBehaviour
 
         if (FilteredPlane.isBig)
         {
-
             if (!useDisableButton)
             {
                 foreach (ARPlane plane in aRPlaneManager.trackables)
@@ -301,55 +305,24 @@ public class PlacementAndDragging : MonoBehaviour
 
     private void ScaleChanged(float newValue)
     {
-        if (applyScalingPerObject)
+        forAll = true;
+
+        PlacementObject[] allOtherObjects = FindObjectsOfType<PlacementObject>();
+
+        foreach (PlacementObject placementObject in allOtherObjects)
         {
-            if (lastSelectedObject != null/* && lastSelectedObject.Selected*/)
-            {
-                lastSelectedObject.Size += (newValue * 0.1f);
+            float newVal = placementObject.PreSliderValue - newValue;
 
-                if (lastSelectedObject.name == "BowlingPins")
-                {
-                    for (int i = 0; i < lastSelectedObject.transform.childCount; i++)
-                    {
-                        aRSessionOrigin.MakeContentAppearAt(lastSelectedObject.transform.GetChild(i).gameObject.transform, Quaternion.identity);
-                        lastSelectedObject.transform.GetChild(i).gameObject.transform.localScale = Vector3.one * newValue;
-                    }
-                }
-                else
-                {
-                    aRSessionOrigin.MakeContentAppearAt(lastSelectedObject.transform, Quaternion.identity);
-                    lastSelectedObject.transform.localScale = Vector3.one * lastSelectedObject.Size;
-                    scaleCheck.text = "Name: " + lastSelectedObject.name + "scale: " + lastSelectedObject.transform.localScale;
-                }
-            }
-        }
-        else
-        {
-            PlacementObject[] allOtherObjects = FindObjectsOfType<PlacementObject>();
+            checkLog4.text = "chagne value: " + newVal;
 
-            foreach (PlacementObject placementObject in allOtherObjects)
-            {
-                if(placementObject.PreSliderValue > newValue)
-                {
-                    placementObject.Size -= (newValue * 0.1f);
-                }
-                else
-                {
-                    placementObject.Size += (newValue * 0.1f);
-                }
+            placementObject.Size = newVal;
+            placementObject.PreSliderValue = newValue;
 
-                placementObject.PreSliderValue = newValue;
-                aRSessionOrigin.MakeContentAppearAt(placementObject.gameObject.transform, Quaternion.identity);
-                placementObject.gameObject.transform.localScale = Vector3.one * placementObject.Size;
-                if(placementObject.gameObject.transform.localScale.x <= 0 || placementObject.gameObject.transform.localScale.y <= 0 || placementObject.gameObject.transform.localScale.z <= 0)
-                {
-                    placementObject.gameObject.transform.localScale = new Vector3(0, 0, 0);
-                }
-                scaleCheck.text = "Name: " + newValue + "scale: " + placementObject.Size;
-            }
+            aRSessionOrigin.MakeContentAppearAt(placementObject.gameObject.transform, Quaternion.identity);
 
+            placementObject.gameObject.transform.localScale = new Vector3(placementObject.gameObject.transform.localScale.x - newVal, placementObject.gameObject.transform.localScale.y - newVal, placementObject.gameObject.transform.localScale.z - newVal);
 
-            saveScaleSliderAll = newValue;
+            scaleCheck.text = "change: " + newVal + "scale: " + placementObject.Size;
         }
     }
 }
