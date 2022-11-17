@@ -9,7 +9,7 @@ using UnityEngine.XR.ARFoundation;
 public class swipeBall : MonoBehaviour
 {
     static public bool rollable = false;
-    private bool startroll = false;
+    static public bool startroll = false;
     
     bool collideWpin = false;
     bool rolling = false;
