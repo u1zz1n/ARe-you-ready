@@ -719,7 +719,11 @@ MonoBehaviour:
   IsLocked: 0
   objectSize: 1
   preSliderValue: 1
-  OverlayDisplayText: 
+  scaleSlider: {fileID: 0}
+  canvas: {fileID: 0}
+  camera: {fileID: 0}
+  aRSessionOrigin: {fileID: 0}
+  checkText: {fileID: 0}
 --- !u!1 &521960747
 GameObject:
   m_ObjectHideFlags: 0

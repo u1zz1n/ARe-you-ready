@@ -104,7 +104,10 @@ MonoBehaviour:
   objectSize: 1
   preSliderValue: 1
   scaleSlider: {fileID: 0}
-  OverlayDisplayText: 
+  canvas: {fileID: 0}
+  camera: {fileID: 0}
+  aRSessionOrigin: {fileID: 0}
+  checkText: {fileID: 0}
 --- !u!136 &8710148029805416084
 CapsuleCollider:
   m_ObjectHideFlags: 0

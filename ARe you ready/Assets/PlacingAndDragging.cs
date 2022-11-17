@@ -75,6 +75,15 @@ public class PlacingAndDragging : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(swipeBall.toBeDestroy)
+        {
+            PlacementObject[] allOtherObjects = FindObjectsOfType<PlacementObject>();
+            foreach (PlacementObject placementObject in allOtherObjects)
+            {
+                Destroy(placementObject.gameObject, 3f);
+            }
+        }
+
         if(swipeBall.rollable && !changeColor)
         {
             changeColor = true;

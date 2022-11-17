@@ -10,6 +10,11 @@ public class swipeBall : MonoBehaviour
 {
     static public bool rollable = false;
     private bool startroll = false;
+    
+    bool collideWpin = false;
+    bool rolling = false;
+    static public bool toBeDestroy = false;
+
     string btnName;
 
     float time = 0f;
@@ -49,6 +54,10 @@ public class swipeBall : MonoBehaviour
     private void Awake() {
         rollable = false;
         startroll = false;
+        collideWpin = false;
+        rolling = false;
+        toBeDestroy = false;
+
         time = 0f;
     }
 
@@ -70,7 +79,22 @@ public class swipeBall : MonoBehaviour
                 startroll = true;
                 //debugLog.text = "You can roll now";
             }
+
+            if(rolling)
+            {
+                if(collideWpin)
+                {
+                    toBeDestroy = true;
+                }
+                else if(rb.velocity.magnitude < 0.1f)
+                {        
+                    toBeDestroy = true;    
+                }            
+            }
+
         }
+
+        
 
         if(Input.touchCount > 0 && startroll)
         {
@@ -83,6 +107,7 @@ public class swipeBall : MonoBehaviour
                     btnName = Hit.transform.name;
                     if(btnName == "Sphere(Clone)")
                     {
+                        rolling = true;
                         //debugLog.text = "detect sphere";
                         touchTimeStart = Time.time;
                         startPos = Input.GetTouch(0).position;
@@ -102,7 +127,7 @@ public class swipeBall : MonoBehaviour
                 rb.isKinematic = false;
                 rb.AddForce(-direction.x * 0.3f, 0, -direction.y * 0.3f);
             
-                Destroy(gameObject, 3f);
+                //Destroy(gameObject, 3f);
             }
         }
         /*
@@ -128,5 +153,24 @@ public class swipeBall : MonoBehaviour
             Destroy(gameObject, 3f);
         }
         */
+    }
+
+    /*
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.name == "pin(Clone)")
+        {
+            collideWpin = true;
+            debugLog.text = "Collide with pin";
+        }
+    }*/
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.name == "pin(Clone)" && startroll)
+        {
+            collideWpin = true;
+            debugLog.text = "Collide with pin";
+        }
     }
 }
