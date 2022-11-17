@@ -20,8 +20,11 @@ public class PlacementObject : MonoBehaviour
     private float preSliderValue = 1;
 
     [SerializeField]
-    private Slider scaleSlider;
+    private float preEachSliderValue = 1;
 
+    [SerializeField]
+    private Slider scaleSlider;
+    
     [SerializeField]
     private Canvas canvas;
 
@@ -82,6 +85,18 @@ public class PlacementObject : MonoBehaviour
         }
     }
 
+    public float PreEachSliderValue
+    {
+        get
+        {
+            return this.preEachSliderValue;
+        }
+        set
+        {
+            preEachSliderValue = value;
+        }
+    }
+
     public Slider ScaleSlider
     {
         get
@@ -109,7 +124,7 @@ public class PlacementObject : MonoBehaviour
         scaleSliders = Instantiate(scaleSlider, canvas.transform).GetComponent<Slider>();
         scaleSliders.gameObject.transform.SetParent(canvas.gameObject.transform, false);
         scaleSliders.transform.position = this.transform.position;
-        scaleSliders.onValueChanged.AddListener(ScaleChanged);
+        scaleSliders.onValueChanged.AddListener(ScaleChangedEach);
         //scaleSlider.gameObject.SetActive(false);
     }
 
@@ -118,11 +133,32 @@ public class PlacementObject : MonoBehaviour
         //checkText.text = "select: " + scaleSliders.transform.position;
         scaleSliders.gameObject.SetActive(Selected);
         scaleSliders.transform.position = camera.WorldToScreenPoint(new Vector3(this.transform.position.x, this.transform.position.y + 0.5f, this.transform.position.z));
+        scaleSliders.value = preEachSliderValue;
+        PlacementAndDragging.forAll = false;
     }
 
-    private void ScaleChanged(float newValue)
+    private void ScaleChangedEach(float newValue)
     {
-        if (this.PreSliderValue > newValue)
+       if(PlacementAndDragging.forAll == false)
+        {
+            float newVal = this.preEachSliderValue - newValue;
+
+            this.Size = newVal;
+            this.preEachSliderValue = newValue;
+
+            aRSessionOrigin.MakeContentAppearAt(this.transform, Quaternion.identity);
+            this.gameObject.transform.localScale = new Vector3(this.gameObject.transform.localScale.x - newVal, this.gameObject.transform.localScale.y - newVal, this.gameObject.transform.localScale.z - newVal);
+
+            if (this.gameObject.transform.localScale.x <= 0 || this.gameObject.transform.localScale.y <= 0 || this.gameObject.transform.localScale.x <= 0)
+            {
+                this.gameObject.transform.localScale = new Vector3(0, 0, 0);
+            }
+        }
+    }
+}
+
+/*
+         if (this.PreSliderValue > newValue)
         {
             this.Size -= (newValue * 0.1f);
         }
@@ -156,6 +192,4 @@ public class PlacementObject : MonoBehaviour
             //    this.gameObject.transform.localScale = new Vector3(0, 0, 0);
             //}
         //}
-         
-    }
-}
+ */
