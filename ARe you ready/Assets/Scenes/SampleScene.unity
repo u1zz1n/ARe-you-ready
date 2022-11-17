@@ -587,7 +587,6 @@ MonoBehaviour:
   scaleCheck: {fileID: 1922612204}
   checkLog: {fileID: 2090878245}
   checkLog2: {fileID: 1840690389}
-  checkLog3: {fileID: 1577749885}
   checkLog4: {fileID: 2089110260}
 --- !u!1 &211583367
 GameObject:
@@ -8497,10 +8496,12 @@ MonoBehaviour:
   IsLocked: 0
   objectSize: 1
   preSliderValue: 1
+  preEachSliderValue: 1
   scaleSlider: {fileID: 6206846339958433749, guid: b6d035ea6d2a3824791538b4986e46b8, type: 3}
   canvas: {fileID: 585424098}
   camera: {fileID: 89841242}
   aRSessionOrigin: {fileID: 792440157}
+  originalSlider: {fileID: 1600812348}
   checkText: {fileID: 1577749885}
 --- !u!1 &2202990975683846604
 GameObject:

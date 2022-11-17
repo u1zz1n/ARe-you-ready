@@ -35,6 +35,8 @@ public class PlacementObject : MonoBehaviour
 
     private Slider scaleSliders;
 
+    public Slider originalSlider;
+
     public Text checkText;
 
     public bool Selected
@@ -132,7 +134,8 @@ public class PlacementObject : MonoBehaviour
     {
         //checkText.text = "select: " + scaleSliders.transform.position;
         scaleSliders.gameObject.SetActive(Selected);
-        scaleSliders.transform.position = camera.WorldToScreenPoint(new Vector3(this.transform.position.x, this.transform.position.y + 0.5f, this.transform.position.z));
+        //scaleSliders.transform.position = camera.WorldToScreenPoint(new Vector3(this.transform.position.x, this.transform.position.y + 0.5f, this.transform.position.z));
+        scaleSliders.transform.position = new Vector3(originalSlider.transform.position.x, originalSlider.transform.position.y + 100f, originalSlider.transform.position.z);
         scaleSliders.value = preEachSliderValue;
         PlacementAndDragging.forAll = false;
     }
