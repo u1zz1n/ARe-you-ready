@@ -5,12 +5,15 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
+using UnityEngine.SceneManagement;
 
 public class PlacingAndDragging : MonoBehaviour
 {
     static public bool spawnable = false;
     bool LimitBall = false;
     bool changeColor = false;
+    bool destroyAll = false;
+    float timeToRestart = 0f;
 
     [SerializeField]
     public Text debugLog;
@@ -65,6 +68,8 @@ public class PlacingAndDragging : MonoBehaviour
         spawnable = false;
         changeColor = false;
         LimitBall = false;
+        destroyAll = false;
+        timeToRestart = 0f;
     }
     // Start is called before the first frame update
     void Start()
@@ -75,6 +80,14 @@ public class PlacingAndDragging : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(destroyAll)
+        {
+            timeToRestart += Time.deltaTime;
+            if(timeToRestart > 6f)
+            {
+                SceneManager.LoadScene("RollBall");
+            }
+        }
         if(swipeBall.toBeDestroy)
         {
             PlacementObject[] allOtherObjects = FindObjectsOfType<PlacementObject>();
@@ -82,6 +95,9 @@ public class PlacingAndDragging : MonoBehaviour
             {
                 Destroy(placementObject.gameObject, 3f);
             }
+            
+            destroyAll = true;
+            //SceneManager.LoadScene("RollBall");
         }
 
         if(swipeBall.rollable && !changeColor)

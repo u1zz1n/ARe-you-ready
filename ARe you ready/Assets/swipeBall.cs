@@ -107,7 +107,7 @@ public class swipeBall : MonoBehaviour
                     btnName = Hit.transform.name;
                     if(btnName == "Sphere(Clone)")
                     {
-                        rolling = true;
+                        
                         //debugLog.text = "detect sphere";
                         touchTimeStart = Time.time;
                         startPos = Input.GetTouch(0).position;
@@ -126,7 +126,7 @@ public class swipeBall : MonoBehaviour
 
                 rb.isKinematic = false;
                 rb.AddForce(-direction.x * 0.3f, 0, -direction.y * 0.3f);
-            
+                rolling = true;
                 //Destroy(gameObject, 3f);
             }
         }
