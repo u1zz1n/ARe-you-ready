@@ -97,9 +97,9 @@ public class PlacingAndDragging : MonoBehaviour
             timeToRestart += Time.deltaTime;
             if(timeToRestart > 6f)
             {
-                Init();
-                swipeBall.Init();
-                //SceneManager.LoadScene("RollBall");
+                //Init();
+                //swipeBall.Init();
+                SceneManager.LoadScene("RollBall");
             }
         }
         if(swipeBall.toBeDestroy)
