@@ -77,6 +77,18 @@ public class PlacingAndDragging : MonoBehaviour
         //OriginPinColor =  placedPrefab.GetComponent<MeshRenderer>().material.color;
     }
 
+    void Init()
+    {
+        spawnable = false;
+        changeColor = false;
+        LimitBall = false;
+        destroyAll = false;
+        timeToRestart = 0f;
+        lastSelectedObject = null;
+
+        debugLog.text = "Restart and init";
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -85,7 +97,9 @@ public class PlacingAndDragging : MonoBehaviour
             timeToRestart += Time.deltaTime;
             if(timeToRestart > 6f)
             {
-                SceneManager.LoadScene("RollBall");
+                Init();
+                swipeBall.Init();
+                //SceneManager.LoadScene("RollBall");
             }
         }
         if(swipeBall.toBeDestroy)
@@ -180,6 +194,7 @@ public class PlacingAndDragging : MonoBehaviour
                 {                 
                     if (lastSelectedObject == null && !LimitBall)
                     {
+                        debugLog.text = "spawn ball";
                         LimitBall = true;
                         lastSelectedObject = Instantiate(bowingBall, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
                     }
@@ -198,6 +213,7 @@ public class PlacingAndDragging : MonoBehaviour
                 {
                     if (lastSelectedObject == null)
                     {
+                        debugLog.text = "spawn pins";
                         lastSelectedObject = Instantiate(placedPrefab, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
                     }
                     else

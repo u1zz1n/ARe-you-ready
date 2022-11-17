@@ -11,13 +11,13 @@ public class swipeBall : MonoBehaviour
     static public bool rollable = false;
     static public bool startroll = false;
     
-    bool collideWpin = false;
-    bool rolling = false;
+    static public bool collideWpin = false;
+    static public bool rolling = false;
     static public bool toBeDestroy = false;
 
     string btnName;
 
-    float time = 0f;
+    static public float time = 0f;
 
     public ARRaycastManager arRaycastManager;
     public ARSessionOrigin aRSessionOrigin;
@@ -66,7 +66,16 @@ public class swipeBall : MonoBehaviour
         rb = GetComponent<Rigidbody> ();     
         //debugLog.text = "Cool time to roll";
     }
+    static public void Init()
+    {
+        rollable = false;
+        startroll = false;
+        collideWpin = false;
+        rolling = false;
+        toBeDestroy = false;
 
+        time = 0f;
+    }
     // Update is called once per frame
     void Update()
     {
