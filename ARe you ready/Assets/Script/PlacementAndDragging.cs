@@ -67,6 +67,10 @@ public class PlacementAndDragging : MonoBehaviour
 
     public static bool forAll = true;
 
+    ARPlane curPlane;
+
+    public float allSzie = 1;
+
     private GameObject PlacedPrefab
     {
         get
@@ -207,6 +211,7 @@ public class PlacementAndDragging : MonoBehaviour
                 }
             }
 
+            curPlane = FindObjectOfType<ARPlane>();
             checkLog2.text = "Done!";
 
             printObjectName();
@@ -268,14 +273,23 @@ public class PlacementAndDragging : MonoBehaviour
                     if (lastSelectedObject == null)
                     {
                         lastSelectedObject = Instantiate(placedPrefabs[spawnObjectNum], hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
+                        float yDiff = lastSelectedObject.transform.localPosition.y - curPlane.transform.localPosition.y;
+
+                        Vector3 spawnPosition = new Vector3(lastSelectedObject.transform.position.x, lastSelectedObject.transform.position.y + yDiff, lastSelectedObject.transform.position.z);
                         lastSelectedObject.Size = 1;
+                        //CapsuleCollider hihihi = GetComponent<CapsuleCollider>();
+                        lastSelectedObject.transform.position = spawnPosition;
                         //lastSelectedObject.Selected = true;
                     }
                     else
                     {
                         if (lastSelectedObject.Selected)
                         {
+                            float yDiff = curPlane.transform.localPosition.y + (lastSelectedObject.transform.localScale.y / 2);
+                            Vector3 sisi = new Vector3(hitPose.position.x, hitPose.position.y + lastSelectedObject.transform.localScale.y / 2, hitPose.position.z);
+
                             lastSelectedObject.transform.position = hitPose.position;
+
                             lastSelectedObject.transform.rotation = hitPose.rotation;
                         }
                     }
@@ -310,27 +324,41 @@ public class PlacementAndDragging : MonoBehaviour
         forAll = true;
 
         PlacementObject[] allOtherObjects = FindObjectsOfType<PlacementObject>();
+        int sizeee = allOtherObjects.Length - 1;
+        checkLog4.text = allOtherObjects[sizeee].name + allOtherObjects[sizeee].transform.position;
+
 
         foreach (PlacementObject placementObject in allOtherObjects)
         {
-            float newVal = placementObject.PreSliderValue - newValue;
-
-            checkLog4.text = "chagne value: " + newVal;
-
-            placementObject.Size = newVal;
-            placementObject.PreSliderValue = newValue;
-            placementObject.PreEachSliderValue = newValue;
-
-            aRSessionOrigin.MakeContentAppearAt(placementObject.gameObject.transform, Quaternion.identity);
-
-            placementObject.gameObject.transform.localScale = new Vector3(placementObject.gameObject.transform.localScale.x - newVal, placementObject.gameObject.transform.localScale.y - newVal, placementObject.gameObject.transform.localScale.z - newVal);
-
-            if(placementObject.gameObject.transform.localScale.x <= 0 || placementObject.gameObject.transform.localScale.y <= 0 || placementObject.gameObject.transform.localScale.x <= 0)
+            if(placementObject.name == "waterbottle" || placementObject.name == "pin" || placementObject.name == "pills" || placementObject.name == "BowlingPins" 
+                || placementObject.name == "pin1" || placementObject.name == "pin2" || placementObject.name == "pin3" || placementObject.name == "pin4" || placementObject.name == "pin5"
+                || placementObject.name == "pin6" || placementObject.name == "pin7" || placementObject.name == "pin8" || placementObject.name == "pin9" || placementObject.name == "pin10")
             {
-                placementObject.gameObject.transform.localScale = new Vector3(0, 0, 0);
-            }
 
-            scaleCheck.text = "change: " + newVal + "scale: " + placementObject.Size;
+            }
+            //else
+            {
+                float newVal = placementObject.PreSliderValue - newValue;
+
+                //checkLog4.text = "chagne value: " + allOtherObjects;
+
+                placementObject.Size = newVal;
+                allSzie = newVal;
+                placementObject.PreSliderValue = newValue;
+                placementObject.PreEachSliderValue = newValue;
+
+                //aRSessionOrigin.MakeContentAppearAt(placementObject.gameObject.transform, Quaternion.identity);
+
+                placementObject.gameObject.transform.localScale = new Vector3(placementObject.gameObject.transform.localScale.x - newVal, placementObject.gameObject.transform.localScale.y - newVal, placementObject.gameObject.transform.localScale.z - newVal);
+
+                if (placementObject.gameObject.transform.localScale.x <= 0 || placementObject.gameObject.transform.localScale.y <= 0 || placementObject.gameObject.transform.localScale.x <= 0)
+                {
+                    placementObject.gameObject.transform.localScale = new Vector3(0, 0, 0);
+                }
+                //placementObject.gameObject.transform.position = Vector3.Scale(placementObject.gameObject.transform.position - placementObject.GetComponent<Renderer>().bounds.center, placementObject.gameObject.transform.localScale) + placementObject.GetComponent<Renderer>().bounds.center;
+
+                scaleCheck.text = "change: " + newVal + "scale: " + placementObject.Size;
+            }     
         }
     }
 }

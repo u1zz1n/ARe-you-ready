@@ -149,7 +149,7 @@ public class PlacementObject : MonoBehaviour
             this.Size = newVal;
             this.preEachSliderValue = newValue;
 
-            aRSessionOrigin.MakeContentAppearAt(this.transform, Quaternion.identity);
+            //aRSessionOrigin.MakeContentAppearAt(this.transform, Quaternion.identity);
             this.gameObject.transform.localScale = new Vector3(this.gameObject.transform.localScale.x - newVal, this.gameObject.transform.localScale.y - newVal, this.gameObject.transform.localScale.z - newVal);
 
             if (this.gameObject.transform.localScale.x <= 0 || this.gameObject.transform.localScale.y <= 0 || this.gameObject.transform.localScale.x <= 0)
