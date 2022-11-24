@@ -52,6 +52,8 @@ public class PlacingAndDragging : MonoBehaviour
     private PlacementObject lastSelectedObject;
     private bool onTouchHold = false;
 
+    public Text checkPlaneLog;
+
     private GameObject PlacedPrefab
     {
         get
@@ -74,6 +76,7 @@ public class PlacingAndDragging : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        FilteredPlane.isBig = false;
         //OriginPinColor =  placedPrefab.GetComponent<MeshRenderer>().material.color;
     }
 
@@ -92,140 +95,159 @@ public class PlacingAndDragging : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(destroyAll)
+        checkPlaneLog.text = FilteredPlane.isBig.ToString();
+
+        if (FilteredPlane.isBig)
         {
-            timeToRestart += Time.deltaTime;
-            if(timeToRestart > 6f)
+            foreach (ARPlane plane in aRPlaneManager.trackables)
             {
-                //Init();
-                //swipeBall.Init();
-                SceneManager.LoadScene("RollBall");
+                if (plane.extents.x * plane.extents.y >= FilteredPlane.dismenstionsForBigPlanes.x * FilteredPlane.dismenstionsForBigPlanes.y)
+                {
+                    aRPlaneManager.enabled = false;
+                    checkPlaneLog.text = "Done!";
+                }
+                else
+                {
+                    aRPlaneManager.enabled = false;
+                    plane.gameObject.SetActive(aRPlaneManager.enabled);
+
+                }
             }
-        }
-        if(swipeBall.toBeDestroy)
-        {
-            PlacementObject[] allOtherObjects = FindObjectsOfType<PlacementObject>();
-            foreach (PlacementObject placementObject in allOtherObjects)
+            if (destroyAll)
             {
-                Destroy(placementObject.gameObject, 3f);
+                timeToRestart += Time.deltaTime;
+                if(timeToRestart > 6f)
+                {
+                    //Init();
+                    //swipeBall.Init();
+                    SceneManager.LoadScene("RollBall");
+                }
             }
+            if(swipeBall.toBeDestroy)
+            {
+                PlacementObject[] allOtherObjects = FindObjectsOfType<PlacementObject>();
+                foreach (PlacementObject placementObject in allOtherObjects)
+                {
+                    Destroy(placementObject.gameObject, 3f);
+                }
             
-            destroyAll = true;
-            //SceneManager.LoadScene("RollBall");
-        }
-
-        if(swipeBall.rollable && !changeColor)
-        {
-            changeColor = true;
-            PlacementObject[] allOtherObjects = FindObjectsOfType<PlacementObject>();
-            foreach (PlacementObject placementObject in allOtherObjects)
-            {
-                
-                MeshRenderer meshRenderer = placementObject.GetComponent<MeshRenderer>();
-                //placementObject.Selected = false;
-
-                if(placementObject.transform.name == "pin(Clone)")
-                {
-                    debugLog.text = "Pin";
-                    meshRenderer.material.color = OriginPinColor;
-                }
-                else if(placementObject.transform.name == "Sphere(Clone)")
-                {
-                    //debugLog.text = "Spehre";
-                    meshRenderer.material.color = OriginBallColor;
-                }          
-            }
-        }
-
-        if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-
-            if(EventSystem.current.IsPointerOverGameObject(touch.fingerId))
-            {
-                return;
+                destroyAll = true;
+                //SceneManager.LoadScene("RollBall");
             }
 
-            touchPosition = touch.position;
-            List<ARRaycastHit> hits = new List<ARRaycastHit>();
-
-            if(touch.phase == TouchPhase.Began)
+            if (swipeBall.rollable && !changeColor)
             {
-                Ray ray = arCamera.ScreenPointToRay(touch.position);
-                RaycastHit hitObject;
-
-                if(Physics.Raycast(ray, out hitObject) && !swipeBall.rollable)
+                changeColor = true;
+                PlacementObject[] allOtherObjects = FindObjectsOfType<PlacementObject>();
+                foreach (PlacementObject placementObject in allOtherObjects)
                 {
-                    lastSelectedObject = hitObject.transform.GetComponent<PlacementObject>();
 
-                    if(lastSelectedObject != null)
+                    MeshRenderer meshRenderer = placementObject.GetComponent<MeshRenderer>();
+                    //placementObject.Selected = false;
+
+                    if (placementObject.transform.name == "pin(Clone)")
                     {
-                        PlacementObject[] allOtherObjects = FindObjectsOfType<PlacementObject>();
-
-                        foreach (PlacementObject placementObject in allOtherObjects)
-                        {
-                           MeshRenderer meshRenderer = placementObject.GetComponent<MeshRenderer>();
-
-                           if (placementObject != lastSelectedObject)
-                           {
-                               placementObject.Selected = false;
-                               meshRenderer.material.color = inactiveColor;
-                           }
-                           else
-                           {
-                               placementObject.Selected = true;
-                               meshRenderer.material.color = activeColor;
-                           }
-                        }
+                        debugLog.text = "Pin";
+                        meshRenderer.material.color = OriginPinColor;
+                    }
+                    else if (placementObject.transform.name == "Sphere(Clone)")
+                    {
+                        //debugLog.text = "Spehre";
+                        meshRenderer.material.color = OriginBallColor;
                     }
                 }
             }
 
-            if (touch.phase == TouchPhase.Ended)
-           {
-               lastSelectedObject.Selected = false;
-           }
-
-            if (arRaycastManager.Raycast(touchPosition, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
+            if (Input.touchCount > 0)
             {
-                Pose hitPose = hits[0].pose;
-                
-                if(spawnable)
-                {                 
-                    if (lastSelectedObject == null && !LimitBall)
+                Touch touch = Input.GetTouch(0);
+
+                if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                {
+                    return;
+                }
+
+                touchPosition = touch.position;
+                List<ARRaycastHit> hits = new List<ARRaycastHit>();
+
+                if (touch.phase == TouchPhase.Began)
+                {
+                    Ray ray = arCamera.ScreenPointToRay(touch.position);
+                    RaycastHit hitObject;
+
+                    if (Physics.Raycast(ray, out hitObject) && !swipeBall.rollable)
                     {
-                        debugLog.text = "spawn ball";
-                        LimitBall = true;
-                        lastSelectedObject = Instantiate(bowingBall, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
-                    }
-                    else
-                    {
-                        if (lastSelectedObject.Selected)
+                        lastSelectedObject = hitObject.transform.GetComponent<PlacementObject>();
+
+                        if (lastSelectedObject != null)
                         {
-                            lastSelectedObject.transform.position = hitPose.position;
-                            lastSelectedObject.transform.rotation = hitPose.rotation;
+                            PlacementObject[] allOtherObjects = FindObjectsOfType<PlacementObject>();
+
+                            foreach (PlacementObject placementObject in allOtherObjects)
+                            {
+                                MeshRenderer meshRenderer = placementObject.GetComponent<MeshRenderer>();
+
+                                if (placementObject != lastSelectedObject)
+                                {
+                                    placementObject.Selected = false;
+                                    meshRenderer.material.color = inactiveColor;
+                                }
+                                else
+                                {
+                                    placementObject.Selected = true;
+                                    meshRenderer.material.color = activeColor;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (touch.phase == TouchPhase.Ended)
+                {
+                    lastSelectedObject.Selected = false;
+                }
+
+                if (arRaycastManager.Raycast(touchPosition, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
+                {
+                    Pose hitPose = hits[0].pose;
+
+                    if (spawnable)
+                    {
+                        if (lastSelectedObject == null && !LimitBall)
+                        {
+                            debugLog.text = "spawn ball";
+                            LimitBall = true;
+                            lastSelectedObject = Instantiate(bowingBall, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
+                        }
+                        else
+                        {
+                            if (lastSelectedObject.Selected)
+                            {
+                                lastSelectedObject.transform.position = hitPose.position;
+                                lastSelectedObject.transform.rotation = hitPose.rotation;
+                            }
+                        }
+
+                        //spawnable = false;
+                    }
+                    else if (!swipeBall.rollable)
+                    {
+                        if (lastSelectedObject == null)
+                        {
+                            debugLog.text = "spawn pins";
+                            lastSelectedObject = Instantiate(placedPrefab, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
+                        }
+                        else
+                        {
+                            if (lastSelectedObject.Selected)
+                            {
+                                lastSelectedObject.transform.position = hitPose.position;
+                                lastSelectedObject.transform.rotation = hitPose.rotation;
+                            }
                         }
                     }
 
-                    //spawnable = false;
                 }
-                else if(!swipeBall.rollable)
-                {
-                    if (lastSelectedObject == null)
-                    {
-                        debugLog.text = "spawn pins";
-                        lastSelectedObject = Instantiate(placedPrefab, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
-                    }
-                    else
-                    {
-                        if (lastSelectedObject.Selected)
-                        {
-                            lastSelectedObject.transform.position = hitPose.position;
-                            lastSelectedObject.transform.rotation = hitPose.rotation;
-                        }
-                    }
-                }
-  
             }
         }
     }

@@ -8,6 +8,7 @@ using UnityEngine.XR.ARSubsystems;
 public class FilteredPlane : MonoBehaviour
 {
     [SerializeField] private Vector2 dismenstionsForBigPlane;
+    public static Vector2 dismenstionsForBigPlanes;
 
     public event Action OnVerticalPlaneFound;
     public event Action OnHorizontalPlaneFound;
@@ -21,6 +22,7 @@ public class FilteredPlane : MonoBehaviour
     void Start()
     {
         isBig = false;
+        dismenstionsForBigPlanes = dismenstionsForBigPlane;
     }
 
     private void OnPlanesChanged(ARPlanesChangedEventArgs args)
