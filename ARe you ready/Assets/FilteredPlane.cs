@@ -47,6 +47,7 @@ public class FilteredPlane : MonoBehaviour
             if(plane.extents.x * plane.extents.y >= dismenstionsForBigPlane.x * dismenstionsForBigPlane.y)
             {
                 isBig = true;
+                arPlaneManager.enabled = false;
                 OnBigPlaneFound.Invoke();
             }
             //else
