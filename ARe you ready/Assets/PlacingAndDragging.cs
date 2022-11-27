@@ -78,6 +78,11 @@ public class PlacingAndDragging : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        foreach (ARPlane plane in aRPlaneManager.trackables)
+        {
+            Destroy(plane);
+        }
+
         FilteredPlane.isBig = false;
         //OriginPinColor =  placedPrefab.GetComponent<MeshRenderer>().material.color;
     }
@@ -223,12 +228,18 @@ public class PlacingAndDragging : MonoBehaviour
                             debugLog.text = "spawn ball";
                             LimitBall = true;
                             lastSelectedObject = Instantiate(bowingBall, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
+                            float yDiff = curPlane.transform.localPosition.y - (lastSelectedObject.GetComponent<CapsuleCollider>().bounds.min.y);
+                            Vector3 spawnPosition = new Vector3(lastSelectedObject.transform.position.x, lastSelectedObject.transform.position.y + yDiff, lastSelectedObject.transform.position.z);
+                            lastSelectedObject.Size = 1;
+                            lastSelectedObject.transform.position = spawnPosition;
+                            lastSelectedObject.YPosition = spawnPosition.y;
                         }
                         else
                         {
                             if (lastSelectedObject.Selected)
                             {
-                                lastSelectedObject.transform.position = hitPose.position;
+                                Vector3 newPosition = new Vector3(hitPose.position.x, lastSelectedObject.YPosition, hitPose.position.z);
+                                lastSelectedObject.transform.position = newPosition;
                                 lastSelectedObject.transform.rotation = hitPose.rotation;
                             }
                         }
