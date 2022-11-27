@@ -23,6 +23,8 @@ public class swipeBall : MonoBehaviour
     public ARSessionOrigin aRSessionOrigin;
     public ARPlaneManager aRPlaneManager;
 
+    private Vector2 touchPosition = default;
+
     [SerializeField]
     private Camera arCamera;
 
@@ -36,7 +38,8 @@ public class swipeBall : MonoBehaviour
     private PlacementObject lastSelectedObject;
     private bool onTouchHold = false;
 
-    Vector2 startPos, endPos, direction;
+    Vector2 startPos, endPos/*, direction*/;
+    Vector3 startWPos, endWPos, direction;
     float touchTimeStart, touchTimeFinish, timeInterval;
 
     [SerializeField]
@@ -50,6 +53,8 @@ public class swipeBall : MonoBehaviour
     [SerializeField]
     public Text debugLog;
 
+    [SerializeField]
+    public Text debugLog2;
     // Start is called before the first frame update
     private void Awake() {
         rollable = false;
@@ -79,6 +84,9 @@ public class swipeBall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        var cameraForward = arCamera.transform.forward;
+        //debugLog.text = cameraForward.x +", " + cameraForward.y + ", " + cameraForward.z;
+
         if(rollable)
         {
             time += Time.deltaTime;
@@ -107,9 +115,11 @@ public class swipeBall : MonoBehaviour
 
         if(Input.touchCount > 0 && startroll)
         {
-            if(Input.touches[0].phase == TouchPhase.Began)
+            Touch touch = Input.GetTouch(0);
+            touchPosition = touch.position;
+            if(touch.phase == TouchPhase.Began)
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                Ray ray = Camera.main.ScreenPointToRay(touchPosition);
                 RaycastHit Hit;
                 if(Physics.Raycast(ray, out Hit))
                 {
@@ -119,22 +129,47 @@ public class swipeBall : MonoBehaviour
                         
                         //debugLog.text = "detect sphere";
                         touchTimeStart = Time.time;
-                        startPos = Input.GetTouch(0).position;
+                        //startPos = Input.GetTouch(0).position;
+                        //debugLog.text = touchPosition.x + ", " + touchPosition.y;
+                        Vector3 pos = new Vector3(touchPosition.x, touchPosition.y, 1f);
+                        pos = Camera.main.ScreenToWorldPoint(pos);
+                        startWPos = pos;
+                        //debugLog2.text = startWPos.x +", " + startWPos.y + ", "+ startWPos.z;
                     }
                 }
             }
 
-            if(Input.GetTouch(0).phase == TouchPhase.Ended)
+            if(touch.phase == TouchPhase.Ended)
             {
                 //debugLog.text = "Rolling";
                 touchTimeFinish = Time.time;
                 timeInterval = touchTimeFinish - touchTimeStart;
             
-                endPos = Input.GetTouch(0).position;
-                direction = startPos - endPos;
-
+                //endPos = Input.GetTouch(0).position;
+                //debugLog.text = touchPosition.x + ", " + touchPosition.y;
+                Vector3 pos = new Vector3(touchPosition.x, touchPosition.y, 1f);
+                pos = Camera.main.ScreenToWorldPoint(pos);
+                endWPos = pos;
+                //debugLog2.text = endWPos.x +", "+ endWPos.y + ", " + endWPos.z;
+                direction = endWPos - startWPos;
                 rb.isKinematic = false;
-                rb.AddForce(-direction.x * 0.3f, 0, -direction.y * 0.3f);
+                if(cameraForward.x > 0 && cameraForward.z > 0)
+                {
+                    //debugLog2.text = "direction north";
+                    rb.AddForce(direction.x * 300f, this.transform.position.y, direction.y * 300f);
+                }
+                else if(cameraForward.x < 0  && cameraForward.z < 0)
+                {
+                    rb.AddForce(direction.x * 300f, this.transform.position.y, -direction.y * 300f);
+                }
+                else if(cameraForward.x > 0 && cameraForward.z < 0)
+                {
+                    rb.AddForce(direction.x * 300f, this.transform.position.y, -direction.y * 300f);
+                }
+                else if(cameraForward.x < 0 && cameraForward.z > 0)
+                {
+                    rb.AddForce(direction.x * 300f, this.transform.position.y, direction.y * 300f);
+                }
                 rolling = true;
                 //Destroy(gameObject, 3f);
             }

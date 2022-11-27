@@ -102,6 +102,9 @@ public class PlacingAndDragging : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        var cameraForward = arCamera.transform.forward;
+        debugLog.text = cameraForward.x +", " + cameraForward.y + ", " + cameraForward.z;
+
         checkPlaneLog.text = FilteredPlane.isBig.ToString();
 
         if (FilteredPlane.isBig)
