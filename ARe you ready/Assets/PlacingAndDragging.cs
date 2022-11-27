@@ -54,6 +54,8 @@ public class PlacingAndDragging : MonoBehaviour
 
     public Text checkPlaneLog;
 
+    ARPlane curPlane;
+
     private GameObject PlacedPrefab
     {
         get
@@ -113,6 +115,9 @@ public class PlacingAndDragging : MonoBehaviour
 
                 }
             }
+
+            curPlane = FindObjectOfType<ARPlane>();
+
             if (destroyAll)
             {
                 timeToRestart += Time.deltaTime;
@@ -236,12 +241,18 @@ public class PlacingAndDragging : MonoBehaviour
                         {
                             debugLog.text = "spawn pins";
                             lastSelectedObject = Instantiate(placedPrefab, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
+                            float yDiff = curPlane.transform.localPosition.y - (lastSelectedObject.GetComponent<CapsuleCollider>().bounds.min.y);
+                            Vector3 spawnPosition = new Vector3(lastSelectedObject.transform.position.x, lastSelectedObject.transform.position.y + yDiff, lastSelectedObject.transform.position.z);
+                            lastSelectedObject.Size = 1;
+                            lastSelectedObject.transform.position = spawnPosition;
+                            lastSelectedObject.YPosition = spawnPosition.y;
                         }
                         else
                         {
                             if (lastSelectedObject.Selected)
                             {
-                                lastSelectedObject.transform.position = hitPose.position;
+                                Vector3 newPosition = new Vector3(hitPose.position.x, lastSelectedObject.YPosition, hitPose.position.z);
+                                lastSelectedObject.transform.position = newPosition;
                                 lastSelectedObject.transform.rotation = hitPose.rotation;
                             }
                         }

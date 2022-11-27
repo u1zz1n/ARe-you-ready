@@ -35,6 +35,8 @@ public class PlacementObject : MonoBehaviour
 
     private Slider scaleSliders;
 
+    private float yPosition;
+
     public Slider originalSlider;
 
     public Text checkText;
@@ -108,6 +110,18 @@ public class PlacementObject : MonoBehaviour
         set
         {
             scaleSlider.value = value.value;
+        }
+    }
+
+    public float YPosition
+    {
+        get
+        {
+            return this.yPosition;
+        }
+        set
+        {
+            yPosition = value;
         }
     }
 
