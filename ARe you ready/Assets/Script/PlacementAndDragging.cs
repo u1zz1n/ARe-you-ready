@@ -198,6 +198,7 @@ public class PlacementAndDragging : MonoBehaviour
             {
                 foreach (ARPlane plane in aRPlaneManager.trackables)
                 {
+
                     if (plane.extents.x * plane.extents.y >= 1 * 1)
                     {
                         aRPlaneManager.enabled = false;
@@ -273,24 +274,22 @@ public class PlacementAndDragging : MonoBehaviour
                     if (lastSelectedObject == null)
                     {
                         lastSelectedObject = Instantiate(placedPrefabs[spawnObjectNum], hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
-                        float yDiff = lastSelectedObject.transform.localPosition.y - curPlane.transform.localPosition.y;
-
+                        //float yDiff = lastSelectedObject.GetComponent<Renderer>().bounds.center.y - curPlane.transform.localPosition.y;
+                        float yDiff = curPlane.transform.localPosition.y - (lastSelectedObject.GetComponent<CapsuleCollider>().bounds.min.y);
                         Vector3 spawnPosition = new Vector3(lastSelectedObject.transform.position.x, lastSelectedObject.transform.position.y + yDiff, lastSelectedObject.transform.position.z);
                         lastSelectedObject.Size = 1;
-                        //CapsuleCollider hihihi = GetComponent<CapsuleCollider>();
                         lastSelectedObject.transform.position = spawnPosition;
+                        lastSelectedObject.YPosition = spawnPosition.y;
                         //lastSelectedObject.Selected = true;
                     }
                     else
                     {
                         if (lastSelectedObject.Selected)
                         {
-                            float yDiff = curPlane.transform.localPosition.y + (lastSelectedObject.transform.localScale.y / 2);
-                            Vector3 sisi = new Vector3(hitPose.position.x, hitPose.position.y + lastSelectedObject.transform.localScale.y / 2, hitPose.position.z);
-
-                            lastSelectedObject.transform.position = hitPose.position;
-
+                            Vector3 newPosition = new Vector3(hitPose.position.x, lastSelectedObject.YPosition, hitPose.position.z);
+                            lastSelectedObject.transform.position = newPosition;              
                             lastSelectedObject.transform.rotation = hitPose.rotation;
+                            //checkLog.text = "it moved";
                         }
                     }
 
