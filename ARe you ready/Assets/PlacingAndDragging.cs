@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class PlacingAndDragging : MonoBehaviour
 {
-    static public bool spawnable = false;
+    static public bool spawnable = false; //when spawn UI pressed, true.
     bool LimitBall = false;
     bool changeColor = false;
     bool destroyAll = false;
@@ -231,7 +231,7 @@ public class PlacingAndDragging : MonoBehaviour
                             debugLog.text = "spawn ball";
                             LimitBall = true;
                             lastSelectedObject = Instantiate(bowingBall, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
-                            float yDiff = curPlane.transform.localPosition.y - (lastSelectedObject.GetComponent<CapsuleCollider>().bounds.min.y);
+                            float yDiff = curPlane.transform.localPosition.y - (lastSelectedObject.GetComponent<SphereCollider>().bounds.min.y);
                             Vector3 spawnPosition = new Vector3(lastSelectedObject.transform.position.x, lastSelectedObject.transform.position.y + yDiff, lastSelectedObject.transform.position.z);
                             lastSelectedObject.Size = 1;
                             lastSelectedObject.transform.position = spawnPosition;

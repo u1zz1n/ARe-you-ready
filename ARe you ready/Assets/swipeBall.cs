@@ -8,12 +8,12 @@ using UnityEngine.XR.ARFoundation;
 
 public class swipeBall : MonoBehaviour
 {
-    static public bool rollable = false;
-    static public bool startroll = false;
+    static public bool rollable = false; //when roll UI pressed, true.
+    static public bool startroll = false; //taking time to unpressed the roll UI
     
-    static public bool collideWpin = false;
-    static public bool rolling = false;
-    static public bool toBeDestroy = false;
+    static public bool collideWpin = false; //when the ball hit the pin
+    static public bool rolling = false;  //when player finish swiping ball (unpress screen)
+    static public bool toBeDestroy = false; //make object destroy
 
     string btnName;
 
