@@ -21,6 +21,11 @@ public class FilteredPlane : MonoBehaviour
 
     void Start()
     {
+        foreach (ARPlane plane in arPlaneManager.trackables)
+        {
+            Destroy(plane);
+        }
+
         isBig = false;
         dismenstionsForBigPlanes = dismenstionsForBigPlane;
     }
@@ -49,6 +54,7 @@ public class FilteredPlane : MonoBehaviour
                 isBig = true;
                 arPlaneManager.enabled = false;
                 OnBigPlaneFound.Invoke();
+                break;
             }
             //else
             //{

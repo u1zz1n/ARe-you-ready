@@ -15,6 +15,7 @@ public class PlacementAndDragging : MonoBehaviour
     public ARRaycastManager arRaycastManager;
     public ARSessionOrigin aRSessionOrigin;
     public ARPlaneManager aRPlaneManager;
+    private ARPointCloudManager arPointManager;
 
     public Button planeButton;
     public Button planeButton2;
@@ -64,14 +65,15 @@ public class PlacementAndDragging : MonoBehaviour
 
     bool useDisableButton = false;
     bool isCheck = false;
-
+    /*static*/ bool isFirstPlane = true;
+    /*static*/ bool checkOneTime = true;
     public static bool forAll = true;
 
     ARPlane curPlane;
 
     public float allSzie = 1;
 
-    private GameObject PlacedPrefab
+    public GameObject PlacedPrefab
     {
         get
         {
@@ -83,10 +85,12 @@ public class PlacementAndDragging : MonoBehaviour
         }
     }
 
-
+    static int counts = 0;
+    static int counts2 = 0;
 
     void Awake()
     {
+
     }
 
     /*private void ChangePrefabSelection(string name)
@@ -105,12 +109,27 @@ public class PlacementAndDragging : MonoBehaviour
 
     void Start()
     {
+        counts = 0;
+        counts2 = 0;
+
+        foreach (ARPlane plane in aRPlaneManager.trackables)
+        {
+            counts2++;
+            Destroy(plane);
+        }
+
+        //checkLog2.text = "Done!" + "plane is " + counts2;
+
+        isFirstPlane = true;
+        checkOneTime = true;
+
         spawnObjectNum = 0;
         scaleSlider.onValueChanged.AddListener(ScaleChanged);
         spawnObjectLength = placedObjects.Length;
         useDisableButton = false;
         FilteredPlane.isBig = false;
         aRPlaneManager.enabled = true;
+        arPointManager.enabled = true;
         forAll = true;
     }
 
@@ -119,9 +138,10 @@ public class PlacementAndDragging : MonoBehaviour
         if (aRPlaneManager.enabled == false)
         {
             useDisableButton = !useDisableButton;
-        }      
+            checkOneTime = true;
+            isFirstPlane = true;
+        }
 
-        
         aRPlaneManager.enabled = !aRPlaneManager.enabled;
 
         if(useDisableButton)
@@ -143,6 +163,8 @@ public class PlacementAndDragging : MonoBehaviour
         if (aRPlaneManager.enabled == false)
         {
             useDisableButton = !useDisableButton;
+            checkOneTime = true;
+            isFirstPlane = true;
         }
 
         aRPlaneManager.enabled = !aRPlaneManager.enabled;
@@ -161,7 +183,7 @@ public class PlacementAndDragging : MonoBehaviour
         "Remove" : "Restart";
 
 
-        if (aRPlaneManager.enabled)
+        if (useDisableButton)
         {
             PlacementObject[] allOtherObjects = FindObjectsOfType<PlacementObject>();
 
@@ -184,36 +206,42 @@ public class PlacementAndDragging : MonoBehaviour
     void Update()
     {
         isCheck = aRPlaneManager.enabled;
-        checkLog.text = "use : " + useDisableButton + "  enable : " + isCheck + " big :  " + FilteredPlane.isBig;
-
-        //hihi.text = "scale is " + scaleSlider.value.ToString();
+        checkLog.text = "isPlane : " + isFirstPlane + " one : " + checkOneTime;
+        //checkLog.text = "use : " + useDisableButton + "  enable : " + isCheck + " big :  " + FilteredPlane.isBig + " one : " + checkOneTime;
         //spawnObjectLength = placedObjects.Length;
         checkLog2.text = "Please continue to try to recognize the plane until 'Done' appears";
 
         if (FilteredPlane.isBig)
         {
-            checkLog2.text = "Wait for seconds";
-
-            if (!useDisableButton)
+            //checkLog2.text = "Wait for seconds";
+            if (!useDisableButton && checkOneTime)
             {
                 foreach (ARPlane plane in aRPlaneManager.trackables)
-                {
-
-                    if (plane.extents.x * plane.extents.y >= 1 * 1)
+                {  
+                    if ((plane.extents.x * plane.extents.y >= FilteredPlane.dismenstionsForBigPlanes.x * FilteredPlane.dismenstionsForBigPlanes.y) && isFirstPlane)
                     {
+                        //counts++;
                         aRPlaneManager.enabled = false;
+                        isFirstPlane = false;
                     }
-                    else
+                    else /*if((plane.extents.x * plane.extents.y < FilteredPlane.dismenstionsForBigPlanes.x * FilteredPlane.dismenstionsForBigPlanes.y) || (isFirstPlane == false))*/
                     {
                         aRPlaneManager.enabled = false;
                         plane.gameObject.SetActive(aRPlaneManager.enabled);
 
                     }
                 }
+
+                foreach (ARPlane plane in aRPlaneManager.trackables)
+                {
+                    counts++;
+                }
+
+                checkOneTime = false;
             }
 
             curPlane = FindObjectOfType<ARPlane>();
-            checkLog2.text = "Done!";
+            checkLog2.text = "Done!" + "plane is " + counts + "position : " + curPlane.gameObject.transform.position;
 
             printObjectName();
 
