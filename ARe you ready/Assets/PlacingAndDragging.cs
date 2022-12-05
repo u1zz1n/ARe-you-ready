@@ -223,7 +223,7 @@ public class PlacingAndDragging : MonoBehaviour
                 if (arRaycastManager.Raycast(touchPosition, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
                 {
                     Pose hitPose = hits[0].pose;
-
+ 
                     if (spawnable)
                     {
                         if (lastSelectedObject == null && !LimitBall)
