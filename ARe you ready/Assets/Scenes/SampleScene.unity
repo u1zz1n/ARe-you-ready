@@ -2113,7 +2113,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4425394822601044883, guid: 976a93d5c38883b49b5ee65758f72262, type: 3}
+      - m_Target: {fileID: 4758999948583165205, guid: 18f1af71aab02dd488288f96ea5f473d, type: 3}
         m_TargetAssemblyTypeName: ManageScene, Assembly-CSharp
         m_MethodName: mainMenu
         m_Mode: 1

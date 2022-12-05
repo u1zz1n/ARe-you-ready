@@ -6,6 +6,32 @@ using UnityEngine.SceneManagement;
 
 public class ManageScene : MonoBehaviour
 {
+    float time = 0f;
+    static bool digipenLogo = false;
+
+    [SerializeField]
+    public Image digipen;
+
+    private void Awake() {
+        DontDestroyOnLoad(this.gameObject);
+    }
+    private void Start() {
+        
+    }
+    private void Update() {
+        if(!digipenLogo)
+        {
+            time += Time.deltaTime;
+            if(time > 2f)
+            {
+                digipenLogo = true;
+            }
+        }
+        else{
+            digipen.gameObject.SetActive(false);
+        }
+    }
+
     public void TechDemo()
     {
         SceneManager.LoadScene("SampleScene");
