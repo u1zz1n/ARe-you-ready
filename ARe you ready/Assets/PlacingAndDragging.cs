@@ -45,7 +45,7 @@ public class PlacingAndDragging : MonoBehaviour
     private Color OriginPinColor = Color.white;
 
     [SerializeField]
-    private Color OriginBallColor = Color.red;
+    private Material OriginBallColor;
 
     [SerializeField]
     private bool displayOverlay = false;
@@ -166,7 +166,7 @@ public class PlacingAndDragging : MonoBehaviour
                     else if (placementObject.transform.name == "Sphere(Clone)")
                     {
                         //debugLog.text = "Spehre";
-                        meshRenderer.material.color = OriginBallColor;
+                        meshRenderer.material = OriginBallColor;
                     }
                 }
             }

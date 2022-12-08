@@ -1624,7 +1624,7 @@ MonoBehaviour:
   activeColor: {r: 1, g: 0, b: 0, a: 1}
   inactiveColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   OriginPinColor: {r: 1, g: 1, b: 1, a: 1}
-  OriginBallColor: {r: 1, g: 0, b: 0, a: 1}
+  OriginBallColor: {fileID: 2100000, guid: f9be6e1d51a0c004da92f819d5ce22eb, type: 2}
   displayOverlay: 0
   checkPlaneLog: {fileID: 214563355}
 --- !u!4 &856933375
