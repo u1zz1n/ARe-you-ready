@@ -46,4 +46,9 @@ public class ManageScene : MonoBehaviour
     {
         SceneManager.LoadScene("Menu");
     }
+
+    public void Credit()
+    {
+        SceneManager.LoadScene("Credit");
+    }
 }
