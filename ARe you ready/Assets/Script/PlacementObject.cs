@@ -170,6 +170,12 @@ public class PlacementObject : MonoBehaviour
             {
                 this.gameObject.transform.localScale = new Vector3(0, 0, 0);
             }
+
+            float yDiff = PlacementAndDragging.currPlaneY - (this.gameObject.transform.GetComponent<CapsuleCollider>().bounds.min.y);
+            Vector3 newPosition = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + yDiff, this.gameObject.transform.position.z);
+
+            this.gameObject.transform.position = newPosition;
+            this.YPosition = newPosition.y;
         }
     }
 }
