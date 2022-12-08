@@ -35,15 +35,18 @@ public class ManageScene : MonoBehaviour
     public void TechDemo()
     {
         SceneManager.LoadScene("SampleScene");
+        SoundManager.instance.PlaySfx("UI_Press");
     }
 
     public void BowlingDemo()
     {
         SceneManager.LoadScene("RollBall");
+        SoundManager.instance.PlaySfx("UI_Press");
     }
 
     public void mainMenu()
     {
+        SoundManager.instance.PlaySfx("UI_Press");
         SceneManager.LoadScene("Menu");
     }
 }

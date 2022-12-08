@@ -9,11 +9,16 @@ using UnityEngine.SceneManagement;
 
 public class PlacingAndDragging : MonoBehaviour
 {
+    [SerializeField] AudioSource scanSfx;
+    [SerializeField] AudioSource scanCompleteSfx;
+
     static public bool spawnable = false; //when spawn UI pressed, true.
     bool LimitBall = false;
     bool changeColor = false;
     bool destroyAll = false;
     float timeToRestart = 0f;
+    static public bool playsfxcheck = false;
+    static public bool playsfxcheck2 = false;
 
     [SerializeField]
     public Text debugLog;
@@ -74,6 +79,8 @@ public class PlacingAndDragging : MonoBehaviour
         LimitBall = false;
         destroyAll = false;
         timeToRestart = 0f;
+        playsfxcheck = false;
+        playsfxcheck2 = false;
     }
     // Start is called before the first frame update
     void Start()
@@ -89,6 +96,7 @@ public class PlacingAndDragging : MonoBehaviour
 
     void Init()
     {
+        playsfxcheck = false;
         spawnable = false;
         changeColor = false;
         LimitBall = false;
@@ -102,6 +110,11 @@ public class PlacingAndDragging : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!playsfxcheck && !scanSfx.isPlaying)
+        {
+            scanSfx.Play();
+            //SoundManager.instance.PlaySfx("ScanningPlane");
+        }
         var cameraForward = arCamera.transform.forward;
         debugLog.text = cameraForward.x +", " + cameraForward.y + ", " + cameraForward.z;
 
@@ -114,7 +127,10 @@ public class PlacingAndDragging : MonoBehaviour
                 if (plane.extents.x * plane.extents.y >= FilteredPlane.dismenstionsForBigPlanes.x * FilteredPlane.dismenstionsForBigPlanes.y)
                 {
                     aRPlaneManager.enabled = false;
+                    playsfxcheck = true;
+                    
                     checkPlaneLog.text = "Done!";
+                    //SoundManager.instance.PlaySfx("ScanningComplete");
                 }
                 else
                 {
@@ -122,6 +138,13 @@ public class PlacingAndDragging : MonoBehaviour
                     plane.gameObject.SetActive(aRPlaneManager.enabled);
 
                 }
+            }
+
+            if(!scanCompleteSfx.isPlaying && !playsfxcheck2)
+            {
+                playsfxcheck2 = true;
+                scanSfx.Stop();
+                scanCompleteSfx.Play();
             }
 
             curPlane = FindObjectOfType<ARPlane>();
@@ -231,6 +254,7 @@ public class PlacingAndDragging : MonoBehaviour
                             debugLog.text = "spawn ball";
                             LimitBall = true;
                             lastSelectedObject = Instantiate(bowingBall, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
+                            SoundManager.instance.PlaySfx("Placement");
                             float yDiff = curPlane.transform.localPosition.y - (lastSelectedObject.GetComponent<SphereCollider>().bounds.min.y);
                             Vector3 spawnPosition = new Vector3(lastSelectedObject.transform.position.x, lastSelectedObject.transform.position.y + yDiff, lastSelectedObject.transform.position.z);
                             lastSelectedObject.Size = 1;
@@ -255,6 +279,8 @@ public class PlacingAndDragging : MonoBehaviour
                         {
                             debugLog.text = "spawn pins";
                             lastSelectedObject = Instantiate(placedPrefab, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
+                            SoundManager.instance.PlaySfx("Placement");
+
                             float yDiff = curPlane.transform.localPosition.y - (lastSelectedObject.GetComponent<CapsuleCollider>().bounds.min.y);
                             Vector3 spawnPosition = new Vector3(lastSelectedObject.transform.position.x, lastSelectedObject.transform.position.y + yDiff, lastSelectedObject.transform.position.z);
                             lastSelectedObject.Size = 1;

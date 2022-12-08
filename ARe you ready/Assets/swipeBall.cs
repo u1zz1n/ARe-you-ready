@@ -15,6 +15,8 @@ public class swipeBall : MonoBehaviour
     static public bool rolling = false;  //when player finish swiping ball (unpress screen)
     static public bool toBeDestroy = false; //make object destroy
 
+    static public bool rollingSound = false;
+
     string btnName;
 
     static public float time = 0f;
@@ -78,7 +80,7 @@ public class swipeBall : MonoBehaviour
         collideWpin = false;
         rolling = false;
         toBeDestroy = false;
-
+        rollingSound = false;
         time = 0f;
     }
     // Update is called once per frame
@@ -86,7 +88,10 @@ public class swipeBall : MonoBehaviour
     {
         var cameraForward = arCamera.transform.forward;
         //debugLog.text = cameraForward.x +", " + cameraForward.y + ", " + cameraForward.z;
-
+        if(rollingSound)
+        {
+            SoundManager.instance.PlaySfx("RollingBall");
+        }
         if(rollable)
         {
             time += Time.deltaTime;
@@ -106,7 +111,8 @@ public class swipeBall : MonoBehaviour
                 else if(rb.velocity.magnitude < 0.1f)
                 {        
                     toBeDestroy = true;    
-                }            
+                }
+                rollingSound = false;            
             }
 
         }
@@ -171,6 +177,7 @@ public class swipeBall : MonoBehaviour
                     rb.AddForce(direction.x * 300f, this.transform.position.y, direction.y * 300f);
                 }
                 rolling = true;
+                rollingSound = true;
                 //Destroy(gameObject, 3f);
             }
         }
@@ -215,6 +222,7 @@ public class swipeBall : MonoBehaviour
         {
             collideWpin = true;
             debugLog.text = "Collide with pin";
+            SoundManager.instance.PlaySfx("pinFalling");
         }
     }
 }
