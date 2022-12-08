@@ -49,4 +49,9 @@ public class ManageScene : MonoBehaviour
         SoundManager.instance.PlaySfx("UI_Press");
         SceneManager.LoadScene("Menu");
     }
+
+    public void Credit()
+    {
+        SceneManager.LoadScene("Credit");
+    }
 }
