@@ -13,6 +13,7 @@ public class FilteredPlane : MonoBehaviour
     public event Action OnVerticalPlaneFound;
     public event Action OnHorizontalPlaneFound;
     public event Action OnBigPlaneFound;
+    public ARSession aRSession;
 
     public static bool isBig = false;
 
@@ -21,10 +22,12 @@ public class FilteredPlane : MonoBehaviour
 
     void Start()
     {
-        foreach (ARPlane plane in arPlaneManager.trackables)
-        {
-            Destroy(plane);
-        }
+        //foreach (ARPlane plane in arPlaneManager.trackables)
+        //{
+        //    plane.gameObject.SetActive(false);
+        //}
+
+        aRSession.Reset();
 
         isBig = false;
         dismenstionsForBigPlanes = dismenstionsForBigPlane;

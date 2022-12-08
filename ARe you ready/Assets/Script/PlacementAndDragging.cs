@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.ARSubsystems;
 
 public class PlacementAndDragging : MonoBehaviour
 {
@@ -15,7 +16,6 @@ public class PlacementAndDragging : MonoBehaviour
     public ARRaycastManager arRaycastManager;
     public ARSessionOrigin aRSessionOrigin;
     public ARPlaneManager aRPlaneManager;
-    private ARPointCloudManager arPointManager;
 
     public Button planeButton;
     public Button planeButton2;
@@ -72,6 +72,7 @@ public class PlacementAndDragging : MonoBehaviour
     ARPlane curPlane;
 
     public float allSzie = 1;
+    public static float currPlaneY = 1;
 
     public GameObject PlacedPrefab
     {
@@ -112,11 +113,10 @@ public class PlacementAndDragging : MonoBehaviour
         counts = 0;
         counts2 = 0;
 
-        foreach (ARPlane plane in aRPlaneManager.trackables)
-        {
-            counts2++;
-            Destroy(plane);
-        }
+        //foreach (ARPlane plane in aRPlaneManager.trackables)
+        //{
+        //    plane.gameObject.SetActive(false);
+        //}
 
         //checkLog2.text = "Done!" + "plane is " + counts2;
 
@@ -129,7 +129,7 @@ public class PlacementAndDragging : MonoBehaviour
         useDisableButton = false;
         FilteredPlane.isBig = false;
         aRPlaneManager.enabled = true;
-        arPointManager.enabled = true;
+        //arPointManager.enabled = true;
         forAll = true;
     }
 
@@ -227,8 +227,8 @@ public class PlacementAndDragging : MonoBehaviour
                     else /*if((plane.extents.x * plane.extents.y < FilteredPlane.dismenstionsForBigPlanes.x * FilteredPlane.dismenstionsForBigPlanes.y) || (isFirstPlane == false))*/
                     {
                         aRPlaneManager.enabled = false;
+                        //Destroy(plane);
                         plane.gameObject.SetActive(aRPlaneManager.enabled);
-
                     }
                 }
 
@@ -241,6 +241,8 @@ public class PlacementAndDragging : MonoBehaviour
             }
 
             curPlane = FindObjectOfType<ARPlane>();
+            currPlaneY = curPlane.gameObject.transform.position.y;
+
             checkLog2.text = "Done!" + "plane is " + counts + "position : " + curPlane.gameObject.transform.position;
 
             printObjectName();
@@ -383,6 +385,11 @@ public class PlacementAndDragging : MonoBehaviour
                     placementObject.gameObject.transform.localScale = new Vector3(0, 0, 0);
                 }
                 //placementObject.gameObject.transform.position = Vector3.Scale(placementObject.gameObject.transform.position - placementObject.GetComponent<Renderer>().bounds.center, placementObject.gameObject.transform.localScale) + placementObject.GetComponent<Renderer>().bounds.center;
+                //float yDiff = curPlane.transform.localPosition.y - (placementObject.GetComponent<CapsuleCollider>().bounds.min.y);
+                //Vector3 newPosition = new Vector3(placementObject.gameObject.transform.position.x, placementObject.gameObject.transform.position.y + yDiff, placementObject.gameObject.transform.position.z);
+
+                //placementObject.transform.position = newPosition;
+                //placementObject.YPosition = newPosition.y;
 
                 scaleCheck.text = "change: " + newVal + "scale: " + placementObject.Size;
             }     
