@@ -1,0 +1,13 @@
+Amendments
+Gam 400
+JellyMolly:
+Uijin Lee
+Hagyeong Kim
+
+
+
+At the beginning of this project, we had no experience in developing AR, so we thought it was possible to implement various simulations during the semester. 
+So we aimed to create a bowling simulation where the object placement function is the main theme, another simulation where image tracking is the main theme, and finally a virtual fitting simulation where face tracking is the main theme.
+However, after the first meeting with the professor, the professor emphysized that the AR project is different from other projects, and that the real world and the ar world are realized in harmony first. 
+So we changed our plan to fully implement the bowling simulation, leaving behind all other simulations and the subsequent development of AR features.
+We have coordinated numerous minor physical attributes, AR techniques, and components in the simulation to make AR features match all real things without being awkward with the real world.

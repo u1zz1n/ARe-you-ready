@@ -8,15 +8,17 @@ public class ManageScene : MonoBehaviour
 {
     float time = 0f;
     static bool digipenLogo = false;
-
+    static bool teamlogof = false;
     [SerializeField]
     public Image digipen;
+
+    public GameObject teamLogo;
 
     private void Awake() {
         DontDestroyOnLoad(this.gameObject);
     }
     private void Start() {
-        
+            teamLogo.gameObject.SetActive(false);
     }
     private void Update() {
         if(!digipenLogo)
@@ -25,10 +27,23 @@ public class ManageScene : MonoBehaviour
             if(time > 2f)
             {
                 digipenLogo = true;
+                time = 0f;
             }
         }
         else{
             digipen.gameObject.SetActive(false);
+            //
+        }
+
+        if(digipenLogo && !teamlogof)
+        {
+            teamLogo.gameObject.SetActive(true);
+            time += Time.deltaTime;
+            if(time > 2f)
+            {
+                teamlogof = true;
+                teamLogo.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -53,5 +68,7 @@ public class ManageScene : MonoBehaviour
     public void Credit()
     {
         SceneManager.LoadScene("Credit");
+        SoundManager.instance.PlaySfx("UI_Press");
+
     }
 }

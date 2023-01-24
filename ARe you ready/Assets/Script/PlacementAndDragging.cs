@@ -18,7 +18,7 @@ public class PlacementAndDragging : MonoBehaviour
     public ARPlaneManager aRPlaneManager;
 
     public Button planeButton;
-    public Button planeButton2;
+    //public Button planeButton2;
 
     [SerializeField]
     private Camera arCamera;
@@ -56,12 +56,13 @@ public class PlacementAndDragging : MonoBehaviour
     private Slider scaleSlider;
 
     public Text placeObejctName;
-    public Text scaleCheck;
-    public Text checkLog;
-    public Text checkLog2;
+    //public Text scaleCheck;
+    //public Text checkLog;
+    //public Text checkLog2;
     //public Text checkLog3;
-    public Text checkLog4;
+    //public Text checkLog4;
 
+    public Text findingPalne;
 
     bool useDisableButton = false;
     bool isCheck = false;
@@ -131,6 +132,8 @@ public class PlacementAndDragging : MonoBehaviour
         aRPlaneManager.enabled = true;
         //arPointManager.enabled = true;
         forAll = true;
+
+        findingPalne.text = "Please wait...looking for a suitable plane";
     }
 
     public void TogglePlaneDetection()
@@ -158,7 +161,7 @@ public class PlacementAndDragging : MonoBehaviour
         "Disable" : "Enable";
     }
 
-    public void TogglePlaneDetection2()
+    /*public void TogglePlaneDetection2()
     {
         if (aRPlaneManager.enabled == false)
         {
@@ -201,15 +204,17 @@ public class PlacementAndDragging : MonoBehaviour
                 placementObject.gameObject.SetActive(false);
             }
         }
-    }
+    }*/
     // Update is called once per frame
     void Update()
     {
+        findingPalne.text = "Please wait...looking for a suitable plane";
+
         isCheck = aRPlaneManager.enabled;
-        checkLog.text = "isPlane : " + isFirstPlane + " one : " + checkOneTime;
+        //checkLog.text = "isPlane : " + isFirstPlane + " one : " + checkOneTime;
         //checkLog.text = "use : " + useDisableButton + "  enable : " + isCheck + " big :  " + FilteredPlane.isBig + " one : " + checkOneTime;
         //spawnObjectLength = placedObjects.Length;
-        checkLog2.text = "Please continue to try to recognize the plane until 'Done' appears";
+        //checkLog2.text = "Please continue to try to recognize the plane until 'Done' appears";
 
         if (FilteredPlane.isBig)
         {
@@ -242,8 +247,10 @@ public class PlacementAndDragging : MonoBehaviour
 
             curPlane = FindObjectOfType<ARPlane>();
             currPlaneY = curPlane.gameObject.transform.position.y;
+            findingPalne.text = "Done! place the object";
 
-            checkLog2.text = "Done!" + "plane is " + counts + "position : " + curPlane.gameObject.transform.position;
+
+            //checkLog2.text = "Done!" + "plane is " + counts + "position : " + curPlane.gameObject.transform.position;
 
             printObjectName();
 
@@ -355,7 +362,7 @@ public class PlacementAndDragging : MonoBehaviour
 
         PlacementObject[] allOtherObjects = FindObjectsOfType<PlacementObject>();
         int sizeee = allOtherObjects.Length - 1;
-        checkLog4.text = allOtherObjects[sizeee].name + allOtherObjects[sizeee].transform.position;
+        //checkLog4.text = allOtherObjects[sizeee].name + allOtherObjects[sizeee].transform.position;
 
 
         foreach (PlacementObject placementObject in allOtherObjects)
@@ -392,7 +399,7 @@ public class PlacementAndDragging : MonoBehaviour
                 //placementObject.transform.position = newPosition;
                 //placementObject.YPosition = newPosition.y;
 
-                scaleCheck.text = "change: " + newVal + "scale: " + placementObject.Size;
+                //scaleCheck.text = "change: " + newVal + "scale: " + placementObject.Size;
             }     
         }
     }

@@ -1,0 +1,47 @@
+Contribution
+JellyMolly
+
+Uijin Lee
+1)	Spawn Object
+	I efforted to make to spawn 3D objects in the AR world created based on the real world. I also worked to adjust physics components such as rigid body and colliders to place objects on the detected AR plane. 
+	There were many bugs on the detected artificial AR plane that sometimes failed to stop and fell endlessly. So it could be fixed with the above effort.
+
+2)	Swipe Ball
+	The ball was created using the user’s touch swipe to create a direction vector and use it to make the ball roll. 
+	When controlling the movement of an object in PC game development, since the camera in the game is set based on the game object, the movement can be controlled according to the direction and position of the game object in the world coordinate. 
+	However, in AR environment, the world is set based on the direction of the first moment the device executes the application, and the user can move the camera in various directions and locations in the real world at runtime. 
+	So when moving the game object using a touch swipe, the direction vector of movement should be set based on the world and camera forward direction. It took quite a long time to recognize the grasp this.
+
+3)	Sound
+	Although it is a simulation, not a game, various sfx were added to increase the interest of users who use the application and to harmonize with the real world. 
+	Through sfx, users can receive sound feedback from the application UI in runtime, and 3D object placement can blend well with the real world. In addition, the sound of the ball rolling and the pin falling allowed the player to have a little fun and not lose their interest.
+
+4)	Shadow
+	Unity universal render pipeline resets the shaders of all the material, allowing all 3D objects in the AR scene to cast shadows on the floor of the real world. Through this, a more realistic production became possible.
+
+5)	 Bowling simulation
+	A simple bowling simulation was created by combining all the features implemented. Compared to when each feature was implemented separately, there were many bugs that were not known because each feature was made to interact in one simulation. It was a time when various physical bugs and AR technical defects could be found. 
+	Through this simulation implementation, I was able to further develop the AR technology of this project, and it was an opportunity to personally master the use of unity's rigid body and collider.
+
+Hagyeong Kim
+1)	Plane Detecting
+	First, I detect the plane to place the object in AR world. Basically, unity detects everything that is supposed to be flat as a plane, so I have to find the appropriate plane to be used in our project in practice and remove the rest of the plane. 
+	The plane that we will use should be a Horizontal plane and have a true size of 1x1 or higher. In addition, when the scene is newly loaded, the existing AR Session will be reset and delete all previously recognized planes to find the appropriate plane and reduce errors related to the plane. 
+	It also allows you to toggle the plane-detecting function.
+
+2)	Scale
+	I made it possible to adjust the size of the objects placed in the plane. There are two types of scales: one to adjust the size of the entire object and the other to adjust the size of one selected object. 
+	The scaling of the object can be done using the slider bar added by the UI, and at first, the values of each slider collided and the scaling became strange, so I solved this problem.
+
+3)	Dragging & Selecting
+	I made it possible for the user to select and drag objects that want to move or scale among objects placed on the plane. 
+	The object that users select turns red and the object that is not selected turns gray.
+ 
+4)	Spawn Object
+	After the plane was detected, I received the user's input and allowed the object to be spawned. 
+	I received the user's touch position as a spawn object position, added a new object to that point, and added a placed object to the list to manage the object
+
+5)	Standing an object on the plane
+	One of the biggest problems with spawning an object was that it was spawned below or above the detected plane. 
+	This problem occurred because the centroid of each object was not at the bottom of the object, and to solve this problem, I took the collision box size of each object and calculated the offset. 
+	It also allows objects to stand on the plane when scaling and dragging them.

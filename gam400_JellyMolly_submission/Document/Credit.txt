@@ -1,0 +1,31 @@
+JellyMolly
+
+Team Member
+	Programmer
+	Uijin Lee
+
+	Programmer 
+	Hagyeong Kim
+
+Faculty and Advisors
+	Justin Chambers
+	Jen Sward
+	Ian Jirka
+	David Saunders
+
+Lab Management and IT
+	Christopher Onorati
+
+Special Thanks
+	Jin A Hyun
+
+Created at DigiPen Institute of Technology
+
+PRESIDENT
+CLAUDE COMAIR
+
+Software and assets
+Unity: 2021.3.1
+
+© 2022 DigiPen (USA) Corporation
+
