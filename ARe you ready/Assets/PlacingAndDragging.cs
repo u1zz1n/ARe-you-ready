@@ -85,7 +85,6 @@ public class PlacingAndDragging : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        debugLog.text = "Wait until detecting the plane\n keep moving your camera to scane your plane";
         foreach (ARPlane plane in aRPlaneManager.trackables)
         {
             Destroy(plane);
@@ -105,7 +104,7 @@ public class PlacingAndDragging : MonoBehaviour
         timeToRestart = 0f;
         lastSelectedObject = null;
 
-        //debugLog.text = "Restart and init";
+        debugLog.text = "Restart and init";
     }
 
     // Update is called once per frame
@@ -117,8 +116,7 @@ public class PlacingAndDragging : MonoBehaviour
             //SoundManager.instance.PlaySfx("ScanningPlane");
         }
         var cameraForward = arCamera.transform.forward;
-        //camera direction text
-        //debugLog.text = cameraForward.x +", " + cameraForward.y + ", " + cameraForward.z;
+        debugLog.text = cameraForward.x +", " + cameraForward.y + ", " + cameraForward.z;
 
         checkPlaneLog.text = FilteredPlane.isBig.ToString();
 
@@ -147,7 +145,6 @@ public class PlacingAndDragging : MonoBehaviour
                 playsfxcheck2 = true;
                 scanSfx.Stop();
                 scanCompleteSfx.Play();
-                debugLog.text = "put pins and dragging on your plane, then press Ball button";
             }
 
             curPlane = FindObjectOfType<ARPlane>();
@@ -186,7 +183,7 @@ public class PlacingAndDragging : MonoBehaviour
 
                     if (placementObject.transform.name == "pin(Clone)")
                     {
-                        //debugLog.text = "Pin";
+                        debugLog.text = "Pin";
                         meshRenderer.material.color = OriginPinColor;
                     }
                     else if (placementObject.transform.name == "Sphere(Clone)")
@@ -254,7 +251,7 @@ public class PlacingAndDragging : MonoBehaviour
                     {
                         if (lastSelectedObject == null && !LimitBall)
                         {
-                            //debugLog.text = "spawn ball";
+                            debugLog.text = "spawn ball";
                             LimitBall = true;
                             lastSelectedObject = Instantiate(bowingBall, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
                             SoundManager.instance.PlaySfx("Placement");
@@ -280,7 +277,7 @@ public class PlacingAndDragging : MonoBehaviour
                     {
                         if (lastSelectedObject == null)
                         {
-                            //debugLog.text = "spawn pins";
+                            debugLog.text = "spawn pins";
                             lastSelectedObject = Instantiate(placedPrefab, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
                             SoundManager.instance.PlaySfx("Placement");
 
