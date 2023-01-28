@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlacementObject : MonoBehaviour
 {
@@ -39,7 +40,9 @@ public class PlacementObject : MonoBehaviour
 
     public Slider originalSlider;
 
-    public Text checkText;
+    //public Text checkText;
+
+    Vector3 sliderPosition;
 
     public bool Selected
     {
@@ -141,7 +144,12 @@ public class PlacementObject : MonoBehaviour
         scaleSliders.gameObject.transform.SetParent(canvas.gameObject.transform, false);
         scaleSliders.transform.position = this.transform.position;
         scaleSliders.onValueChanged.AddListener(ScaleChangedEach);
-        //scaleSlider.gameObject.SetActive(false);
+
+        if (SceneManager.GetActiveScene().name != "SampleScene")
+        {
+            sliderPosition = originalSlider.transform.position;
+            originalSlider.gameObject.SetActive(false);
+        }
     }
 
     void Update()
@@ -149,7 +157,16 @@ public class PlacementObject : MonoBehaviour
         //checkText.text = "select: " + scaleSliders.transform.position;
         scaleSliders.gameObject.SetActive(Selected);
         //scaleSliders.transform.position = camera.WorldToScreenPoint(new Vector3(this.transform.position.x, this.transform.position.y + 0.5f, this.transform.position.z));
-        scaleSliders.transform.position = new Vector3(originalSlider.transform.position.x, originalSlider.transform.position.y + 100f, originalSlider.transform.position.z);
+        
+        if(SceneManager.GetActiveScene().name == "SampleScene")
+        {
+            scaleSliders.transform.position = new Vector3(originalSlider.transform.position.x, originalSlider.transform.position.y + 100f, originalSlider.transform.position.z);
+        }
+        else
+        {
+            scaleSliders.transform.position = new Vector3(sliderPosition.x, sliderPosition.y + 100f, sliderPosition.z);
+        }
+
         scaleSliders.value = preEachSliderValue;
         PlacementAndDragging.forAll = false;
     }
@@ -171,7 +188,16 @@ public class PlacementObject : MonoBehaviour
                 this.gameObject.transform.localScale = new Vector3(0, 0, 0);
             }
 
-            float yDiff = PlacementAndDragging.currPlaneY - (this.gameObject.transform.GetComponent<CapsuleCollider>().bounds.min.y);
+            float yDiff = 0;
+
+            if (SceneManager.GetActiveScene().name == "SampleScene")
+            {
+                yDiff = PlacementAndDragging.currPlaneY - (this.gameObject.transform.GetComponent<CapsuleCollider>().bounds.min.y);
+            }
+            else
+            {
+                yDiff = PlacingAndDragging.currPlaneY2 - (this.gameObject.transform.GetComponent<CapsuleCollider>().bounds.min.y);
+            }
             Vector3 newPosition = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + yDiff, this.gameObject.transform.position.z);
 
             this.gameObject.transform.position = newPosition;

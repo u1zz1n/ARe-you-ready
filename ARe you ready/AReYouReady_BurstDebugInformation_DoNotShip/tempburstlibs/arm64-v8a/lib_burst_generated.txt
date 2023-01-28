@@ -136,8 +136,9 @@ Library: lib_burst_generated
 --compilation-defines=UNITY_ANALYTICS
 --generate-link-xml=Temp\burst.link.xml
 --output=D:\DIGIPEN\22Fall\gam400\ARe-you-ready\ARe you ready\Temp\StagingArea\tempburstlibs\arm64-v8a\lib_burst_generated
---root-assembly=D:\DIGIPEN\22Fall\gam400\ARe-you-ready\ARe you ready\Temp\StagingArea\Data\Managed\Unity.RenderPipelines.Core.Runtime.dll
 --root-assembly=D:\DIGIPEN\22Fall\gam400\ARe-you-ready\ARe you ready\Temp\StagingArea\Data\Managed\UnityEngine.UI.dll
+--root-assembly=D:\DIGIPEN\22Fall\gam400\ARe-you-ready\ARe you ready\Temp\StagingArea\Data\Managed\Unity.RenderPipelines.Core.Runtime.dll
+
 --root-assembly=D:\DIGIPEN\22Fall\gam400\ARe-you-ready\ARe you ready\Temp\StagingArea\Data\Managed\Unity.VisualScripting.Flow.dll
 --root-assembly=D:\DIGIPEN\22Fall\gam400\ARe-you-ready\ARe you ready\Temp\StagingArea\Data\Managed\Assembly-CSharp.dll
 --root-assembly=D:\DIGIPEN\22Fall\gam400\ARe-you-ready\ARe you ready\Temp\StagingArea\Data\Managed\Unity.Mathematics.dll

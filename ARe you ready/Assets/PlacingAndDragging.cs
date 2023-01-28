@@ -60,6 +60,7 @@ public class PlacingAndDragging : MonoBehaviour
     public Text checkPlaneLog;
 
     ARPlane curPlane;
+    public static float currPlaneY2 = 1;
 
     private GameObject PlacedPrefab
     {
@@ -85,6 +86,7 @@ public class PlacingAndDragging : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        debugLog.text = "Wait until detecting your world.\n Keep moving the camera around your plane.";
         foreach (ARPlane plane in aRPlaneManager.trackables)
         {
             Destroy(plane);
@@ -104,7 +106,7 @@ public class PlacingAndDragging : MonoBehaviour
         timeToRestart = 0f;
         lastSelectedObject = null;
 
-        debugLog.text = "Restart and init";
+        //debugLog.text = "Restart and init";
     }
 
     // Update is called once per frame
@@ -116,7 +118,7 @@ public class PlacingAndDragging : MonoBehaviour
             //SoundManager.instance.PlaySfx("ScanningPlane");
         }
         var cameraForward = arCamera.transform.forward;
-        debugLog.text = cameraForward.x +", " + cameraForward.y + ", " + cameraForward.z;
+        //debugLog.text = cameraForward.x +", " + cameraForward.y + ", " + cameraForward.z;
 
         checkPlaneLog.text = FilteredPlane.isBig.ToString();
 
@@ -142,12 +144,16 @@ public class PlacingAndDragging : MonoBehaviour
 
             if(!scanCompleteSfx.isPlaying && !playsfxcheck2)
             {
+                debugLog.text = "Plane Detecting Success! \n " +
+                    "Touch the screen to put and dragging pins \n" +
+                    "then press 'Ball' to spawn ball.";
                 playsfxcheck2 = true;
                 scanSfx.Stop();
                 scanCompleteSfx.Play();
             }
 
             curPlane = FindObjectOfType<ARPlane>();
+            currPlaneY2 = curPlane.transform.position.y;
 
             if (destroyAll)
             {
@@ -183,7 +189,7 @@ public class PlacingAndDragging : MonoBehaviour
 
                     if (placementObject.transform.name == "pin(Clone)")
                     {
-                        debugLog.text = "Pin";
+                        //debugLog.text = "Pin";
                         meshRenderer.material.color = OriginPinColor;
                     }
                     else if (placementObject.transform.name == "Sphere(Clone)")
@@ -238,10 +244,10 @@ public class PlacingAndDragging : MonoBehaviour
                     }
                 }
 
-                if (touch.phase == TouchPhase.Ended)
-                {
-                    lastSelectedObject.Selected = false;
-                }
+                //if (touch.phase == TouchPhase.Ended)
+                //{
+                //    lastSelectedObject.Selected = false;
+                //}
 
                 if (arRaycastManager.Raycast(touchPosition, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
                 {
@@ -251,7 +257,7 @@ public class PlacingAndDragging : MonoBehaviour
                     {
                         if (lastSelectedObject == null && !LimitBall)
                         {
-                            debugLog.text = "spawn ball";
+                            //debugLog.text = "spawn ball";
                             LimitBall = true;
                             lastSelectedObject = Instantiate(bowingBall, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
                             SoundManager.instance.PlaySfx("Placement");
@@ -277,7 +283,7 @@ public class PlacingAndDragging : MonoBehaviour
                     {
                         if (lastSelectedObject == null)
                         {
-                            debugLog.text = "spawn pins";
+                            //debugLog.text = "spawn pins";
                             lastSelectedObject = Instantiate(placedPrefab, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
                             SoundManager.instance.PlaySfx("Placement");
 
