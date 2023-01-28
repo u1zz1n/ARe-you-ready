@@ -71,4 +71,16 @@ public class ManageScene : MonoBehaviour
         SoundManager.instance.PlaySfx("UI_Press");
 
     }
+    public void ImageTracking()
+    {
+        SoundManager.instance.PlaySfx("UI_Press");
+        SceneManager.LoadScene("ImageTracking");
+    }
+
+    public void ObjectTracking()
+    {
+        SoundManager.instance.PlaySfx("UI_Press");
+        SceneManager.LoadScene("ObjectTracking");
+    }
+
 }
