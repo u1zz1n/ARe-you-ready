@@ -804,7 +804,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: hjjjjjjjjjjjjjjjjjjjjjjjjj
+  m_Text: Loading...
 --- !u!222 &599972224
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1024,8 +1024,6 @@ MonoBehaviour:
   - {fileID: 2132222440}
   - {fileID: 294754700}
   - {fileID: 1675833059}
-  maxTime: 5
-  delay: 0
 --- !u!4 &1043658239
 Transform:
   m_ObjectHideFlags: 0
