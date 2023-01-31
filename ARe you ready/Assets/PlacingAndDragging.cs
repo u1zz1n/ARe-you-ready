@@ -36,8 +36,11 @@ public class PlacingAndDragging : MonoBehaviour
     private static List<ARRaycastHit> hits = new List<ARRaycastHit>();
     private Vector2 touchPosition = default;
 
+    public static int spawnObjectNum = 0;
+    public static int spawnObjectLength = 0;
+
     [SerializeField]
-    private GameObject placedPrefab;
+    private List<GameObject> placedPrefabs = new List<GameObject>();
 
     ///////select object
     [SerializeField]
@@ -62,15 +65,15 @@ public class PlacingAndDragging : MonoBehaviour
     ARPlane curPlane;
     public static float currPlaneY2 = 1;
 
-    private GameObject PlacedPrefab
+    public GameObject PlacedPrefab
     {
         get
         {
-            return placedPrefab;
+            return placedPrefabs[spawnObjectNum];
         }
         set
         {
-            placedPrefab = value;
+            placedPrefabs[spawnObjectNum] = value;
         }
     }
 
@@ -86,6 +89,8 @@ public class PlacingAndDragging : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       spawnObjectNum = 0;
+
         debugLog.text = "Wait until detecting your world.\n Keep moving the camera around your plane.";
         foreach (ARPlane plane in aRPlaneManager.trackables)
         {
@@ -112,7 +117,12 @@ public class PlacingAndDragging : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!playsfxcheck && !scanSfx.isPlaying)
+        if(SceneManager.GetActiveScene().name == "ObjectTracking")
+        {
+            spawnObjectNum = GPS.locationNumber;
+        }
+
+        if (!playsfxcheck && !scanSfx.isPlaying)
         {
             scanSfx.Play();
             //SoundManager.instance.PlaySfx("ScanningPlane");
@@ -284,7 +294,7 @@ public class PlacingAndDragging : MonoBehaviour
                         if (lastSelectedObject == null)
                         {
                             //debugLog.text = "spawn pins";
-                            lastSelectedObject = Instantiate(placedPrefab, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
+                            lastSelectedObject = Instantiate(placedPrefabs[spawnObjectNum], hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
                             SoundManager.instance.PlaySfx("Placement");
 
                             float yDiff = curPlane.transform.localPosition.y - (lastSelectedObject.GetComponent<CapsuleCollider>().bounds.min.y);

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Android;
+using System.Linq;
+//using UnityEngine.Networking;
+
 public class GPS : MonoBehaviour
 {
     /*public Text gpsOut;
@@ -64,17 +67,80 @@ public class GPS : MonoBehaviour
         Input.location.Stop();
     }*/
 
+    public struct location
+    {
+        public float latitude;
+        public float longitude;
+    };
+
     public Text[] data = new Text[4];
-    //public float maxTime = 100.0f;
+    public float[] locationCal = new float[3];
+    public bool[] locationCheck = new bool[3];
+
+    public bool once = true;
 
     float latitudeCur;
     float longitudeCur;
     float altitudeCur;
 
+    public static int locationNumber = 0; // 0 = defalut, 1 = starbuck, 2 = school
+    public static string cuntName;
+
+    //int isUpdate = 0;
+
+    location redmondPlace;
+    location bigQFCStarbucks;
+    location digipen;
+
+    /*public class IpApiData
+    {
+        public string country_name;
+
+        public static IpApiData CreateFromJSON(string jsonString)
+        {
+            return JsonUtility.FromJson<IpApiData>(jsonString);
+        }
+    }*/
+
     void Start()
     {
+        once = true;
+
+        locationNumber = 0;
+
+        //setting latitude and longitude point
+        redmondPlace.latitude = 47.68171f;
+        redmondPlace.longitude = -122.12920f;
+
+        bigQFCStarbucks.latitude = 47.68111f;
+        bigQFCStarbucks.longitude = -122.12596f;
+
+        digipen.latitude = 47.68906f;
+        digipen.longitude = -122.15040f;
+        /////////////////////////////////////
+
         StartCoroutine(GPS_manager());
+        //StartCoroutine(SetCountry());
     }
+
+    /*public static IEnumerator SetCountry()
+    {
+        string ip = new System.Net.WebClient().DownloadString("https://api.ipify.org");
+        string uri = $"https://ipapi.co/{ip}/json/";
+
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        {
+            yield return webRequest.SendWebRequest();
+
+            string[] pages = uri.Split('/');
+            int page = pages.Length - 1;
+
+            IpApiData ipApiData = IpApiData.CreateFromJSON(webRequest.downloadHandler.text);
+
+            Debug.Log(ipApiData.country_name);
+            cuntName = ipApiData.country_name;
+        }
+    }*/
 
     private IEnumerator GPS_manager()
     {
@@ -115,14 +181,14 @@ public class GPS : MonoBehaviour
             yield break;
         }
 
-        //latitudeCur = Input.location.lastData.latitude;
-        //longitudeCur = Input.location.lastData.longitude;
-        //altitudeCur = Input.location.lastData.altitude;
+        latitudeCur = Input.location.lastData.latitude;
+        longitudeCur = Input.location.lastData.longitude;
+        altitudeCur = Input.location.lastData.altitude;
 
-        data[0].text = "Latitude : " + latitudeCur.ToString();
-        data[1].text = "Longitude : " + longitudeCur.ToString();
-        data[2].text = "Altitude : " + altitudeCur.ToString();
-        data[3].text = "Done";
+        //data[0].text = "Latitude : " + latitudeCur.ToString();
+        //data[1].text = "Longitude : " + longitudeCur.ToString();
+        //data[2].text = "Altitude : " + altitudeCur.ToString();
+        //data[3].text = "Done";
 
         Input.location.Stop();
         
@@ -132,15 +198,66 @@ public class GPS : MonoBehaviour
     {
         //StartCoroutine(GPS_manager());
 
-        //home = 47.681774 -122.129486
+       locationCal[0] = CalculateLocationOffset(redmondPlace.latitude, redmondPlace.longitude); // redmondPlace
+       locationCal[1] = CalculateLocationOffset(bigQFCStarbucks.latitude, bigQFCStarbucks.longitude); // starbucks
+       locationCal[2] = CalculateLocationOffset(digipen.latitude, digipen.longitude); // digipen
 
+       if (locationCal[0] < 100.0f)
+       {
+           data[0].text = "It is home!: " + locationCal[0].ToString();
+           locationCheck[0] = true;
+       }
+       else
+       {
+           data[0].text = "It is not home! : " + locationCal[0].ToString();
+           locationCheck[0] = false;
+       }
 
-        //home = 47.682021 -122.131673
-        //home = 47.682042 -122.127673
-        //home = 47.681565 -122.127662
-        //home = 47.681500 -122.131734
+       if (locationCal[1] < 100.0f)
+       {
+           data[1].text = "It is starbucks!: " + locationCal[1].ToString();
+           locationCheck[1] = true;
+       }
+       else
+       {
+           data[1].text = "It is not starbucks! : " + locationCal[1].ToString();
+           locationCheck[1] = false;
+       }
 
-        float starL = 47.681042f;
+       if (locationCal[2] < 100.0f)
+       {
+           data[2].text = "It is digipen!: " + locationCal[2].ToString();
+           locationCheck[2] = true;
+       }
+       else
+       {
+           data[2].text = "It is not digipen! : " + locationCal[2].ToString();
+           locationCheck[2] = false;
+       }
+
+       if (locationCal.Min() == locationCal[0] && locationCheck[0] == true)
+       {
+            data[0].text = "lilly lilly Home"; //+ systemLocale.getCountry();
+            locationNumber = 1;
+       }
+       else if (locationCal.Min() == locationCal[1] && locationCheck[0] == true)
+       {
+           data[1].text = "lilly lilly Starbuck";
+           locationNumber = 2;
+       }
+       else if (locationCal.Min() == locationCal[2] && locationCheck[0] == true)
+       {
+           data[2].text = "lilly lilly Digipen";
+           locationNumber = 3;
+       }
+       else
+       {
+           data[3].text = "No Place ";
+           locationNumber = 0;
+       }
+       
+        //cal check code
+        /*float starL = 47.681042f;
         float starLo = -122.2125707f;
 
         latitudeCur = 47.680373f;
@@ -177,7 +294,7 @@ public class GPS : MonoBehaviour
         else
         {
             data[2].text = "NOnono";
-        }
+        }*/
     }
 
     private float CalculateLocationOffset(float latitudeB, float longitudeB)
