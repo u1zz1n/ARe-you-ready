@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 959a893b8964108408c94dea7e0a5f6f
+  - enabled: 1
+    path: Assets/Scenes/SampleScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/RollBall.unity
+    guid: ca6a949da8fd9b741ac9ad0d67764006
+  - enabled: 1
+    path: Assets/Scenes/Credit.unity
+    guid: b281bd644a6003a49a1c0733bb0d54a7
+  - enabled: 1
+    path: Assets/Scenes/TestImage.unity
+    guid: 508028f99e5911c40b1201a06a6c642b
+  - enabled: 1
+    path: Assets/Scenes/ObjectTracking.unity
+    guid: eec3910e1c7965243a9d2972d5c7517c
+  m_configObjects:
+    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 61abe29de5f55a946812c0a7ca992f25, type: 2}
+    UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 219764f90f686114ca095f019ac433c4, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: d9a697547de99614dbe6b3041bc8d136, type: 2}

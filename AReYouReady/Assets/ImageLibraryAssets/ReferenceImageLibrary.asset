@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 848409ee8ba454f42a5ddff137688a27, type: 3}
+  m_Name: ReferenceImageLibrary
+  m_EditorClassIdentifier: 
+  m_GuidLow: 5465745684710067539
+  m_GuidHigh: 12350684093047979943
+  m_DataStore:
+    m_Storage: []
+  m_Images:
+  - m_SerializedGuid:
+      m_GuidLow: 4687240735225166351
+      m_GuidHigh: 18208306171482935693
+    m_SerializedTextureGuid:
+      m_GuidLow: 10170434990849818135
+      m_GuidHigh: 3406945600255429737
+    m_Size: {x: 0.06420546, y: 0.1}
+    m_SpecifySize: 1
+    m_Name: Altoids-removebg-preview
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5058509763576089181
+      m_GuidHigh: 13633365741156574084
+    m_SerializedTextureGuid:
+      m_GuidLow: 6792748817970247021
+      m_GuidHigh: 12239463581769068187
+    m_Size: {x: 0.05276163, y: 0.1}
+    m_SpecifySize: 1
+    m_Name: HG_case-removebg-preview
+    m_Texture: {fileID: 0}
+  - m_SerializedGuid:
+      m_GuidLow: 5153066487128798066
+      m_GuidHigh: 18136355747917234830
+    m_SerializedTextureGuid:
+      m_GuidLow: 14007573303217372831
+      m_GuidHigh: 6144666689592973529
+    m_Size: {x: 0.12755102, y: 0.1}
+    m_SpecifySize: 1
+    m_Name: starbucks-removebg-preview
+    m_Texture: {fileID: 0}
