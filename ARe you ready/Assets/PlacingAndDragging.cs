@@ -172,7 +172,7 @@ public class PlacingAndDragging : MonoBehaviour
                 {
                     //Init();
                     //swipeBall.Init();
-                    SceneManager.LoadScene("RollBall");
+                    SceneManager.LoadScene("ObjectTracking");
                 }
             }
             if(swipeBall.toBeDestroy)
@@ -294,10 +294,28 @@ public class PlacingAndDragging : MonoBehaviour
                         if (lastSelectedObject == null)
                         {
                             //debugLog.text = "spawn pins";
-                            lastSelectedObject = Instantiate(placedPrefabs[spawnObjectNum], hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
+                            if (GPS.locationNumber == 2)
+                            {
+                                lastSelectedObject = Instantiate(placedPrefabs[spawnObjectNum], hitPose.position, Quaternion.Euler(90, 180, 0)).GetComponent<PlacementObject>();
+                                //lastSelectedObject.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                            }
+                            else
+                            {
+                                lastSelectedObject = Instantiate(placedPrefabs[spawnObjectNum], hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
+                            }
                             SoundManager.instance.PlaySfx("Placement");
+                            
+                            float yDiff = 0;
 
-                            float yDiff = curPlane.transform.localPosition.y - (lastSelectedObject.GetComponent<CapsuleCollider>().bounds.min.y);
+                            if(GPS.locationNumber == 2)
+                            {
+                                yDiff = curPlane.transform.localPosition.y - (lastSelectedObject.GetComponent<BoxCollider>().bounds.min.y);
+                            }
+                            else
+                            {
+                                yDiff = curPlane.transform.localPosition.y - (lastSelectedObject.GetComponent<CapsuleCollider>().bounds.min.y);
+                            }
+
                             Vector3 spawnPosition = new Vector3(lastSelectedObject.transform.position.x, lastSelectedObject.transform.position.y + yDiff, lastSelectedObject.transform.position.z);
                             lastSelectedObject.Size = 1;
                             lastSelectedObject.transform.position = spawnPosition;

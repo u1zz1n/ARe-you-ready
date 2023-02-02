@@ -79,15 +79,12 @@ public class GPS : MonoBehaviour
 
     public bool once = true;
 
-    float latitudeCur;
-    float longitudeCur;
-    float altitudeCur;
-
     public static int locationNumber = 0; // 0 = defalut, 1 = starbuck, 2 = school
     public static string cuntName;
 
     //int isUpdate = 0;
 
+    public static location curPlace;
     location redmondPlace;
     location bigQFCStarbucks;
     location digipen;
@@ -120,27 +117,7 @@ public class GPS : MonoBehaviour
         /////////////////////////////////////
 
         StartCoroutine(GPS_manager());
-        //StartCoroutine(SetCountry());
     }
-
-    /*public static IEnumerator SetCountry()
-    {
-        string ip = new System.Net.WebClient().DownloadString("https://api.ipify.org");
-        string uri = $"https://ipapi.co/{ip}/json/";
-
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
-        {
-            yield return webRequest.SendWebRequest();
-
-            string[] pages = uri.Split('/');
-            int page = pages.Length - 1;
-
-            IpApiData ipApiData = IpApiData.CreateFromJSON(webRequest.downloadHandler.text);
-
-            Debug.Log(ipApiData.country_name);
-            cuntName = ipApiData.country_name;
-        }
-    }*/
 
     private IEnumerator GPS_manager()
     {
@@ -181,9 +158,9 @@ public class GPS : MonoBehaviour
             yield break;
         }
 
-        latitudeCur = Input.location.lastData.latitude;
-        longitudeCur = Input.location.lastData.longitude;
-        altitudeCur = Input.location.lastData.altitude;
+        curPlace.latitude = Input.location.lastData.latitude;
+        curPlace.longitude = Input.location.lastData.longitude;
+        //altitudeCur = Input.location.lastData.altitude;
 
         //data[0].text = "Latitude : " + latitudeCur.ToString();
         //data[1].text = "Longitude : " + longitudeCur.ToString();
@@ -215,7 +192,7 @@ public class GPS : MonoBehaviour
 
        if (locationCal[1] < 100.0f)
        {
-           data[1].text = "It is starbucks!: " + locationCal[1].ToString();
+           data[1].text = "It is near starbucks!: " + locationCal[1].ToString();
            locationCheck[1] = true;
        }
        else
@@ -226,7 +203,7 @@ public class GPS : MonoBehaviour
 
        if (locationCal[2] < 100.0f)
        {
-           data[2].text = "It is digipen!: " + locationCal[2].ToString();
+           data[2].text = "It is near   digipen!: " + locationCal[2].ToString();
            locationCheck[2] = true;
        }
        else
@@ -238,71 +215,44 @@ public class GPS : MonoBehaviour
        if (locationCal.Min() == locationCal[0] && locationCheck[0] == true)
        {
             data[0].text = "lilly lilly Home"; //+ systemLocale.getCountry();
-            locationNumber = 1;
+            locationNumber = 0;
        }
-       else if (locationCal.Min() == locationCal[1] && locationCheck[0] == true)
+       else if (locationCal.Min() == locationCal[1] && locationCheck[1] == true)
        {
            data[1].text = "lilly lilly Starbuck";
-           locationNumber = 2;
+           locationNumber = 1;
        }
-       else if (locationCal.Min() == locationCal[2] && locationCheck[0] == true)
+       else if (locationCal.Min() == locationCal[2] && locationCheck[2] == true)
        {
            data[2].text = "lilly lilly Digipen";
-           locationNumber = 3;
+           locationNumber = 2;
        }
        else
        {
            data[3].text = "No Place ";
            locationNumber = 0;
        }
-       
-        //cal check code
-        /*float starL = 47.681042f;
-        float starLo = -122.2125707f;
-
-        latitudeCur = 47.680373f;
-        longitudeCur = -122.125507f;
-
-        if (CalculateLocationOffset(starL, starLo) < 100.0f) //nono
-        {
-            data[0].text = CalculateLocationOffset(starL, starLo).ToString(); //0.03002862
-        }
-        else
-        {
-            data[0].text = "NOnono";
-        }
-
-        latitudeCur = 47.681056f;
-        longitudeCur = -122.125705f;
-
-        if (CalculateLocationOffset(starL, starLo) < 100.0f) //yesyes
-        {
-            data[1].text = CalculateLocationOffset(starL, starLo).ToString(); //0.0006848066
-        }
-        else
-        {
-            data[1].text = "NOnono";
-        }
-
-        latitudeCur = 47.681236f;
-        longitudeCur = -122.125888f;
-
-        if (CalculateLocationOffset(starL, starLo) < 100.0f) //yesyes
-        {
-            data[2].text = CalculateLocationOffset(starL, starLo).ToString(); //0.00871902
-        }
-        else
-        {
-            data[2].text = "NOnono";
-        }*/
     }
 
     private float CalculateLocationOffset(float latitudeB, float longitudeB)
     {
-        float firstSinSqure = Mathf.Sin((Mathf.PI * (latitudeB - latitudeCur)/ 360) * Mathf.Sin((Mathf.PI * (latitudeB - latitudeCur)) / 360));
+        //starbucks sample location
+        //curPlace.latitude = 47.681426f;
+        //curPlace.longitude = -122.126919f;
+
+        //home sample location
+        //curPlace.latitude = 47.68191277999324f;
+        //curPlace.longitude = -122.13011754289914f;
+
+        //digipen sample location
+        curPlace.latitude = 47.68890776558581f;
+        curPlace.longitude = -122.15030925149208f;
+
+
+        float firstSinSqure = Mathf.Sin((Mathf.PI * (latitudeB - curPlace.latitude) / 360) * Mathf.Sin((Mathf.PI * (latitudeB - curPlace.latitude)) / 360));
         float firstCosSqure = Mathf.Cos((Mathf.PI * longitudeB) / 180);
-        float secondCosSqure = Mathf.Cos((Mathf.PI * longitudeCur) / 180);
-        float secondSinSqure = Mathf.Sin((Mathf.PI * (longitudeB - longitudeCur) / 360) * Mathf.Sin((Mathf.PI * (longitudeB - longitudeCur)) / 360));
+        float secondCosSqure = Mathf.Cos((Mathf.PI * curPlace.longitude) / 180);
+        float secondSinSqure = Mathf.Sin((Mathf.PI * (longitudeB - curPlace.longitude) / 360) * Mathf.Sin((Mathf.PI * (longitudeB - curPlace.longitude)) / 360));
 
         float inDistanceSqure = Mathf.Sqrt(firstSinSqure * firstCosSqure * secondCosSqure * secondSinSqure);
         float distance = 127420000000 * Mathf.Asin(inDistanceSqure);
