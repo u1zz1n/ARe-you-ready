@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8329577294818382286}
   - component: {fileID: 7298268399770814930}
   m_Layer: 0
-  m_Name: iphone
+  m_Name: StudentID
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -3,99 +3,45 @@
     "m_SelectedPackage": {
         "deviceId": "150148364200cc07",
         "name": "com.Gam400JellyMolly.AReYouReady",
-        "processId": 1505,
-        "exited": false
+        "processId": 10478,
+        "exited": true
     },
     "m_SelectedPriority": 0,
     "m_KnownPackagesForSerialization": [
         {
             "deviceId": "150148364200cc07",
             "name": "com.Gam400JellyMolly.AReYouReady",
-            "processId": 26031,
-            "exited": false
-        },
-        {
-            "deviceId": "150148364200cc07",
-            "name": "com.Gam400JellyMolly.AReYouReady",
-            "processId": 26441,
-            "exited": false
-        },
-        {
-            "deviceId": "150148364200cc07",
-            "name": "com.Gam400JellyMolly.AReYouReady",
-            "processId": 27154,
-            "exited": false
-        },
-        {
-            "deviceId": "150148364200cc07",
-            "name": "com.Gam400JellyMolly.AReYouReady",
-            "processId": 27396,
-            "exited": false
-        },
-        {
-            "deviceId": "150148364200cc07",
-            "name": "com.Gam400JellyMolly.AReYouReady",
-            "processId": 28128,
-            "exited": false
-        },
-        {
-            "deviceId": "150148364200cc07",
-            "name": "com.Gam400JellyMolly.AReYouReady",
-            "processId": 28481,
-            "exited": false
-        },
-        {
-            "deviceId": "150148364200cc07",
-            "name": "com.Gam400JellyMolly.AReYouReady",
-            "processId": 29571,
-            "exited": false
-        },
-        {
-            "deviceId": "150148364200cc07",
-            "name": "com.Gam400JellyMolly.AReYouReady",
-            "processId": 29952,
-            "exited": false
-        },
-        {
-            "deviceId": "150148364200cc07",
-            "name": "com.Gam400JellyMolly.AReYouReady",
-            "processId": 30305,
-            "exited": false
-        },
-        {
-            "deviceId": "150148364200cc07",
-            "name": "com.Gam400JellyMolly.AReYouReady",
-            "processId": 30850,
-            "exited": false
-        },
-        {
-            "deviceId": "150148364200cc07",
-            "name": "com.Gam400JellyMolly.AReYouReady",
-            "processId": 31221,
-            "exited": false
-        },
-        {
-            "deviceId": "150148364200cc07",
-            "name": "com.Gam400JellyMolly.AReYouReady",
-            "processId": 32151,
-            "exited": false
-        },
-        {
-            "deviceId": "150148364200cc07",
-            "name": "com.Gam400JellyMolly.AReYouReady",
-            "processId": 32544,
-            "exited": false
-        },
-        {
-            "deviceId": "150148364200cc07",
-            "name": "com.Gam400JellyMolly.AReYouReady",
-            "processId": 879,
-            "exited": false
-        },
-        {
-            "deviceId": "150148364200cc07",
-            "name": "com.Gam400JellyMolly.AReYouReady",
             "processId": 1505,
+            "exited": true
+        },
+        {
+            "deviceId": "150148364200cc07",
+            "name": "com.Gam400JellyMolly.AReYouReady",
+            "processId": 2806,
+            "exited": true
+        },
+        {
+            "deviceId": "150148364200cc07",
+            "name": "com.Gam400JellyMolly.AReYouReady",
+            "processId": 3232,
+            "exited": true
+        },
+        {
+            "deviceId": "150148364200cc07",
+            "name": "com.Gam400JellyMolly.AReYouReady",
+            "processId": 9841,
+            "exited": true
+        },
+        {
+            "deviceId": "150148364200cc07",
+            "name": "com.Gam400JellyMolly.AReYouReady",
+            "processId": 10478,
+            "exited": true
+        },
+        {
+            "deviceId": "150148364200cc07",
+            "name": "com.Gam400JellyMolly.AReYouReady",
+            "processId": 11199,
             "exited": false
         }
     ],
