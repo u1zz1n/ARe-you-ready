@@ -12,11 +12,15 @@ public class PlacingAndDragging : MonoBehaviour
     [SerializeField] AudioSource scanSfx;
     [SerializeField] AudioSource scanCompleteSfx;
 
+    //for check pannel 
+    public event Action CanPlayBall;
+
     static public bool spawnable = false; //when spawn UI pressed, true.
     bool LimitBall = false;
     bool changeColor = false;
     bool destroyAll = false;
     float timeToRestart = 0f;
+    
     static public bool playsfxcheck = false;
     static public bool playsfxcheck2 = false;
 
@@ -77,6 +81,13 @@ public class PlacingAndDragging : MonoBehaviour
         }
     }
 
+    // bowling information
+    bool fisrtTimerCheck = true;
+    public static bool secondTimerCheck = true;
+    float timer1 = 0;
+    float timer2 = 0;
+    public Image infoP;
+
     private void Awake() {
         spawnable = false;
         changeColor = false;
@@ -89,9 +100,15 @@ public class PlacingAndDragging : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       spawnObjectNum = 0;
+        spawnObjectNum = 0;
 
-        debugLog.text = "Wait until detecting your world.\n Keep moving the camera around your plane.";
+        timer1 = 0;
+        timer2 = 0;
+
+        fisrtTimerCheck = true;
+        secondTimerCheck = true;
+
+        debugLog.text = "Wait until detecting your world.\n If you can't find the plane for too long \n" + "Please, restart it or move your camera";
         foreach (ARPlane plane in aRPlaneManager.trackables)
         {
             Destroy(plane);
@@ -130,7 +147,7 @@ public class PlacingAndDragging : MonoBehaviour
         var cameraForward = arCamera.transform.forward;
         //debugLog.text = cameraForward.x +", " + cameraForward.y + ", " + cameraForward.z;
 
-        checkPlaneLog.text = FilteredPlane.isBig.ToString();
+        checkPlaneLog.text = "Plane Check : Finding...";//FilteredPlane.isBig.ToString();
 
         if (FilteredPlane.isBig)
         {
@@ -140,8 +157,13 @@ public class PlacingAndDragging : MonoBehaviour
                 {
                     aRPlaneManager.enabled = false;
                     playsfxcheck = true;
-                    
-                    checkPlaneLog.text = "Done!";
+
+                    //checkPlaneLog.text -= "Finding...";
+                    if(SceneManager.GetActiveScene().name == "ObjectTracking")
+                    {
+                        CanPlayBall.Invoke();
+                    }
+                    checkPlaneLog.text = "Plane Check : Done!";
                     //SoundManager.instance.PlaySfx("ScanningComplete");
                 }
                 else
@@ -154,12 +176,47 @@ public class PlacingAndDragging : MonoBehaviour
 
             if(!scanCompleteSfx.isPlaying && !playsfxcheck2)
             {
-                debugLog.text = "Plane Detecting Success! \n " +
-                    "Touch the screen to put and dragging pins \n" +
-                    "then press 'Ball' to spawn ball.";
+                //debugLog.text = "Plane Detecting Success! \n " +
+                //    "Touch the screen to put and dragging pins \n" +
+                //    "then press 'Ball' to spawn ball.";
+
+                debugLog.gameObject.SetActive(true);
+                fisrtTimerCheck = false;
+                debugLog.text = "Plane Detecting Success! \n" + "Touch the screen to put and dragging pins \n" + "then press 'Ball' to spawn ball.";
+
                 playsfxcheck2 = true;
                 scanSfx.Stop();
                 scanCompleteSfx.Play();
+            }
+
+            if(fisrtTimerCheck == false)
+            {
+                timer1 += Time.deltaTime;
+
+                if (timer1 > 3)
+                {
+                    debugLog.gameObject.SetActive(false);
+                    infoP.gameObject.SetActive(false);
+                    fisrtTimerCheck = true;
+                    timer1 = 0;
+                }
+            }
+
+            if (secondTimerCheck == false)
+            {
+                infoP.gameObject.SetActive(true);
+                debugLog.gameObject.SetActive(true);
+                debugLog.text = "Place the ball where you want it\n" + "and then press the Start rolling button to get ready to roll the ball. \n" + "If you're ready, you can swipe and roll the ball.";
+
+                timer2 += Time.deltaTime;
+
+                if (timer2 > 3)
+                {
+                    debugLog.gameObject.SetActive(false);
+                    infoP.gameObject.SetActive(false);
+                    secondTimerCheck = true;
+                    timer2 = 0;
+                }
             }
 
             curPlane = FindObjectOfType<ARPlane>();
@@ -172,7 +229,14 @@ public class PlacingAndDragging : MonoBehaviour
                 {
                     //Init();
                     //swipeBall.Init();
-                    SceneManager.LoadScene("ObjectTracking");
+                    if(SceneManager.GetActiveScene().name == "ObjectTracking")
+                    {
+                        SceneManager.LoadScene("ObjectTracking");
+                    }
+                    else
+                    {
+                        SceneManager.LoadScene("RollBall");
+                    }
                 }
             }
             if(swipeBall.toBeDestroy)
@@ -276,6 +340,7 @@ public class PlacingAndDragging : MonoBehaviour
                             lastSelectedObject.Size = 1;
                             lastSelectedObject.transform.position = spawnPosition;
                             lastSelectedObject.YPosition = spawnPosition.y;
+
                         }
                         else
                         {
@@ -333,6 +398,14 @@ public class PlacingAndDragging : MonoBehaviour
                     }
 
                 }
+            }
+        }
+
+        if(Application.platform == RuntimePlatform.Android)
+        {
+            if(Input.GetKey(KeyCode.Escape))
+            {
+                SceneManager.LoadScene("Menu");
             }
         }
     }

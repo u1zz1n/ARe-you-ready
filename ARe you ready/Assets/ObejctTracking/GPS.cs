@@ -73,7 +73,10 @@ public class GPS : MonoBehaviour
         public float longitude;
     };
 
-    public Text[] data = new Text[4];
+    public InputField userLa;
+    public InputField userLo;
+
+    public Text[] data = new Text[1];
     public float[] locationCal = new float[3];
     public bool[] locationCheck = new bool[3];
 
@@ -85,6 +88,7 @@ public class GPS : MonoBehaviour
     //int isUpdate = 0;
 
     public static location curPlace;
+    public static bool unknownPlace;
     location redmondPlace;
     location bigQFCStarbucks;
     location digipen;
@@ -102,6 +106,7 @@ public class GPS : MonoBehaviour
     void Start()
     {
         once = true;
+        unknownPlace = false;
 
         locationNumber = 0;
 
@@ -133,7 +138,7 @@ public class GPS : MonoBehaviour
 
         if (!Input.location.isEnabledByUser)
         {
-            data[3].text = "User has not enabled GPS";
+            data[0].text = "User has not enabled GPS";
             yield break;
         }
 
@@ -149,12 +154,12 @@ public class GPS : MonoBehaviour
 
         if (Input.location.status == LocationServiceStatus.Failed || Input.location.status == LocationServiceStatus.Stopped)
         {
-            data[3].text = "Unable to determine device location";
+            data[0].text = "Unable to determine device location";
         }
 
         if (maxTime <= 1)
         {
-            data[3].text = "Timed out";
+            data[0].text = "Timed out";
             yield break;
         }
 
@@ -174,64 +179,81 @@ public class GPS : MonoBehaviour
     void Update()
     {
         //StartCoroutine(GPS_manager());
+        if(UpdateLocationForDebug.checkUpdate)
+        {
+            curPlace.latitude = float.Parse(userLa.text);
+            curPlace.longitude = float.Parse(userLo.text);
 
-       locationCal[0] = CalculateLocationOffset(redmondPlace.latitude, redmondPlace.longitude); // redmondPlace
-       locationCal[1] = CalculateLocationOffset(bigQFCStarbucks.latitude, bigQFCStarbucks.longitude); // starbucks
-       locationCal[2] = CalculateLocationOffset(digipen.latitude, digipen.longitude); // digipen
+            Debug.Log(userLa.text);
+            Debug.Log(userLo.text); 
 
-       if (locationCal[0] < 100.0f)
-       {
-           data[0].text = "It is home!: " + locationCal[0].ToString();
-           locationCheck[0] = true;
-       }
-       else
-       {
-           data[0].text = "It is not home! : " + locationCal[0].ToString();
-           locationCheck[0] = false;
-       }
+            UpdateLocationForDebug.checkUpdate = false;
+        }
 
-       if (locationCal[1] < 100.0f)
-       {
-           data[1].text = "It is near starbucks!: " + locationCal[1].ToString();
-           locationCheck[1] = true;
-       }
-       else
-       {
-           data[1].text = "It is not starbucks! : " + locationCal[1].ToString();
-           locationCheck[1] = false;
-       }
-
-       if (locationCal[2] < 100.0f)
-       {
-           data[2].text = "It is near   digipen!: " + locationCal[2].ToString();
-           locationCheck[2] = true;
-       }
-       else
-       {
-           data[2].text = "It is not digipen! : " + locationCal[2].ToString();
-           locationCheck[2] = false;
-       }
-
-       if (locationCal.Min() == locationCal[0] && locationCheck[0] == true)
-       {
-            data[0].text = "lilly lilly Home"; //+ systemLocale.getCountry();
+        locationCal[0] = CalculateLocationOffset(redmondPlace.latitude, redmondPlace.longitude); // redmondPlace
+        locationCal[1] = CalculateLocationOffset(bigQFCStarbucks.latitude, bigQFCStarbucks.longitude); // starbucks
+        locationCal[2] = CalculateLocationOffset(digipen.latitude, digipen.longitude); // digipen
+        
+        if (locationCal[0] < 100.0f)
+        {
+            //data[0].text = "It is home!: " + locationCal[0].ToString();
+            locationCheck[0] = true;
+        }
+        else
+        {
+            //data[0].text = "It is not home! : " + locationCal[0].ToString();
+            locationCheck[0] = false;
+        }
+        
+        if (locationCal[1] < 100.0f)
+        {
+            //data[1].text = "It is near starbucks!: " + locationCal[1].ToString();
+            locationCheck[1] = true;
+        }
+        else
+        {
+            //data[1].text = "It is not starbucks! : " + locationCal[1].ToString();
+            locationCheck[1] = false;
+        }
+        
+        if (locationCal[2] < 100.0f)
+        {
+            //data[2].text = "It is near   digipen!: " + locationCal[2].ToString();
+            locationCheck[2] = true;
+        }
+        else
+        {
+            //data[2].text = "It is not digipen! : " + locationCal[2].ToString();
+            locationCheck[2] = false;
+        }
+        
+        if (locationCal.Min() == locationCal[0] && locationCheck[0] == true)
+        {
+             data[0].text = "It is Home";
+             locationNumber = 0;
+             unknownPlace = false;
+        }
+        else if (locationCal.Min() == locationCal[1] && locationCheck[1] == true)
+        {
+            data[0].text = "It is Starbuck";
+            locationNumber = 1;
+            unknownPlace = false;
+        }
+        else if (locationCal.Min() == locationCal[2] && locationCheck[2] == true)
+        {
+            data[0].text = "It is Digipen";
+            locationNumber = 2;
+            unknownPlace = false;
+        }
+        else
+        {
+            data[0].text = "We cannot find your location ";
             locationNumber = 0;
-       }
-       else if (locationCal.Min() == locationCal[1] && locationCheck[1] == true)
-       {
-           data[1].text = "lilly lilly Starbuck";
-           locationNumber = 1;
-       }
-       else if (locationCal.Min() == locationCal[2] && locationCheck[2] == true)
-       {
-           data[2].text = "lilly lilly Digipen";
-           locationNumber = 2;
-       }
-       else
-       {
-           data[3].text = "No Place ";
-           locationNumber = 0;
-       }
+            unknownPlace = true;
+        }
+
+        data[0].text += "\n" + Locating.countryName + "\n" + Locating.regionName;
+
     }
 
     private float CalculateLocationOffset(float latitudeB, float longitudeB)
@@ -245,8 +267,8 @@ public class GPS : MonoBehaviour
         //curPlace.longitude = -122.13011754289914f;
 
         //digipen sample location
-        curPlace.latitude = 47.68890776558581f;
-        curPlace.longitude = -122.15030925149208f;
+        //curPlace.latitude = 47.68890776558581f;
+        //curPlace.longitude = -122.15030925149208f;
 
 
         float firstSinSqure = Mathf.Sin((Mathf.PI * (latitudeB - curPlace.latitude) / 360) * Mathf.Sin((Mathf.PI * (latitudeB - curPlace.latitude)) / 360));

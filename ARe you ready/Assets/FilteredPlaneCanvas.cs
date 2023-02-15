@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class FilteredPlaneCanvas : MonoBehaviour
 {
@@ -10,7 +11,8 @@ public class FilteredPlaneCanvas : MonoBehaviour
     [SerializeField] private Toggle bigPlaneToggle;
 
     private FilteredPlane filterPlane;
-    private PlacementAndDragging placeDragging;
+    private PlacingAndDragging checkDone;
+    //private PlacementAndDragging placeDragging;
     public bool VerticalPlaneToggle 
     { 
         get => verticalPlaneToggle.isOn; 
@@ -45,14 +47,31 @@ public class FilteredPlaneCanvas : MonoBehaviour
     {
         filterPlane = FindObjectOfType<FilteredPlane>();
 
-        filterPlane.OnVerticalPlaneFound += () => verticalPlaneToggle.isOn = true;
+        if (SceneManager.GetActiveScene().name == "ObjectTracking")
+        {
+            checkDone = FindObjectOfType<PlacingAndDragging>();
+            checkDone.CanPlayBall += () => verticalPlaneToggle.isOn = true;
+        }
+        else
+        {
+            filterPlane.OnVerticalPlaneFound += () => verticalPlaneToggle.isOn = true;
+        }
+
         filterPlane.OnHorizontalPlaneFound += () => horizontalPlaneToggle.isOn = true;
         filterPlane.OnBigPlaneFound += () => bigPlaneToggle.isOn = true;
     }
 
     private void OnDisable()
     {
-        filterPlane.OnVerticalPlaneFound += () => verticalPlaneToggle.isOn = true;
+        if(SceneManager.GetActiveScene().name == "ObjectTracking")
+        {
+            checkDone.CanPlayBall += () => verticalPlaneToggle.isOn = true;
+        }
+        else
+        {
+            filterPlane.OnVerticalPlaneFound += () => verticalPlaneToggle.isOn = true;
+        }
+
         filterPlane.OnHorizontalPlaneFound += () => horizontalPlaneToggle.isOn = true;
         filterPlane.OnBigPlaneFound += () => bigPlaneToggle.isOn = true;
     }

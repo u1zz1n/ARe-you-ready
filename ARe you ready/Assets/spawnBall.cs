@@ -20,7 +20,9 @@ public class spawnBall : MonoBehaviour
     {
         SoundManager.instance.PlaySfx("UI_Press");
         //debugLog.text = "Ready to spawn ball"; 
+        PlacingAndDragging.secondTimerCheck = false;
         PlacingAndDragging.spawnable = true;
+
         //Instantiate(ball, new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z), Quaternion.identity);
     }
     
@@ -35,6 +37,14 @@ public class spawnBall : MonoBehaviour
     public void restart()
     {
         SoundManager.instance.PlaySfx("UI_Press");
-        SceneManager.LoadScene("RollBall");
+
+        if (SceneManager.GetActiveScene().name == "ObjectTracking")
+        {
+            SceneManager.LoadScene("ObjectTracking");
+        }
+        else
+        {
+            SceneManager.LoadScene("RollBall");
+        }
     }
 }

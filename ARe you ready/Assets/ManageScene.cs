@@ -18,31 +18,38 @@ public class ManageScene : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
     private void Start() {
+        if(SceneManager.GetActiveScene().name == "Menu")
+        {
             teamLogo.gameObject.SetActive(false);
+        }
     }
     private void Update() {
-        if(!digipenLogo)
+        if (SceneManager.GetActiveScene().name == "Menu")
         {
-            time += Time.deltaTime;
-            if(time > 2f)
+            if (!digipenLogo)
             {
-                digipenLogo = true;
-                time = 0f;
+                time += Time.deltaTime;
+                if (time > 2f)
+                {
+                    digipenLogo = true;
+                    time = 0f;
+                }
             }
-        }
-        else{
-            digipen.gameObject.SetActive(false);
-            //
-        }
-
-        if(digipenLogo && !teamlogof)
-        {
-            teamLogo.gameObject.SetActive(true);
-            time += Time.deltaTime;
-            if(time > 2f)
+            else
             {
-                teamlogof = true;
-                teamLogo.gameObject.SetActive(false);
+                digipen.gameObject.SetActive(false);
+                //
+            }
+
+            if (digipenLogo && !teamlogof)
+            {
+                teamLogo.gameObject.SetActive(true);
+                time += Time.deltaTime;
+                if (time > 2f)
+                {
+                    teamlogof = true;
+                    teamLogo.gameObject.SetActive(false);
+                }
             }
         }
     }

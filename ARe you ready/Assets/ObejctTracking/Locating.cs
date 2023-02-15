@@ -96,7 +96,7 @@ public class Locating : MonoBehaviour
 
 		//WebClient client = new WebClient();
 
-		const string IP_ADDRESS_API = "https://api.ipify.org";
+		string IP_ADDRESS_API = GetIP(ADDRESSFAM.IPv6); //"https://api.ipify.org";
 		//const string IP_LOCATION_API = "https://ipapi.co/json";
 
 		UnityWebRequest www = UnityWebRequest.Get(IP_ADDRESS_API);
@@ -118,6 +118,7 @@ public class Locating : MonoBehaviour
 			regionName = locations.region;
 			countryName = locations.country_name;
 
+			Debug.Log("ip is " + IP_ADDRESS_API);
 			Debug.Log("country is " + locations.country_name);
 			Debug.Log("region is " + locations.region);
 			Debug.Log("country is " + locations.city);
@@ -126,11 +127,35 @@ public class Locating : MonoBehaviour
 		//string locationJson = www_city.downloadHandler.text;
 		//Location location = JsonUtility.FromJson<Location>(locationJson);
 		//Debug.Log("City: " + location.city);
+
+		//ShowAndroidToastMessage("ip is " + IP_ADDRESS_API);
+
 	}
 
 	// Update is called once per frame
 	void Update()
     {
+		//GPS.data[0].text += "\n" + countryName;// + "\n" + regionName;
+	}
 
+	/// <summary>
+	/// Show an Android toast message.
+	/// </summary>
+	/// <param name="message">Message string to show in the toast.</param>
+	private static void ShowAndroidToastMessage(string message)
+	{
+#if UNITY_ANDROID
+		using var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+		var unityActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+		if (unityActivity == null) return;
+		var toastClass = new AndroidJavaClass("android.widget.Toast");
+		unityActivity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
+		{
+			// Last parameter = length. Toast.LENGTH_LONG = 1
+			using var toastObject = toastClass.CallStatic<AndroidJavaObject>("makeText",
+				unityActivity, message, 1);
+			toastObject.Call("show");
+		}));
+#endif
 	}
 }
