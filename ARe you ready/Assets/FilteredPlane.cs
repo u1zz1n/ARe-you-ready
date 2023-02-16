@@ -8,7 +8,7 @@ using UnityEngine.XR.ARSubsystems;
 public class FilteredPlane : MonoBehaviour
 {
     [SerializeField] private Vector2 dismenstionsForBigPlane;
-    public static Vector2 dismenstionsForBigPlanes;
+    public static Vector2 dismenstionsForBigPlanes = new Vector2 ( 1.0f, 1.0f );
 
     public event Action OnVerticalPlaneFound;
     public event Action OnHorizontalPlaneFound;
@@ -50,10 +50,13 @@ public class FilteredPlane : MonoBehaviour
             if(plane.alignment.IsHorizontal())
             {
                 OnHorizontalPlaneFound.Invoke();
-            }   
+            }
+            //ShowAndroidToastMessage((plane.size.x * plane.size.y).ToString());
 
-            if(plane.extents.x * plane.extents.y >= dismenstionsForBigPlane.x * dismenstionsForBigPlane.y)
+            if (plane.extents.x * plane.extents.y >= dismenstionsForBigPlane.x * dismenstionsForBigPlane.y)
             {
+                //ShowAndroidToastMessage((plane.size.x * plane.size.y).ToString());
+
                 isBig = true;
                 arPlaneManager.enabled = false;
                 OnBigPlaneFound.Invoke();
@@ -78,5 +81,20 @@ public class FilteredPlane : MonoBehaviour
         arPlaneManager.planesChanged -= OnPlanesChanged;
     }
 
-
+    private static void ShowAndroidToastMessage(string message)
+    {
+#if UNITY_ANDROID
+        using var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+        var unityActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+        if (unityActivity == null) return;
+        var toastClass = new AndroidJavaClass("android.widget.Toast");
+        unityActivity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
+        {
+            // Last parameter = length. Toast.LENGTH_LONG = 1
+            using var toastObject = toastClass.CallStatic<AndroidJavaObject>("makeText",
+                unityActivity, message, 1);
+            toastObject.Call("show");
+        }));
+#endif
+    }
 }

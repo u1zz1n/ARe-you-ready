@@ -196,7 +196,14 @@ public class PlacementObject : MonoBehaviour
             }
             else
             {
-                yDiff = PlacingAndDragging.currPlaneY2 - (this.gameObject.transform.GetComponent<CapsuleCollider>().bounds.min.y);
+                if (GPS.locationNumber == 2 || GPS.locationNumber == 3 || GPS.locationNumber == 4)
+                {
+                    yDiff = PlacingAndDragging.currPlaneY2 - (this.gameObject.transform.GetComponent<BoxCollider>().bounds.min.y);
+                }
+                else
+                {
+                    yDiff = PlacingAndDragging.currPlaneY2 - (this.gameObject.transform.GetComponent<CapsuleCollider>().bounds.min.y);
+                }
             }
             Vector3 newPosition = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + yDiff, this.gameObject.transform.position.z);
 

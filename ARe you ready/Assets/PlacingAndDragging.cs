@@ -45,6 +45,9 @@ public class PlacingAndDragging : MonoBehaviour
 
     [SerializeField]
     private List<GameObject> placedPrefabs = new List<GameObject>();
+    
+    [SerializeField]
+    private List<GameObject> placedPreBooks = new List<GameObject>();
 
     ///////select object
     [SerializeField]
@@ -84,8 +87,10 @@ public class PlacingAndDragging : MonoBehaviour
     // bowling information
     bool fisrtTimerCheck = true;
     public static bool secondTimerCheck = true;
+    public static bool thirdTimerCheck = true;
     float timer1 = 0;
     float timer2 = 0;
+    float timer3 = 0;
     public Image infoP;
 
     private void Awake() {
@@ -107,6 +112,7 @@ public class PlacingAndDragging : MonoBehaviour
 
         fisrtTimerCheck = true;
         secondTimerCheck = true;
+        thirdTimerCheck = true;
 
         debugLog.text = "Wait until detecting your world.\n If you can't find the plane for too long \n" + "Please, restart it or move your camera";
         foreach (ARPlane plane in aRPlaneManager.trackables)
@@ -206,7 +212,7 @@ public class PlacingAndDragging : MonoBehaviour
             {
                 infoP.gameObject.SetActive(true);
                 debugLog.gameObject.SetActive(true);
-                debugLog.text = "Place the ball where you want it\n" + "and then press the Start rolling button to get ready to roll the ball. \n" + "If you're ready, you can swipe and roll the ball.";
+                debugLog.text = "Place the ball where you want it\n" + "and then press the Start rolling button to get ready to roll the ball.";
 
                 timer2 += Time.deltaTime;
 
@@ -216,6 +222,23 @@ public class PlacingAndDragging : MonoBehaviour
                     infoP.gameObject.SetActive(false);
                     secondTimerCheck = true;
                     timer2 = 0;
+                }
+            }
+
+            if (thirdTimerCheck == false)
+            {
+                infoP.gameObject.SetActive(true);
+                debugLog.gameObject.SetActive(true);
+                debugLog.text = "You can swipe the ball to get the ball rolling.";
+
+                timer3 += Time.deltaTime;
+
+                if (timer3 > 3)
+                {
+                    debugLog.gameObject.SetActive(false);
+                    infoP.gameObject.SetActive(false);
+                    thirdTimerCheck = true;
+                    timer3 = 0;
                 }
             }
 
@@ -362,6 +385,13 @@ public class PlacingAndDragging : MonoBehaviour
                             if (GPS.locationNumber == 2)
                             {
                                 lastSelectedObject = Instantiate(placedPrefabs[spawnObjectNum], hitPose.position, Quaternion.Euler(90, 180, 0)).GetComponent<PlacementObject>();
+                                //lastSelectedObject = Instantiate(placedPrefabs[spawnObjectNum], hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
+                                //lastSelectedObject.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                            }
+                            else if (GPS.locationNumber == 3 || GPS.locationNumber == 4)
+                            {
+                                int randomBookIndex = UnityEngine.Random.Range(0, 10);
+                                lastSelectedObject = Instantiate(placedPreBooks[randomBookIndex], hitPose.position, Quaternion.Euler(-90, -90, 0)).GetComponent<PlacementObject>();
                                 //lastSelectedObject.gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                             }
                             else
@@ -372,7 +402,7 @@ public class PlacingAndDragging : MonoBehaviour
                             
                             float yDiff = 0;
 
-                            if(GPS.locationNumber == 2)
+                            if(GPS.locationNumber == 2 || GPS.locationNumber == 3 || GPS.locationNumber == 4)
                             {
                                 yDiff = curPlane.transform.localPosition.y - (lastSelectedObject.GetComponent<BoxCollider>().bounds.min.y);
                             }

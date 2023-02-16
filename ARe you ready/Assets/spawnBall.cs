@@ -31,6 +31,7 @@ public class spawnBall : MonoBehaviour
         SoundManager.instance.PlaySfx("UI_Press");
         //debugLog.text = "Ready to roll ball";
         PlacingAndDragging.spawnable = false;
+        PlacingAndDragging.thirdTimerCheck = false;
         swipeBall.rollable = true;
     }
 

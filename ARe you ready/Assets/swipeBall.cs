@@ -50,13 +50,15 @@ public class swipeBall : MonoBehaviour
     [SerializeField]
     float throwForceInZ = 5f;
 
+    public float power = 300.0f;
+
     Rigidbody rb;
 
-    [SerializeField]
-    public Text debugLog;
+    //[SerializeField]
+    //public Text debugLog;
 
     [SerializeField]
-    public Text debugLog2;
+    public Text BallStatement;
     // Start is called before the first frame update
     private void Awake() {
         rollable = false;
@@ -64,7 +66,7 @@ public class swipeBall : MonoBehaviour
         collideWpin = false;
         rolling = false;
         toBeDestroy = false;
-
+        power = 300.0f;
         time = 0f;
     }
 
@@ -162,19 +164,19 @@ public class swipeBall : MonoBehaviour
                 if(cameraForward.x > 0 && cameraForward.z > 0)
                 {
                     //debugLog2.text = "direction north";
-                    rb.AddForce(direction.x * 300f, this.transform.position.y, direction.y * 300f);
+                    rb.AddForce(direction.x * power, this.transform.position.y, direction.y * power);
                 }
                 else if(cameraForward.x < 0  && cameraForward.z < 0)
                 {
-                    rb.AddForce(direction.x * 300f, this.transform.position.y, -direction.y * 300f);
+                    rb.AddForce(direction.x * power, this.transform.position.y, -direction.y * power);
                 }
                 else if(cameraForward.x > 0 && cameraForward.z < 0)
                 {
-                    rb.AddForce(direction.x * 300f, this.transform.position.y, -direction.y * 300f);
+                    rb.AddForce(direction.x * power, this.transform.position.y, -direction.y * power);
                 }
                 else if(cameraForward.x < 0 && cameraForward.z > 0)
                 {
-                    rb.AddForce(direction.x * 300f, this.transform.position.y, direction.y * 300f);
+                    rb.AddForce(direction.x * power, this.transform.position.y, direction.y * power);
                 }
                 rolling = true;
                 rollingSound = true;
@@ -221,7 +223,7 @@ public class swipeBall : MonoBehaviour
         if(collision.gameObject.name == "pin(Clone)" && startroll)
         {
             collideWpin = true;
-            debugLog.text = "Collide with pin";
+            //debugLog.text = "Collide with pin";
             SoundManager.instance.PlaySfx("pinFalling");
         }
     }
