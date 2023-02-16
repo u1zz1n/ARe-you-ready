@@ -1,48 +1,48 @@
 {
-    "m_SelectedDeviceId": "150148364200cc07",
+    "m_SelectedDeviceId": "5200ea9cf40115f1",
     "m_SelectedPackage": {
-        "deviceId": "150148364200cc07",
-        "name": "com.Gam400JellyMolly.AReYouReady",
-        "processId": 10478,
-        "exited": true
+        "deviceId": "",
+        "name": "",
+        "processId": 0,
+        "exited": false
     },
-    "m_SelectedPriority": 0,
+    "m_SelectedPriority": 2,
     "m_KnownPackagesForSerialization": [
         {
-            "deviceId": "150148364200cc07",
-            "name": "com.Gam400JellyMolly.AReYouReady",
-            "processId": 1505,
-            "exited": true
-        },
-        {
-            "deviceId": "150148364200cc07",
-            "name": "com.Gam400JellyMolly.AReYouReady",
-            "processId": 2806,
-            "exited": true
-        },
-        {
-            "deviceId": "150148364200cc07",
-            "name": "com.Gam400JellyMolly.AReYouReady",
-            "processId": 3232,
-            "exited": true
-        },
-        {
-            "deviceId": "150148364200cc07",
-            "name": "com.Gam400JellyMolly.AReYouReady",
-            "processId": 9841,
-            "exited": true
-        },
-        {
-            "deviceId": "150148364200cc07",
-            "name": "com.Gam400JellyMolly.AReYouReady",
-            "processId": 10478,
-            "exited": true
-        },
-        {
-            "deviceId": "150148364200cc07",
-            "name": "com.Gam400JellyMolly.AReYouReady",
-            "processId": 11199,
+            "deviceId": "5200ea9cf40115f1",
+            "name": "com.sec.android.app.launcher",
+            "processId": 5167,
             "exited": false
+        },
+        {
+            "deviceId": "5200ea9cf40115f1",
+            "name": "com.Gam400JellyMolly.AReYouReady",
+            "processId": 26552,
+            "exited": true
+        },
+        {
+            "deviceId": "5200ea9cf40115f1",
+            "name": "com.Gam400JellyMolly.AReYouReady",
+            "processId": 27856,
+            "exited": true
+        },
+        {
+            "deviceId": "5200ea9cf40115f1",
+            "name": "com.Gam400JellyMolly.AReYouReady",
+            "processId": 29750,
+            "exited": true
+        },
+        {
+            "deviceId": "5200ea9cf40115f1",
+            "name": "com.Gam400JellyMolly.AReYouReady",
+            "processId": 2700,
+            "exited": true
+        },
+        {
+            "deviceId": "5200ea9cf40115f1",
+            "name": "com.Gam400JellyMolly.AReYouReady",
+            "processId": 4312,
+            "exited": true
         }
     ],
     "m_Tags": {
@@ -53,7 +53,7 @@
             },
             {
                 "m_Name": "No Filter",
-                "m_Selected": true
+                "m_Selected": false
             },
             {
                 "m_Name": "",
@@ -69,11 +69,7 @@
             },
             {
                 "m_Name": "Unity",
-                "m_Selected": false
-            },
-            {
-                "m_Name": "CRASH",
-                "m_Selected": false
+                "m_Selected": true
             }
         ]
     },
