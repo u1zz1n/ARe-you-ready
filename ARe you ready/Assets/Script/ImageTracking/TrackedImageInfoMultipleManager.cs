@@ -82,7 +82,7 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
         if(touchTwitter)
         {
             DebugLog.text = "TWITTER TOUCHED";
-            Application.OpenURL("http://www.instagram.com/u1zz1n/");
+            Application.OpenURL("http://twitter.com/NCTsmtown_DREAM?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor");
             touchTwitter = false;
         }
 
@@ -180,12 +180,24 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
 
                         //DebugLog.text = arObjects4card["Youtube"].name + arObjects4card["Twitter"].name + arObjects4card["Android"].name;
                     }
-                    else if(name == "GHStudentID")
+                    else if(name == "HGStudentID")
                     {
-                        newPosition = new Vector3(0, 0, -0.3f);
-                        var objHG = Instantiate(Hagyeong, trackedImage.transform);
+                        newPosition = new Vector3(0, 0, 0.35f);
+                        var objHG = Instantiate(Youtube, trackedImage.transform);
+                        arObjects4HGcard["Youtube"] = objHG;
+                        arObjects4HGcard["Youtube"].transform.position = trackedImage.transform.position + new Vector3(0.35f, 0, 0.2f);
+
+                        objHG = Instantiate(Twitter, trackedImage.transform);
+                        arObjects4HGcard["Twitter"] = objHG;
+                        arObjects4HGcard["Twitter"].transform.position = trackedImage.transform.position + new Vector3(-0.3f, 0, 0.05f);
+
+                        objHG = Instantiate(AndroidCall, trackedImage.transform);
+                        arObjects4HGcard["Android"] = objHG;
+                        arObjects4HGcard["Android"].transform.position = trackedImage.transform.position + new Vector3(0.3f, 0, -0.1f);
+
+                        objHG = Instantiate(Hagyeong, trackedImage.transform);
                         arObjects4HGcard["Hagyeong"] = objHG;
-                        arObjects4HGcard["Hagyeong"].transform.position = trackedImage.transform.position + new Vector3(0, 0, -0.3f);
+                        arObjects4HGcard["Hagyeong"].transform.position = trackedImage.transform.position + new Vector3(0, 0.05f, 0.6f);         
                     }
                     else
                     {
@@ -219,39 +231,44 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
                 arObjects4card["Uijin"].SetActive(true);
             }
 
-            if(!arObjects["GHStudentID"].activeSelf)
+            if(!arObjects["HGStudentID"].activeSelf)
             {
+                arObjects4HGcard["Youtube"].SetActive(false);
+                arObjects4HGcard["Twitter"].SetActive(false);
+                arObjects4HGcard["Android"].SetActive(false);
                 arObjects4HGcard["Hagyeong"].SetActive(false);
             }
             else{
+                arObjects4HGcard["Youtube"].SetActive(true);
+                arObjects4HGcard["Twitter"].SetActive(true);
+                arObjects4HGcard["Android"].SetActive(true);
                 arObjects4HGcard["Hagyeong"].SetActive(true);
             }
 
             if(trackedImage.trackingState == TrackingState.Tracking)
             {
                 imageTrackedText.text = trackedImage.referenceImage.name;
-                if(trackedImage.referenceImage.name/*name*/ == "StudentID")
+                if(trackedImage.referenceImage.name/*name*/ == "StudentID" || trackedImage.referenceImage.name/*name*/ == "HGStudentID")
                 {
                     newPosition = new Vector3(0, 0, 0.35f);
+
+                    arObjects4card["Youtube"].transform.position = trackedImage.transform.position+ new Vector3(0.35f, 0, 0.2f);
+                    arObjects4card["Twitter"].transform.position = trackedImage.transform.position + new Vector3(-0.3f, 0, 0.05f);
+                    arObjects4card["Android"].transform.position = trackedImage.transform.position + new Vector3(0.3f, 0, -0.1f);
+                    arObjects4card["Uijin"].transform.position = trackedImage.transform.position + new Vector3(0, 0.05f, 0.35f);
+                    
+                    arObjects4HGcard["Youtube"].transform.position = trackedImage.transform.position+ new Vector3(0.35f, 0, 0.2f);
+                    arObjects4HGcard["Twitter"].transform.position = trackedImage.transform.position + new Vector3(-0.3f, 0, 0.05f);
+                    arObjects4HGcard["Android"].transform.position = trackedImage.transform.position + new Vector3(0.3f, 0, -0.1f);
+                    arObjects4HGcard["Hagyeong"].transform.position = trackedImage.transform.position + new Vector3(0, 0.05f, 0.6f);
                     //IsCard = true;
-                }
-                else if(trackedImage.referenceImage.name == "GHStudentID")
-                {
-                    newPosition = new Vector3(0, 0, -0.3f);
                 }
                 else
                 {
                     newPosition = new Vector3(0, 0, 0);
                 }
-                
+
                 arObjects[trackedImage.referenceImage.name/*name*/].transform.position = trackedImage.transform.position + newPosition;
-                arObjects4card["Youtube"].transform.position = trackedImage.transform.position+ new Vector3(0.35f, 0, 0.2f);
-                arObjects4card["Twitter"].transform.position = trackedImage.transform.position + new Vector3(-0.3f, 0, 0.05f);
-                arObjects4card["Android"].transform.position = trackedImage.transform.position + new Vector3(0.3f, 0, -0.1f);
-                arObjects4card["Uijin"].transform.position = trackedImage.transform.position + new Vector3(0, 0.05f, 0.35f);
-
-                arObjects4HGcard["Hagyeong"].transform.position = trackedImage.transform.position + new Vector3(0, 0, -0.3f);
-
             }
         }
 
@@ -273,10 +290,19 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
                 arObjects4card.Remove("Uijin");
             }
 
-            if(trackedImage.referenceImage.name == "GHStudentID")
+            else if(trackedImage.referenceImage.name == "HGStudentID")
             {
-                Destroy(arObjects4card["Hagyeong"]);
-                arObjects4card.Remove("Hagyeong");
+                Destroy(arObjects4HGcard["Youtube"]);
+                arObjects4HGcard.Remove("Youtube");
+
+                Destroy(arObjects4HGcard["Twitter"]);
+                arObjects4HGcard.Remove("Twitter");
+
+                Destroy(arObjects4HGcard["Android"]);
+                arObjects4HGcard.Remove("Android");
+                
+                Destroy(arObjects4HGcard["Hagyeong"]);
+                arObjects4HGcard.Remove("Hagyeong");
             }
 
             Destroy(arObjects[trackedImage.referenceImage.name]);

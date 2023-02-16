@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8865509898287362732}
-  - component: {fileID: 8061766300752937642}
+  - component: {fileID: 4710531145624791948}
   m_Layer: 0
   m_Name: HGName
   m_TagString: Untagged
@@ -40,7 +40,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &8061766300752937642
+--- !u!95 &4710531145624791948
 Animator:
   serializedVersion: 4
   m_ObjectHideFlags: 0
