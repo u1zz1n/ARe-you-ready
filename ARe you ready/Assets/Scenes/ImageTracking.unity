@@ -259,7 +259,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -5721,12 +5721,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebugLog: {fileID: 603352281}
-  DebugLog2: {fileID: 0}
+  arCamera: {fileID: 1298759187}
   imageTrackedText: {fileID: 621573424}
   arObjectsToPlace:
   - {fileID: 9106600509830541132, guid: d63ee073e9420094d951801ad6d1bb7e, type: 3}
-  - {fileID: 1539151966075175753, guid: f0fb8567006f0b14298ceef62e4b6ca0, type: 3}
+  - {fileID: 117720, guid: 6a4a8180d8265004da572134a65de664, type: 3}
   - {fileID: 5022769464502672003, guid: e5af5c3a87e5d154a806827dc13ef51f, type: 3}
+  Youtube: {fileID: 196686, guid: 5ac476a112e2bc5408627f0a13c8544e, type: 3}
+  Twitter: {fileID: 185194, guid: 3327a79dfa8dcfe4181a81241cc14178, type: 3}
+  AndroidCall: {fileID: 162140, guid: d02bd821d40eacf4cba0a68ad65ccad5, type: 3}
+  Uijin: {fileID: 8234664355370897239, guid: 56f4d47451ecaf744af7db45c2160ce2, type: 3}
   scaleFactor: {x: 0.1, y: 0.1, z: 0.1}
   m_TrackedImageManager: {fileID: 0}
 --- !u!114 &1553674415
@@ -5736,7 +5740,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1553674408}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ab0e80cee9cc1d44928bfe488dd1e2d, type: 3}
   m_Name: 
