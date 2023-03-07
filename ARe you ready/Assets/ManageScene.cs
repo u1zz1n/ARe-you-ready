@@ -60,9 +60,9 @@ public class ManageScene : MonoBehaviour
         SoundManager.instance.PlaySfx("UI_Press");
     }
 
-    public void BowlingDemo()
+    public void BowlingDemo() //MultiPlayer
     {
-        SceneManager.LoadScene("RollBall");
+        SceneManager.LoadScene("Rooms");
         SoundManager.instance.PlaySfx("UI_Press");
     }
 

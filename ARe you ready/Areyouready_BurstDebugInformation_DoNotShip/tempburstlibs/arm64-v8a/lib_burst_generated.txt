@@ -104,6 +104,11 @@ Library: lib_burst_generated
 --compilation-defines=ENABLE_MONO
 --compilation-defines=NET_STANDARD_2_0
 --compilation-defines=NET_STANDARD
+--compilation-defines=DEVELOPMENT_BUILD
+--compilation-defines=ENABLE_PROFILER
+--compilation-defines=DEBUG
+--compilation-defines=TRACE
+--compilation-defines=UNITY_ASSERTIONS
 --compilation-defines=UNITY_PRO_LICENSE
 --compilation-defines=ENABLE_CUSTOM_RENDER_TEXTURE
 --compilation-defines=ENABLE_DIRECTOR
@@ -113,6 +118,10 @@ Library: lib_burst_generated
 --compilation-defines=ENABLE_TILEMAP
 --compilation-defines=ENABLE_TIMELINE
 --compilation-defines=ENABLE_LEGACY_INPUT_MANAGER
+--compilation-defines=PHOTON_UNITY_NETWORKING
+--compilation-defines=PUN_2_0_OR_NEWER
+--compilation-defines=PUN_2_OR_NEWER
+--compilation-defines=PUN_2_19_OR_NEWER
 --compilation-defines=PACKAGE_PHYSICS
 --compilation-defines=PACKAGE_PHYSICS2D
 --compilation-defines=PACKAGE_TILEMAP
@@ -135,6 +144,7 @@ Library: lib_burst_generated
 --compilation-defines=TIMELINE_FRAMEACCURATE
 --compilation-defines=UNITY_ANALYTICS
 --generate-link-xml=Temp\burst.link.xml
+--debug=Full
 --output=G:\gam450\ARe you ready\Temp\StagingArea\tempburstlibs\arm64-v8a\lib_burst_generated
 --root-assembly=G:\gam450\ARe you ready\Temp\StagingArea\Data\Managed\UnityEngine.UI.dll
 --root-assembly=G:\gam450\ARe you ready\Temp\StagingArea\Data\Managed\Unity.RenderPipelines.Core.Runtime.dll
@@ -148,11 +158,16 @@ Library: lib_burst_generated
 --root-assembly=G:\gam450\ARe you ready\Temp\StagingArea\Data\Managed\Unity.VisualScripting.Core.dll
 --root-assembly=G:\gam450\ARe you ready\Temp\StagingArea\Data\Managed\Unity.TextMeshPro.dll
 --root-assembly=G:\gam450\ARe you ready\Temp\StagingArea\Data\Managed\Unity.Burst.dll
+--root-assembly=G:\gam450\ARe you ready\Temp\StagingArea\Data\Managed\PhotonUnityNetworking.Demos.dll
 --root-assembly=G:\gam450\ARe you ready\Temp\StagingArea\Data\Managed\Unity.RenderPipeline.Universal.ShaderLibrary.dll
+--root-assembly=G:\gam450\ARe you ready\Temp\StagingArea\Data\Managed\PhotonRealtime.dll
+--root-assembly=G:\gam450\ARe you ready\Temp\StagingArea\Data\Managed\PhotonUnityNetworking.dll
+--root-assembly=G:\gam450\ARe you ready\Temp\StagingArea\Data\Managed\PhotonUnityNetworking.Utilities.dll
 --root-assembly=G:\gam450\ARe you ready\Temp\StagingArea\Data\Managed\Unity.XR.ARCore.dll
 --root-assembly=G:\gam450\ARe you ready\Temp\StagingArea\Data\Managed\Unity.Timeline.dll
 --root-assembly=G:\gam450\ARe you ready\Temp\StagingArea\Data\Managed\Unity.Mathematics.dll
 --root-assembly=G:\gam450\ARe you ready\Temp\StagingArea\Data\Managed\LeanTouch.dll
+--root-assembly=G:\gam450\ARe you ready\Temp\StagingArea\Data\Managed\PhotonChat.dll
 --root-assembly=G:\gam450\ARe you ready\Temp\StagingArea\Data\Managed\LeanCommon.dll
 --root-assembly=G:\gam450\ARe you ready\Temp\StagingArea\Data\Managed\Unity.XR.Management.dll
 --root-assembly=G:\gam450\ARe you ready\Temp\StagingArea\Data\Managed\UnityEngine.SpatialTracking.dll
