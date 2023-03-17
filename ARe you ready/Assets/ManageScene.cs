@@ -90,4 +90,10 @@ public class ManageScene : MonoBehaviour
         SceneManager.LoadScene("ObjectTracking");
     }
 
+    public void MultiPlayer()
+    {
+        SoundManager.instance.PlaySfx("UI_Press");
+        SceneManager.LoadScene("MultiPlayer");
+    }
+
 }
