@@ -9,6 +9,7 @@ public class TestConnect : MonoBehaviourPunCallbacks
     private void Start()
     {
         print("Connecting to server.");
+        PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.NickName = MasterManager.GameSettings.NickName;
         PhotonNetwork.GameVersion = MasterManager.GameSettings.GameVersion;
         PhotonNetwork.ConnectUsingSettings();
@@ -25,5 +26,10 @@ public class TestConnect : MonoBehaviourPunCallbacks
     public override void OnDisconnected	(DisconnectCause cause)	
     {
         print("Disconnected from server for reaseon" + cause.ToString());
+    }
+
+    public override void OnJoinedLobby()
+    {
+        print("Joined lobby");
     }
 }

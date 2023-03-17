@@ -43,6 +43,11 @@ public class spawnBall : MonoBehaviour
         {
             SceneManager.LoadScene("ObjectTracking");
         }
+        if(SceneManager.GetActiveScene().name == "MultiPlayer")
+        {
+            SceneManager.LoadScene("MultiPlayer");
+
+        }
         else
         {
             SceneManager.LoadScene("RollBall");

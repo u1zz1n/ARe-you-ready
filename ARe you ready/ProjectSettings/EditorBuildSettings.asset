@@ -26,6 +26,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Multi/Rooms.unity
     guid: 5a95e0173f6c96a419c8337ae49cd10e
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Multi/MultiPlayer.unity
+    guid: 8399824e2b8320f40bf148bf176f116c
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 61abe29de5f55a946812c0a7ca992f25, type: 2}
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 219764f90f686114ca095f019ac433c4, type: 2}
