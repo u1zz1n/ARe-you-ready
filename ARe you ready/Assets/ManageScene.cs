@@ -62,7 +62,8 @@ public class ManageScene : MonoBehaviour
 
     public void BowlingDemo()
     {
-        SceneManager.LoadScene("RollBall");
+        //SceneManager.LoadScene("RollBall");
+        SceneManager.LoadScene("Multiplayer");
         SoundManager.instance.PlaySfx("UI_Press");
     }
 
@@ -90,4 +91,8 @@ public class ManageScene : MonoBehaviour
         SceneManager.LoadScene("ObjectTracking");
     }
 
+    public void RestratScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 }

@@ -310,24 +310,22 @@ public class PlacementAndDragging : MonoBehaviour
 
                     if (lastSelectedObject == null)
                     {
-                        lastSelectedObject = Instantiate(placedPrefabs[spawnObjectNum], hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
+                        lastSelectedObject = Instantiate(bowingBall, hitPose.position, hitPose.rotation).GetComponent<PlacementObject>();
                         SoundManager.instance.PlaySfx("Placement");
-                        //float yDiff = lastSelectedObject.GetComponent<Renderer>().bounds.center.y - curPlane.transform.localPosition.y;
-                        float yDiff = curPlane.transform.localPosition.y - (lastSelectedObject.GetComponent<CapsuleCollider>().bounds.min.y);
+                        float yDiff = curPlane.transform.localPosition.y - (lastSelectedObject.GetComponent<SphereCollider>().bounds.min.y);
                         Vector3 spawnPosition = new Vector3(lastSelectedObject.transform.position.x, lastSelectedObject.transform.position.y + yDiff, lastSelectedObject.transform.position.z);
                         lastSelectedObject.Size = 1;
                         lastSelectedObject.transform.position = spawnPosition;
                         lastSelectedObject.YPosition = spawnPosition.y;
-                        //lastSelectedObject.Selected = true;
+
                     }
                     else
                     {
                         if (lastSelectedObject.Selected)
                         {
                             Vector3 newPosition = new Vector3(hitPose.position.x, lastSelectedObject.YPosition, hitPose.position.z);
-                            lastSelectedObject.transform.position = newPosition;              
+                            lastSelectedObject.transform.position = newPosition;
                             lastSelectedObject.transform.rotation = hitPose.rotation;
-                            //checkLog.text = "it moved";
                         }
                     }
 
