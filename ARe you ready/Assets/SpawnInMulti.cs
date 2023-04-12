@@ -19,6 +19,8 @@ public class SpawnInMulti : MonoBehaviour
     private GameObject cube;
 
     private bool CanSpawn = false;
+    static public bool CanChangeColor = false;
+
     //private GameObject spawnedCube;
 
     ARPlane Plane;
@@ -27,6 +29,11 @@ public class SpawnInMulti : MonoBehaviour
     {
         MasterManager.NetworkInstantiate(spawnedCube);
     }*/
+    public void OnClick_Color()
+    {
+        CanChangeColor = true;
+    }
+
     public void OnClick_Spawn()
     {
         CanSpawn = true;
@@ -35,6 +42,7 @@ public class SpawnInMulti : MonoBehaviour
     void Start()
     {
         CanSpawn = false;
+        CanChangeColor = false;
     }
 
     // Update is called once per frame
@@ -57,6 +65,7 @@ public class SpawnInMulti : MonoBehaviour
             {
                 Pose hitPose = hits[0].pose;
                 MasterManager.Networkinstantiate(cube, hitPose.position, hitPose.rotation);
+                ShowAndroidToastMessage("Spawned");
                 //spawnedCube = Instantiate(cube, hitPose.position, hitPose.rotation).GetComponent<GameObject>();
                 //float yDiff = Plane.transform.localPosition.y - (spawnedCube.GetComponent<BoxCollider>().bounds.min.y);
                 //Vector3 spawnPosition = new Vector3(spawnedCube.transform.position.x, spawnedCube.transform.position.y + yDiff, spawnedCube.transform.position.z);
@@ -66,5 +75,26 @@ public class SpawnInMulti : MonoBehaviour
             }
 
         }
+    }
+
+    /// <summary>
+    /// Show an Android toast message.
+    /// </summary>
+    /// <param name="message">Message string to show in the toast.</param>
+    private static void ShowAndroidToastMessage(string message)
+    {
+#if UNITY_ANDROID
+        using var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+        var unityActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+        if (unityActivity == null) return;
+        var toastClass = new AndroidJavaClass("android.widget.Toast");
+        unityActivity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
+        {
+            // Last parameter = length. Toast.LENGTH_LONG = 1
+            using var toastObject = toastClass.CallStatic<AndroidJavaObject>("makeText",
+                unityActivity, message, 1);
+            toastObject.Call("show");
+        }));
+#endif
     }
 }
