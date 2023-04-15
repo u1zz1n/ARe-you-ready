@@ -16,6 +16,9 @@ public class SharedObject : MonoBehaviourPun, IPunObservable
     private Color Tmpc;
     private Vector3 Tmp;
 
+    private Vector3 red = new Vector3(1, 0, 0);
+    private Vector3 blue = new Vector3(0, 1, 0);
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         /*if(stream.IsWriting)
@@ -59,11 +62,17 @@ public class SharedObject : MonoBehaviourPun, IPunObservable
                     ShowAndroidToastMessage(hitObject.transform.gameObject.name);
                     if (SpawnInMulti.CanChangeColor && hitObject.transform.gameObject/*.name*/ == this.gameObject/*"MultiInteraction(Clone)"*/)
                     {
-                        if (base.photonView.IsMine)
+                        //if (base.photonView.IsMine)
                         {
                             ShowAndroidToastMessage("CanChanged");
+
                             //PhotonView phtonView = PhotonView.Get(this);
-                            this.photonView.RPC("RPC_ChangeColor", RpcTarget.All);
+                            //if(PhotonNetwork.LocalPlayer.CustomProperties["MyColor"] == red)
+                            //PhotonNetwork.LocalPlayer;
+                            if(PhotonNetwork.IsMasterClient)
+                                this.photonView.RPC("RPC_ChangeRed", RpcTarget.All);
+                            if (!PhotonNetwork.IsMasterClient)
+                                this.photonView.RPC("RPC_ChangeBlue", RpcTarget.All);
                             //Sync = Color.red;
                             // //this.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
                             //this.GetComponent<MeshRenderer>.material.color;
@@ -76,13 +85,19 @@ public class SharedObject : MonoBehaviourPun, IPunObservable
     }
 
     [PunRPC]
-    private void RPC_ChangeColor()
+    private void RPC_ChangeRed()
     {
         ShowAndroidToastMessage("IN A RPC CALL");
         //Color c = new Color(color.x, color.y, color.z);
         this.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
     }
-
+    [PunRPC]
+    private void RPC_ChangeBlue()
+    {
+        ShowAndroidToastMessage("IN A RPC CALL");
+        //Color c = new Color(color.x, color.y, color.z);
+        this.gameObject.GetComponent<MeshRenderer>().material.color = Color.blue;
+    }
     /// <summary>
     /// Show an Android toast message.
     /// </summary>

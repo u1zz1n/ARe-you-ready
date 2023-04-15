@@ -8,6 +8,9 @@ using UnityEngine.UI;
 public class PlayerListingMenu : MonoBehaviourPunCallbacks
 {
     [SerializeField]
+    private RawImage colorselect;
+
+    [SerializeField]
     private Transform _content;
     [SerializeField]
     private PlayerListing _playerListing;
@@ -18,6 +21,33 @@ public class PlayerListingMenu : MonoBehaviourPunCallbacks
 
     private List<PlayerListing> _listings = new List<PlayerListing>();
     private RoomsCanvases _roomsCanvases;
+
+    static public ExitGames.Client.Photon.Hashtable _myCustomProperties = new ExitGames.Client.Photon.Hashtable();
+
+
+    static public List<Vector3> colors = new List<Vector3>();
+
+    public void OnClick_Color()
+    {
+        if(colors.Count == 0)
+        {
+            //colors.Add(red);
+            //_myCustomProperties["MyColor"] = red;
+           // PhotonNetwork.MasterClient.CustomProperties = _myCustomProperties;
+            //Vector3 ColorGet = (Vector3)PhotonNetwork.MasterClient.CustomProperties["MyColor"];
+            //Color Red = new Color(ColorGet.x, ColorGet.y, ColorGet.z);
+            //colorselect.color = Red;
+        }
+        else if(colors.Count == 1)
+        {
+            //colors.Add(blue);
+            //_myCustomProperties["MyColor"] = blue;
+            //PhotonNetwork.LocalPlayer.CustomProperties = _myCustomProperties;
+            //Vector3 ColorGet = (Vector3)PhotonNetwork.LocalPlayer.CustomProperties["MyColor"];
+            //Color Blue = new Color(ColorGet.x, ColorGet.y, ColorGet.z);
+            //colorselect.color = Blue;
+        }
+    }
 
     private void Awake()
     {
@@ -104,10 +134,10 @@ public class PlayerListingMenu : MonoBehaviourPunCallbacks
                 }
             }
 
-
-
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.IsVisible = false;
+            PhotonNetwork.AutomaticallySyncScene = true;
+
             PhotonNetwork.LoadLevel(7);
         }
     }

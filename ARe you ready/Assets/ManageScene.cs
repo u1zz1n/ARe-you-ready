@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 public class ManageScene : MonoBehaviour
 {
@@ -93,7 +94,11 @@ public class ManageScene : MonoBehaviour
     public void MultiPlayer()
     {
         SoundManager.instance.PlaySfx("UI_Press");
-        SceneManager.LoadScene("MultiPlayer");
+        //SceneManager.LoadScene("MultiPlayer");
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel(7);
+        }
     }
 
 }
