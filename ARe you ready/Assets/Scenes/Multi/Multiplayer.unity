@@ -6810,7 +6810,7 @@ MonoBehaviour:
   aRSessionOrigin: {fileID: 792440157}
   aRPlaneManager: {fileID: 792440159}
   arCamera: {fileID: 89841242}
-  cube: {fileID: 4385722557791022395, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
+  cube: {fileID: 2101149646239539995, guid: 86c6b377509266f4f8a9e0adc1ee6b67, type: 3}
   checkPlaneLog: {fileID: 1987285686}
   synPlaneLog: {fileID: 1987285684}
 --- !u!114 &8893499614790716807

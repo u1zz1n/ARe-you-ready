@@ -22,7 +22,7 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
     [SerializeField]
     private GameObject cube;
 
-    private bool CanSpawn = false;
+    private int CanSpawn = 0;
     static public bool CanChangeColor = false;
 
     public Text checkPlaneLog;
@@ -59,7 +59,7 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
 
     public void OnClick_Spawn()
     {
-        CanSpawn = true;
+        CanSpawn++;
     }
 
     void Start()
@@ -81,7 +81,7 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
         once2 = false;
         once3 = false;
 
-        CanSpawn = false;
+        CanSpawn = 0;
         CanChangeColor = false;
     }
 
@@ -212,7 +212,7 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
 
             if(once3)
             {
-                if (CanSpawn && Input.touchCount > 0)
+                if (CanSpawn == 1&& Input.touchCount > 0)
                 {
                     checkPlaneLog.text = "You can spawn the box. Please touch the screen where you want to place box";
 
@@ -232,7 +232,7 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
 
                         ShowAndroidToastMessage("Spawned");
 
-                        CanSpawn = false;
+                        CanSpawn ++;
                     }
                 }
             }
