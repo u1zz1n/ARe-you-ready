@@ -44,6 +44,10 @@ MonoBehaviour:
   - RPC_Restart
   - RPC_ChangeBlue
   - RPC_ChangeRed
+  - UpdateIdealPlaneForMaster
+  - UpdateIdealPlaneForPlayer
+  - SpawningMasterPlane
+  - SpawningPlayerPlane
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

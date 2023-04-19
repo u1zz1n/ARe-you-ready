@@ -12,6 +12,7 @@ public class FilteredPlaneCanvas : MonoBehaviour
 
     private FilteredPlane filterPlane;
     private PlacingAndDragging checkDone;
+    private SpawnInMulti checkDoneMulti;
     //private PlacementAndDragging placeDragging;
     public bool VerticalPlaneToggle 
     { 
@@ -52,6 +53,11 @@ public class FilteredPlaneCanvas : MonoBehaviour
             checkDone = FindObjectOfType<PlacingAndDragging>();
             checkDone.CanPlayBall += () => verticalPlaneToggle.isOn = true;
         }
+        else if(SceneManager.GetActiveScene().name == "Multiplayer")
+        {
+            checkDoneMulti = FindObjectOfType<SpawnInMulti>();
+            checkDoneMulti.CanPlayScene += () => verticalPlaneToggle.isOn = true;
+        }
         else
         {
             filterPlane.OnVerticalPlaneFound += () => verticalPlaneToggle.isOn = true;
@@ -66,6 +72,10 @@ public class FilteredPlaneCanvas : MonoBehaviour
         if(SceneManager.GetActiveScene().name == "ObjectTracking")
         {
             checkDone.CanPlayBall += () => verticalPlaneToggle.isOn = true;
+        }
+        else if (SceneManager.GetActiveScene().name == "Multiplayer")
+        {
+            checkDoneMulti.CanPlayScene += () => verticalPlaneToggle.isOn = true;
         }
         else
         {
@@ -87,5 +97,22 @@ public class FilteredPlaneCanvas : MonoBehaviour
         //{
         //    Debug.Log("ready!");
         //}
+    }
+
+    private static void ShowAndroidToastMessage(string message)
+    {
+#if UNITY_ANDROID
+        using var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+        var unityActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+        if (unityActivity == null) return;
+        var toastClass = new AndroidJavaClass("android.widget.Toast");
+        unityActivity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
+        {
+            // Last parameter = length. Toast.LENGTH_LONG = 1
+            using var toastObject = toastClass.CallStatic<AndroidJavaObject>("makeText",
+                unityActivity, message, 1);
+            toastObject.Call("show");
+        }));
+#endif
     }
 }
