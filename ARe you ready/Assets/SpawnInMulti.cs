@@ -111,6 +111,12 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
                 }
             }
 
+            if (PhotonNetwork.CountOfPlayers == 1)
+            {
+                playerIsDone = true;
+                synPlaneLog.text = "No player";
+            }
+
             if (PhotonNetwork.IsMasterClient)
             {
                 if (!once1)
