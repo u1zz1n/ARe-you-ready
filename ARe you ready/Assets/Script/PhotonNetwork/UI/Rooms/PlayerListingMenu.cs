@@ -20,6 +20,9 @@ public class PlayerListingMenu : MonoBehaviourPunCallbacks
     private Button readyButton;
 
     [SerializeField]
+    private Text readyCountText;
+
+    [SerializeField]
     private Button startButton;
 
     private bool _ready = false;
@@ -158,13 +161,22 @@ public class PlayerListingMenu : MonoBehaviourPunCallbacks
 
     void Update()
     {
-        if (!PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)
         {
-            startButton.gameObject.SetActive(false);
+            readyButton.gameObject.SetActive(false);
         }
         else
         {
-            readyButton.gameObject.SetActive(false);
+            startButton.gameObject.SetActive(false);
+
+            if (_ready)
+            {
+                readyCountText.text = "Ready : 2/2";
+            }
+            else
+            {
+                readyCountText.text = "Ready : 1/2";
+            }
         }
     }
 
@@ -173,6 +185,15 @@ public class PlayerListingMenu : MonoBehaviourPunCallbacks
     {
         int index = _listings.FindIndex(x => x.Player == player);
         _listings[index].Ready = ready;
+
+        if(ready == true)
+        {
+            readyCountText.text = "Ready : 2/2";
+        }
+        else
+        {
+            readyCountText.text = "Ready : 1/2";
+        }
     }
 }
 
