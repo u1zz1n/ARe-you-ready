@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
-public class SharedObject : MonoBehaviourPun, IPunObservable
+public class SharedObject : MonoBehaviourPun/*, IPunObservable*/
 {
     //[SerializeField]
     //private Camera arCamera;
@@ -19,22 +19,6 @@ public class SharedObject : MonoBehaviourPun, IPunObservable
     private Vector3 red = new Vector3(1, 0, 0);
     private Vector3 blue = new Vector3(0, 1, 0);
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        /*if(stream.IsWriting)
-        {
-            Tmpc = gameObject.GetComponent<MeshRenderer>().material.color;
-            Tmp = new Vector3(Tmpc.r, Tmpc.g, Tmpc.b);
-
-            stream.Serialize(ref Tmp);
-        }
-        else if(stream.IsReading)
-        {
-            stream.Serialize(ref Tmp);
-            Sync = new Color(Tmp.x, Tmp.y, Tmp.z);
-            //this.gameObject.GetComponent<MeshRenderer>().material.color = (Color)stream.ReceiveNext();
-        }*/
-    }
 
     // Update is called once per frame
     void Update()
@@ -60,7 +44,7 @@ public class SharedObject : MonoBehaviourPun, IPunObservable
                 if (Physics.Raycast(ray, out hitObject))
                 {
                     ShowAndroidToastMessage(hitObject.transform.gameObject.name);
-                    if (SpawnInMulti.CanChangeColor && hitObject.transform.gameObject/*.name*/ == this.gameObject/*"MultiInteraction(Clone)"*/)
+                    if (/*SpawnInMulti.CanChangeColor &&*/ hitObject.transform.gameObject/*.name*/ == this.gameObject/*"MultiInteraction(Clone)"*/)
                     {
                         //if (base.photonView.IsMine)
                         {

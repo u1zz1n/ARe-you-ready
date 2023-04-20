@@ -23,7 +23,7 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
     private GameObject cube;
 
     private int CanSpawn = 0;
-    static public bool CanChangeColor = false;
+    //static public bool CanChangeColor = false;
 
     public Text checkPlaneLog;
     public Text synPlaneLog;
@@ -63,7 +63,7 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
 
     public void OnClick_Color()
     {
-        CanChangeColor = true;
+        //CanChangeColor = true;
     }
     public void OnClick_Count()
     {
@@ -109,7 +109,7 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
         once3 = false;
 
         CanSpawn = 0;
-        CanChangeColor = false;
+        //CanChangeColor = false;
     }
 
     void Update()
