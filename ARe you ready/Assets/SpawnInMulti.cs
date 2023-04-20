@@ -34,6 +34,8 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
     GameObject planeForMasterToSpawn;
     GameObject planeForPlayerToSpawn;
 
+    GameObject spawn;
+
     Vector3 centerForMaster;
     Quaternion rotationForMaster;
     Vector2 extentsForMaster;
@@ -41,6 +43,8 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
     Vector3 centerForPlayer;
     Quaternion rotationForPlayer;
     Vector2 extentsForPlayer;
+
+    Vector3 centerDiffFromMaster;
 
     public static bool masterIsDone = false;
     public static bool playerIsDone = false;
@@ -59,7 +63,8 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
 
     public void OnClick_Spawn()
     {
-        CanSpawn++;
+        photonView.RPC("canSpawnPlue", RpcTarget.All);
+        //CanSpawn++;
     }
 
     void Start()
@@ -114,7 +119,7 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
             if (PhotonNetwork.CountOfPlayers == 1)
             {
                 playerIsDone = true;
-                synPlaneLog.text = "No player";
+                //synPlaneLog.text = "No player";
             }
 
             if (PhotonNetwork.IsMasterClient)
@@ -165,7 +170,7 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
             {
                 if(!once3)
                 {
-                    synPlaneLog.text = "Plane Finding is done, you can spawn object";
+                    //synPlaneLog.text = "Plane Finding is done, you can spawn object";
 
                     /*if (PhotonNetwork.IsMasterClient)
                     {
@@ -212,7 +217,7 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
 
             if(once3)
             {
-                if (CanSpawn == 1&& Input.touchCount > 0)
+                if (CanSpawn == 1 && Input.touchCount > 0)
                 {
                     checkPlaneLog.text = "You can spawn the box. Please touch the screen where you want to place box";
 
@@ -225,18 +230,62 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
 
                     List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
-                    if (arRaycastManager.Raycast(touch.position, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
-                    {
-                        Pose hitPose = hits[0].pose;
-                        GameObject spawn = MasterManager.Networkinstantiate(cube, hitPose.position, hitPose.rotation);
+                    //if (arRaycastManager.Raycast(touch.position, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
+                    //{
+                    //    Pose hitPose = hits[0].pose;
+                    spawn = MasterManager.Networkinstantiate(cube, FindObjectOfType<ARPlane>().center, Quaternion.identity);
 
-                        ShowAndroidToastMessage("Spawned");
+                    //if(spawn != null)
+                    //{
 
-                        CanSpawn ++;
-                    }
+                    //}
+
+                    //if (PhotonNetwork.IsMasterClient)
+                    //{
+                    //Vector3 centerDiff = idealPlaneForMaster.center - (spawn.GetComponent<Renderer>().bounds.center);
+                    //}
+                    //else
+                    //{
+                    //photonView.RPC("calCenterDiff", RpcTarget.All);
+
+                    //Vector3 newCenter = idealPlaneForPlayer.transform.localPosition - centerDiffFromMaster;                            
+                    //spawn.transform.position = newCenter;
+                    //}
+
+                    photonView.RPC("canSpawnPlue", RpcTarget.All);
+
+                    //CanSpawn++;
+                    //}
+                }
+            }
+
+            if(CanSpawn == 2)
+            {
+                if (!PhotonNetwork.IsMasterClient)
+                {
+                    //spawn.transform.position = FindObjectOfType<ARPlane>().center;
+                    GameObject.Find("FlipTiles(Clone)").transform.position = FindObjectOfType<ARPlane>().center;
+                    synPlaneLog.text = "player center : " + FindObjectOfType<ARPlane>().center.ToString();
+                }
+                else
+                {
+                    synPlaneLog.text = "master center : " + FindObjectOfType<ARPlane>().center.ToString();
+
                 }
             }
         }
+    }
+
+    [PunRPC]
+    void canSpawnPlue()
+    {
+        CanSpawn++;
+    }
+
+    [PunRPC]
+    void calCenterDiff(Vector3 center)
+    {
+        centerDiffFromMaster = center;
     }
 
     [PunRPC]
