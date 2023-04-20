@@ -56,11 +56,33 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
 
     public event Action CanPlayScene;
 
+    int red = 0;
+    int blue = 0;
+    [SerializeField]
+    Text C_text;
+
     public void OnClick_Color()
     {
         CanChangeColor = true;
     }
+    public void OnClick_Count()
+    {
+        GameObject[] interactionCube = GameObject.FindGameObjectsWithTag("Interaction");
+        foreach(var objs in interactionCube)
+        {
+            if(objs.GetComponent<MeshRenderer>().material.color == Color.red)
+            {
+                red++;
+            }
+            else if (objs.GetComponent<MeshRenderer>().material.color == Color.blue)
+            {
+                blue++;
+            }
+        }
 
+        C_text.text = "Red: " + red.ToString() + " Blue: " + blue.ToString();
+
+    }
     public void OnClick_Spawn()
     {
         photonView.RPC("canSpawnPlue", RpcTarget.All);
