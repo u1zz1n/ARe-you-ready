@@ -61,9 +61,17 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
     [SerializeField]
     Text C_text;
 
-    public void OnClick_Color()
+    bool gameStart = false;
+    static public bool result = false;
+
+    float currentTime = 0f;
+    float startingTIme = 10f;
+    [SerializeField]
+    Text time;
+
+    public void OnClick_StartGame()
     {
-        //CanChangeColor = true;
+        gameStart = true;
     }
     public void OnClick_Count()
     {
@@ -109,11 +117,16 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
         once3 = false;
 
         CanSpawn = 0;
+        gameStart = false;
+        currentTime = startingTIme;
+        result = false;
         //CanChangeColor = false;
     }
 
     void Update()
     {
+       
+
         checkPlaneLog.text = "Plane Check : Finding...";
 
         if (FilteredPlane.isBig)
@@ -239,6 +252,29 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
 
             if(once3)
             {
+                if(gameStart)
+                {
+                    if(currentTime != 0)
+                    {
+                        currentTime -= 1 * Time.deltaTime;
+                        time.text = currentTime.ToString("0");
+
+                        photonView.RPC("UpdateText", RpcTarget.All);
+                    }
+
+                    if (currentTime <= 0)
+                    {
+                        currentTime = 0;
+                    }
+
+                    if(currentTime == 0 && !result)
+                    {
+                        result = true;
+                        OnClick_Count();
+                        photonView.RPC("WhosWinner", RpcTarget.All);
+                    }
+                }
+
                 if (CanSpawn == 1 && Input.touchCount > 0)
                 {
                     checkPlaneLog.text = "You can spawn the box. Please touch the screen where you want to place box";
@@ -309,7 +345,30 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
     {
         centerDiffFromMaster = center;
     }
-
+    [PunRPC]
+    void UpdateText()
+    {
+        time.text = currentTime.ToString("0");
+    }
+    [PunRPC]
+    void WhosWinner()
+    {
+        if(red > blue)
+        {
+            time.text = "Red Win";
+            time.color = Color.red;
+        }
+        else if(red < blue)
+        {
+            time.text = "Blue Win";
+            time.color = Color.blue;
+        }
+        else if(red == blue)
+        {
+            time.text = "Both Win";
+            time.color = Color.white;
+        }
+    }
     [PunRPC]
     void UpdateIdealPlaneForMaster(Vector3 center, Quaternion rotation, Vector2 extents)
     {

@@ -46,7 +46,7 @@ public class SharedObject : MonoBehaviourPun/*, IPunObservable*/
                     ShowAndroidToastMessage(hitObject.transform.gameObject.name);
                     if (/*SpawnInMulti.CanChangeColor &&*/ hitObject.transform.gameObject/*.name*/ == this.gameObject/*"MultiInteraction(Clone)"*/)
                     {
-                        //if (base.photonView.IsMine)
+                        if (!SpawnInMulti.result)
                         {
                             ShowAndroidToastMessage("CanChanged");
 
