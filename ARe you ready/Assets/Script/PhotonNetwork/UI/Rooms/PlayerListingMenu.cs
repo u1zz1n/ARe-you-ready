@@ -8,14 +8,19 @@ using UnityEngine.UI;
 public class PlayerListingMenu : MonoBehaviourPunCallbacks
 {
     [SerializeField]
-    private RawImage colorselect;
+    private Transform _content;
 
     [SerializeField]
-    private Transform _content;
-    [SerializeField]
     private PlayerListing _playerListing;
+
     [SerializeField]
     private Text _readyUpText;
+
+    [SerializeField]
+    private Button readyButton;
+
+    [SerializeField]
+    private Button startButton;
 
     private bool _ready = false;
 
@@ -148,6 +153,18 @@ public class PlayerListingMenu : MonoBehaviourPunCallbacks
         {
             SetReadyUp(!_ready);
             base.photonView.RPC("RPC_ChangeReadyState", RpcTarget.MasterClient, PhotonNetwork.LocalPlayer, _ready);
+        }
+    }
+
+    void Update()
+    {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            startButton.gameObject.SetActive(false);
+        }
+        else
+        {
+            readyButton.gameObject.SetActive(false);
         }
     }
 
