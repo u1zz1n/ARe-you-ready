@@ -171,6 +171,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MultiInteraction (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 4385722557791022395, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
+      propertyPath: m_TagString
+      value: Interaction
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4385722557791022393, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
@@ -272,6 +276,10 @@ PrefabInstance:
     - target: {fileID: 4385722557791022395, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
       propertyPath: m_Name
       value: MultiInteraction (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385722557791022395, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
+      propertyPath: m_TagString
+      value: Interaction
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4385722557791022393, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
@@ -375,6 +383,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MultiInteraction (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 4385722557791022395, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
+      propertyPath: m_TagString
+      value: Interaction
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4385722557791022393, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
@@ -476,6 +488,10 @@ PrefabInstance:
     - target: {fileID: 4385722557791022395, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
       propertyPath: m_Name
       value: MultiInteraction (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385722557791022395, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
+      propertyPath: m_TagString
+      value: Interaction
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4385722557791022393, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
@@ -579,6 +595,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MultiInteraction (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4385722557791022395, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
+      propertyPath: m_TagString
+      value: Interaction
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4385722557791022393, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
@@ -680,6 +700,10 @@ PrefabInstance:
     - target: {fileID: 4385722557791022395, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
       propertyPath: m_Name
       value: MultiInteraction
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385722557791022395, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
+      propertyPath: m_TagString
+      value: Interaction
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4385722557791022393, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
@@ -783,6 +807,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MultiInteraction (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 4385722557791022395, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
+      propertyPath: m_TagString
+      value: Interaction
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4385722557791022393, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
@@ -884,6 +912,10 @@ PrefabInstance:
     - target: {fileID: 4385722557791022395, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
       propertyPath: m_Name
       value: MultiInteraction (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385722557791022395, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
+      propertyPath: m_TagString
+      value: Interaction
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4385722557791022393, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
@@ -987,6 +1019,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MultiInteraction (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 4385722557791022395, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
+      propertyPath: m_TagString
+      value: Interaction
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4385722557791022393, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
@@ -1088,6 +1124,10 @@ PrefabInstance:
     - target: {fileID: 4385722557791022395, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
       propertyPath: m_Name
       value: MultiInteraction (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385722557791022395, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
+      propertyPath: m_TagString
+      value: Interaction
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4385722557791022393, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
@@ -1191,6 +1231,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MultiInteraction (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 4385722557791022395, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
+      propertyPath: m_TagString
+      value: Interaction
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4385722557791022393, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
@@ -1292,6 +1336,10 @@ PrefabInstance:
     - target: {fileID: 4385722557791022395, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
       propertyPath: m_Name
       value: MultiInteraction (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385722557791022395, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
+      propertyPath: m_TagString
+      value: Interaction
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4385722557791022393, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
@@ -1395,6 +1443,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MultiInteraction (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4385722557791022395, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
+      propertyPath: m_TagString
+      value: Interaction
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4385722557791022393, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
@@ -1496,6 +1548,10 @@ PrefabInstance:
     - target: {fileID: 4385722557791022395, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
       propertyPath: m_Name
       value: MultiInteraction (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385722557791022395, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
+      propertyPath: m_TagString
+      value: Interaction
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4385722557791022393, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
@@ -1599,6 +1655,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MultiInteraction (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 4385722557791022395, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
+      propertyPath: m_TagString
+      value: Interaction
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4385722557791022393, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
@@ -1700,6 +1760,10 @@ PrefabInstance:
     - target: {fileID: 4385722557791022395, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
       propertyPath: m_Name
       value: MultiInteraction (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385722557791022395, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
+      propertyPath: m_TagString
+      value: Interaction
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4385722557791022393, guid: aa2d5b923108ffa449e81a9427dc6ad1, type: 3}
