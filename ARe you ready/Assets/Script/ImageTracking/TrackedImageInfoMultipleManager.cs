@@ -15,17 +15,17 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
     bool isDragging = false;
 
 
-    [SerializeField]
-    private Text draggingText;
+    //[SerializeField]
+    //private Text draggingText;
 
-    [SerializeField]
-    private Text DebugLog;
+    //[SerializeField]
+    //private Text DebugLog;
 
     [SerializeField]
     private Camera arCamera;
 
-    [SerializeField]
-    private Text imageTrackedText;
+    //[SerializeField]
+    //private Text imageTrackedText;
 
     [SerializeField]
     private GameObject[] arObjectsToPlace;
@@ -94,21 +94,21 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
         
         if(touchYoutube)
         {
-            DebugLog.text = "YOUTUBE TOUCHED";
+            //DebugLog.text = "YOUTUBE TOUCHED";
             Application.OpenURL("http://www.youtube.com/channel/UCmwT0R0CAhvev4MA4Qamejw");
             touchYoutube = false;
         }
 
         if(touchTwitter)
         {
-            DebugLog.text = "TWITTER TOUCHED";
+            //DebugLog.text = "TWITTER TOUCHED";
             Application.OpenURL("http://twitter.com/NCTsmtown_DREAM?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor");
             touchTwitter = false;
         }
 
         if(touchAndroid)
         {
-            DebugLog.text = "ANDROID TOUCHED";
+            //DebugLog.text = "ANDROID TOUCHED";
             Application.OpenURL("tel://[+12066949766");
             touchAndroid = false;
         }
@@ -130,7 +130,7 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
 
             if (touch.phase == TouchPhase.Began)
             {
-                DebugLog.text = "TOUCHED";
+                //DebugLog.text = "TOUCHED";
 
                 Ray ray = arCamera.ScreenPointToRay(touch.position);
                 RaycastHit hitObject;
@@ -182,7 +182,7 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
                 //lastSelectedObject = null;
                 //curSelectedObject = null;
                 lastTouchTime = Time.time;
-                draggingText.text = "  " + "isDragging is " + isDragging;
+                //draggingText.text = "  " + "isDragging is " + isDragging;
 
             }
 
@@ -191,11 +191,11 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
                 curSelectedObject = lastSelectedObject.gameObject;
             }
 
-            if (isDragging)
-            {
-                draggingText.text += lastSelectedObject.gameObject.name.ToString();
-                draggingText.text += "  " + "isDragging is " + isDragging;
-            }
+            //if (isDragging)
+            //{
+                //draggingText.text += lastSelectedObject.gameObject.name.ToString();
+                //draggingText.text += "  " + "isDragging is " + isDragging;
+            //}
         }
     }
     void OnEnable(){
@@ -210,7 +210,7 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
     {
         foreach(var trackedImage in eventArgs.added)
         {
-            imageTrackedText.text = trackedImage.referenceImage.name;
+            //imageTrackedText.text = trackedImage.referenceImage.name;
 
             var name = trackedImage.referenceImage.name;
 
@@ -309,15 +309,15 @@ public class TrackedImageInfoMultipleManager : MonoBehaviour
 
             if(trackedImage.trackingState == TrackingState.Tracking)
             {
-                imageTrackedText.text = trackedImage.referenceImage.name;
+                //imageTrackedText.text = trackedImage.referenceImage.name;
                 if(trackedImage.referenceImage.name/*name*/ == "StudentID" || trackedImage.referenceImage.name/*name*/ == "HGStudentID")
                 {
                     newPosition = new Vector3(0, 0, 0.35f);
 
-                    arObjects4card["Youtube"].transform.position = trackedImage.transform.position+ new Vector3(0.35f, 0, 0.2f);
-                    arObjects4card["Twitter"].transform.position = trackedImage.transform.position + new Vector3(-0.3f, 0, 0.05f);
-                    arObjects4card["Android"].transform.position = trackedImage.transform.position + new Vector3(0.3f, 0, -0.1f);
-                    arObjects4card["Uijin"].transform.position = trackedImage.transform.position + new Vector3(0, 0.05f, 0.35f);
+                    //arObjects4card["Youtube"].transform.position = trackedImage.transform.position+ new Vector3(0.35f, 0, 0.2f);
+                    //arObjects4card["Twitter"].transform.position = trackedImage.transform.position + new Vector3(-0.3f, 0, 0.05f);
+                    //arObjects4card["Android"].transform.position = trackedImage.transform.position + new Vector3(0.3f, 0, -0.1f);
+                    //arObjects4card["Uijin"].transform.position = trackedImage.transform.position + new Vector3(0, 0.05f, 0.35f);
                     
                     //arObjects4HGcard["Youtube"].transform.position = trackedImage.transform.position + new Vector3(0.35f, 0, 0.2f);
                     //arObjects4HGcard["Twitter"].transform.position = trackedImage.transform.position + new Vector3(-0.3f, 0, 0.05f);

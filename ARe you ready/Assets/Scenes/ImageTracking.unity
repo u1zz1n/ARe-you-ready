@@ -486,11 +486,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7901924349618786632, guid: 0051b7721bb06e243a02163122f2c2d1, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -198
+      value: -279
       objectReference: {fileID: 0}
     - target: {fileID: 7901924349618786632, guid: 0051b7721bb06e243a02163122f2c2d1, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -409
+      value: -280
       objectReference: {fileID: 0}
     - target: {fileID: 7901924349618786632, guid: 0051b7721bb06e243a02163122f2c2d1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -564,7 +564,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 418676, guid: 5ac476a112e2bc5408627f0a13c8544e, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 418676, guid: 5ac476a112e2bc5408627f0a13c8544e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -631,10 +631,10 @@ MonoBehaviour:
   preSliderValue: 1
   preEachSliderValue: 1
   scaleSlider: {fileID: 1320823718886620882, guid: 09abfdce6dbc0c643acd84e410da3f07, type: 3}
-  canvas: {fileID: 0}
+  canvas: {fileID: 837256401}
   camera: {fileID: 1298759187}
   aRSessionOrigin: {fileID: 1553674411}
-  originalSlider: {fileID: 0}
+  originalSlider: {fileID: 518405519}
 --- !u!114 &473467087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -668,7 +668,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8865509898287362732, guid: c65b80778dda9dd4a90bc1c011a36700, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8865509898287362732, guid: c65b80778dda9dd4a90bc1c011a36700, type: 3}
       propertyPath: m_LocalPosition.x
@@ -735,10 +735,10 @@ MonoBehaviour:
   preSliderValue: 1
   preEachSliderValue: 1
   scaleSlider: {fileID: 1320823718886620882, guid: 09abfdce6dbc0c643acd84e410da3f07, type: 3}
-  canvas: {fileID: 0}
+  canvas: {fileID: 837256401}
   camera: {fileID: 1298759187}
   aRSessionOrigin: {fileID: 1553674411}
-  originalSlider: {fileID: 0}
+  originalSlider: {fileID: 518405519}
 --- !u!65 &513825980
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1191,11 +1191,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7901924349618786632, guid: 0051b7721bb06e243a02163122f2c2d1, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 200
+      value: 330
       objectReference: {fileID: 0}
     - target: {fileID: 7901924349618786632, guid: 0051b7721bb06e243a02163122f2c2d1, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -650
+      value: -708
       objectReference: {fileID: 0}
     - target: {fileID: 7901924349618786632, guid: 0051b7721bb06e243a02163122f2c2d1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1542,7 +1542,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 418736, guid: 3327a79dfa8dcfe4181a81241cc14178, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 418736, guid: 3327a79dfa8dcfe4181a81241cc14178, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1609,10 +1609,10 @@ MonoBehaviour:
   preSliderValue: 1
   preEachSliderValue: 1
   scaleSlider: {fileID: 1320823718886620882, guid: 09abfdce6dbc0c643acd84e410da3f07, type: 3}
-  canvas: {fileID: 0}
+  canvas: {fileID: 837256401}
   camera: {fileID: 1298759187}
   aRSessionOrigin: {fileID: 1553674411}
-  originalSlider: {fileID: 0}
+  originalSlider: {fileID: 518405519}
 --- !u!114 &729554283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1864,7 +1864,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3090669038743476790, guid: 9526006269c36be4c9010cc48b4e1c1d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3090669038743476790, guid: 9526006269c36be4c9010cc48b4e1c1d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1884,11 +1884,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3090669038743476790, guid: 9526006269c36be4c9010cc48b4e1c1d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -250
+      value: -242
       objectReference: {fileID: 0}
     - target: {fileID: 3090669038743476790, guid: 9526006269c36be4c9010cc48b4e1c1d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -600
+      value: -498
       objectReference: {fileID: 0}
     - target: {fileID: 3090669038743476790, guid: 9526006269c36be4c9010cc48b4e1c1d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1973,7 +1973,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 498984, guid: d02bd821d40eacf4cba0a68ad65ccad5, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 498984, guid: d02bd821d40eacf4cba0a68ad65ccad5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2040,10 +2040,10 @@ MonoBehaviour:
   preSliderValue: 1
   preEachSliderValue: 1
   scaleSlider: {fileID: 1320823718886620882, guid: 09abfdce6dbc0c643acd84e410da3f07, type: 3}
-  canvas: {fileID: 0}
+  canvas: {fileID: 837256401}
   camera: {fileID: 1298759187}
   aRSessionOrigin: {fileID: 1553674411}
-  originalSlider: {fileID: 0}
+  originalSlider: {fileID: 518405519}
 --- !u!114 &922778523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2064,37 +2064,6 @@ MonoBehaviour:
   front: {fileID: 632251836}
   arrowDebug: {fileID: 712707430}
   canvas: {fileID: 837256401}
---- !u!1 &925288568
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 925288569}
-  m_Layer: 0
-  m_Name: CustumManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &925288569
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 925288568}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 209.53546, y: 1843.3518, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &958776672
 GameObject:
   m_ObjectHideFlags: 0
@@ -2188,7 +2157,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5195822731287006890, guid: e4fe7538a50f06649881e9ad68c70d7a, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5195822731287006890, guid: e4fe7538a50f06649881e9ad68c70d7a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2255,10 +2224,10 @@ MonoBehaviour:
   preSliderValue: 1
   preEachSliderValue: 1
   scaleSlider: {fileID: 1320823718886620882, guid: 09abfdce6dbc0c643acd84e410da3f07, type: 3}
-  canvas: {fileID: 0}
+  canvas: {fileID: 837256401}
   camera: {fileID: 1298759187}
   aRSessionOrigin: {fileID: 1553674411}
-  originalSlider: {fileID: 0}
+  originalSlider: {fileID: 518405519}
 --- !u!65 &1183249005
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7677,7 +7646,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7901924349618786632, guid: 0051b7721bb06e243a02163122f2c2d1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7901924349618786632, guid: 0051b7721bb06e243a02163122f2c2d1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7697,11 +7666,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7901924349618786632, guid: 0051b7721bb06e243a02163122f2c2d1, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7901924349618786632, guid: 0051b7721bb06e243a02163122f2c2d1, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -350
+      value: -296
       objectReference: {fileID: 0}
     - target: {fileID: 7901924349618786632, guid: 0051b7721bb06e243a02163122f2c2d1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -7786,7 +7755,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 493332, guid: 6a4a8180d8265004da572134a65de664, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 493332, guid: 6a4a8180d8265004da572134a65de664, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7853,10 +7822,10 @@ MonoBehaviour:
   preSliderValue: 1
   preEachSliderValue: 1
   scaleSlider: {fileID: 1320823718886620882, guid: 09abfdce6dbc0c643acd84e410da3f07, type: 3}
-  canvas: {fileID: 0}
+  canvas: {fileID: 837256401}
   camera: {fileID: 1298759187}
   aRSessionOrigin: {fileID: 1553674411}
-  originalSlider: {fileID: 0}
+  originalSlider: {fileID: 518405519}
 --- !u!65 &1536275264
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7968,8 +7937,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arRaycastManager: {fileID: 1553674416}
-  draggingText: {fileID: 958776674}
-  DebugLog: {fileID: 603352281}
   arCamera: {fileID: 1298759187}
   imageTrackedText: {fileID: 621573424}
   arObjectsToPlace:
@@ -8076,7 +8043,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5939970720202395805, guid: 603a48ed404c6ba44a01cb083292fd10, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5939970720202395805, guid: 603a48ed404c6ba44a01cb083292fd10, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8096,11 +8063,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5939970720202395805, guid: 603a48ed404c6ba44a01cb083292fd10, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 250
+      value: 269
       objectReference: {fileID: 0}
     - target: {fileID: 5939970720202395805, guid: 603a48ed404c6ba44a01cb083292fd10, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -460
+      value: -486
       objectReference: {fileID: 0}
     - target: {fileID: 5939970720202395805, guid: 603a48ed404c6ba44a01cb083292fd10, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -8207,7 +8174,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1736386715
 GameObject:
@@ -8305,7 +8272,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8139103719477778848, guid: 56f4d47451ecaf744af7db45c2160ce2, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8139103719477778848, guid: 56f4d47451ecaf744af7db45c2160ce2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8376,10 +8343,10 @@ MonoBehaviour:
   preSliderValue: 1
   preEachSliderValue: 1
   scaleSlider: {fileID: 1320823718886620882, guid: 09abfdce6dbc0c643acd84e410da3f07, type: 3}
-  canvas: {fileID: 0}
+  canvas: {fileID: 837256401}
   camera: {fileID: 1298759187}
   aRSessionOrigin: {fileID: 1553674411}
-  originalSlider: {fileID: 0}
+  originalSlider: {fileID: 518405519}
 --- !u!65 &1884141813
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8507,7 +8474,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2051267661
 RectTransform:
   m_ObjectHideFlags: 0
