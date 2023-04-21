@@ -13,6 +13,7 @@ public class LeaveRoomMenu : MonoBehaviour
 
     public void OnClick_LeaveRoom()
     {
+        SoundManager.instance.PlaySfx("UI_Press");
         PhotonNetwork.LeaveRoom(true);
         _roomsCanvas.CurrentRoomCanvas.Hide();
     }

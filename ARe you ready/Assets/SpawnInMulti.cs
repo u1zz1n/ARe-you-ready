@@ -82,6 +82,7 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
 
     public void OnClick_StartGame()
     {
+        SoundManager.instance.PlaySfx("UI_Press");
         photonView.RPC("gameStartUpdate", RpcTarget.All);
     }
 
@@ -106,6 +107,8 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
     }
     public void OnClick_Spawn()
     {
+        SoundManager.instance.PlaySfx("UI_Press");
+
         photonView.RPC("PlaySfx", RpcTarget.All, "Placement");
         photonView.RPC("canSpawnPlus", RpcTarget.All);
         //CanSpawn++;

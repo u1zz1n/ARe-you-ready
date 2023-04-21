@@ -20,6 +20,8 @@ public class RoomListing : MonoBehaviour
 
     public void OnClick_Button()
     {
+        SoundManager.instance.PlaySfx("UI_Press");
+
         PhotonNetwork.JoinRoom(RoomInfo.Name);
     }
 }

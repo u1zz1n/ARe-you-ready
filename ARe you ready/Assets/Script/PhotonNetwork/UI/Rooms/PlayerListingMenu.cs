@@ -131,6 +131,8 @@ public class PlayerListingMenu : MonoBehaviourPunCallbacks
 
     public void OnClick_StartGame()
     {
+        SoundManager.instance.PlaySfx("UI_Press");
+
         if (PhotonNetwork.IsMasterClient)
         {
             for (int i = 0; i < _listings.Count; i++)
@@ -152,6 +154,8 @@ public class PlayerListingMenu : MonoBehaviourPunCallbacks
 
     public void OnClick_ReadyUp()
     {
+        SoundManager.instance.PlaySfx("UI_Press");
+
         if (!PhotonNetwork.IsMasterClient)
         {
             SetReadyUp(!_ready);

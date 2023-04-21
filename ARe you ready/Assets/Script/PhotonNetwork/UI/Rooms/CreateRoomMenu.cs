@@ -18,6 +18,8 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
 
     public void OnClick_CreateRoom()
     {
+        SoundManager.instance.PlaySfx("UI_Press");
+
         if (!PhotonNetwork.IsConnected)
             return;
 

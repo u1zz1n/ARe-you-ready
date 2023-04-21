@@ -6722,8 +6722,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 0f6b29cc3c798f14b829a7fc4d4716d4, type: 3}
   - soundName: Ready
     clip: {fileID: 8300000, guid: 16654f7716088bd458087797d32076d8, type: 3}
-  - soundName: Start
-    clip: {fileID: 8300000, guid: 037893e74d99778469e94e28cb481adb, type: 3}
+  - soundName: UI_Press
+    clip: {fileID: 8300000, guid: d0b64941fb44f124d97f9de8b1722df0, type: 3}
   bgmPlayer: {fileID: 0}
   sfxPlayer:
   - {fileID: 1047376506}
