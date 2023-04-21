@@ -30,6 +30,7 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
     public Image pannelImage;
     float pannelTime = 0f;
     float startTime = 0f;
+    bool disTime = false;
 
     ARPlane idealPlaneForMaster;
     ARPlane idealPlaneForPlayer;
@@ -63,6 +64,9 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
     int blue = 0;
     [SerializeField]
     Text C_text;
+    [SerializeField]
+    Text T_text;
+
 
     bool gameStart = false;
     static public bool result = false;
@@ -74,8 +78,10 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
 
     public void OnClick_StartGame()
     {
-        gameStart = true;
+        photonView.RPC("gameStartUpdate", RpcTarget.All);
     }
+
+
     public void OnClick_Count()
     {
         GameObject[] interactionCube = GameObject.FindGameObjectsWithTag("Interaction");
@@ -91,12 +97,12 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
             }
         }
 
-        C_text.text = "Red: " + red.ToString() + " Blue: " + blue.ToString();
+        //C_text.text = "Red: " + red.ToString() + " Blue: " + blue.ToString();
 
     }
     public void OnClick_Spawn()
     {
-        photonView.RPC("canSpawnPlue", RpcTarget.All);
+        photonView.RPC("canSpawnPlus", RpcTarget.All);
         //CanSpawn++;
     }
 
@@ -110,6 +116,19 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
         FilteredPlane.isBig = false;
 
         //checkPlaneLog.text = "Wait until detecting your world.\n If you can't find the plane for too long \n" + "Please, restart it or move your camera";
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            T_text.text = "Team Red";
+            T_text.color = Color.red;
+        }
+            
+        else
+        {
+            T_text.text = "Team Blue";
+            T_text.color = Color.blue;
+        }
+
 
         masterIsDone = false;
         playerIsDone = false;
@@ -210,99 +229,56 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
                 }          
             }
 
-            if (masterIsDone && playerIsDone) //if two player find ideal plane
-            {
-                synPlaneLog.text = "All players are ready.\n Press the spawn button to spawn the game object";
-            
-                if (!once3)
-                {
-                    //synPlaneLog.text = "Plane Finding is done, you can spawn object";
-
-                    /*if (PhotonNetwork.IsMasterClient)
-                    {
-                        //photonView.RPC("SpawningPlayerPlane", RpcTarget.All);
-
-                        GameObject newPlane = Instantiate(idealPlanePrefab, centerForPlayer, rotationForPlayer);
-                        //newPlane.transform.SetParent(aRSessionOrigin.transform, false);
-                        newPlane.transform.localScale = extentsForPlayer;
-
-                        //newPlane.transform.position = idealPlaneForPlayer.center;
-
-                        if (newPlane == null)
-                        {
-                            synPlaneLog.text += "it is null at master";
-                        }
-                        else
-                        {
-                            synPlaneLog.text += "Spawing Plane for Player";
-                        }
-                    }
-                    else
-                    {
-                        //photonView.RPC("SpawningMasterPlane", RpcTarget.All);
-
-                        GameObject newPlane = Instantiate(idealPlanePrefab, centerForMaster, rotationForMaster);
-                        //newPlane.transform.SetParent(aRSessionOrigin.transform, false);
-                        newPlane.transform.localScale = extentsForMaster;
-
-                        //newPlane.transform.position = idealPlaneForMaster.center;
-
-                        if (newPlane == null)
-                        {
-                            synPlaneLog.text += "it is null at Player";
-                        }
-                        else
-                        {
-                            synPlaneLog.text += "Spawing Plane for Master";
-                        }
-                    }*/
-
-                    once3 = true;
-                }
-            }
-
-
             if(CanSpawn == 2 && !gameStart)
             {
                 synPlaneLog.text = "Press the game start button to start the game";
             }
 
-            if(once3)
+            if (masterIsDone && playerIsDone) //if two player find ideal plane
             {
-                if(spawn != null)
-                {
-                    if (gameStart)
-                    {
-                        pannelTime += Time.deltaTime;
-                        synPlaneLog.text = "Click on the cube for a given time to change it to your own color \n The Player who turns more cubes into own color after the end of time wins.";
+                synPlaneLog.text = "All players are ready.\n Press the spawn button to spawn the game object";
+                
+                 if (gameStart)
+                 {       
+                     synPlaneLog.text = "Click on the cube for a given time to change it to your own color \n The Player who turns more cubes into own color after the end of time wins.";
 
-                        if (pannelTime > 5)
-                        {
-                            synPlaneLog.gameObject.SetActive(false);
-                            pannelImage.gameObject.SetActive(false);
+                     if(PhotonNetwork.IsMasterClient)
+                     {
+                         pannelTime += Time.deltaTime;
 
-                            if (currentTime != 0)
-                            {
-                                currentTime -= 1 * Time.deltaTime;
-                                time.text = currentTime.ToString("0");
+                         if (pannelTime > 5)
+                         {
+                             photonView.RPC("timeUpdate", RpcTarget.All);
+                         }
+                     }
 
-                                photonView.RPC("UpdateText", RpcTarget.All);
-                            }
+                     if (disTime)
+                     {
+                         synPlaneLog.gameObject.SetActive(false);
+                         pannelImage.gameObject.SetActive(false);
 
-                            if (currentTime <= 0)
-                            {
-                                currentTime = 0;
-                            }
+                         if (currentTime != 0)
+                         {
+                             currentTime -= 1 * Time.deltaTime;
+                             time.text = currentTime.ToString("0");
 
-                            if (currentTime == 0 && !result)
-                            {
-                                result = true;
-                                OnClick_Count();
-                                photonView.RPC("WhosWinner", RpcTarget.All);
-                            }
-                        }
-                    }
-                }
+                             photonView.RPC("UpdateText", RpcTarget.All);
+                         }
+
+                         if (currentTime <= 0)
+                         {
+                             currentTime = 0;
+                         }
+
+                         if (currentTime == 0 && !result)
+                         {
+                             result = true;
+                             OnClick_Count();
+                             photonView.RPC("WhosWinner", RpcTarget.All);                         
+                         }
+                     }
+                 }
+             
 
                 if (CanSpawn == 1 && Input.touchCount > 0)
                 {
@@ -339,37 +315,87 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
                     //spawn.transform.position = newCenter;
                     //}
 
-                    photonView.RPC("canSpawnPlue", RpcTarget.All);
+                    photonView.RPC("canSpawnPlus", RpcTarget.All);
 
                     //CanSpawn++;
                     //}
                 }
             }
 
-            if(CanSpawn == 2)
+            if(result)
             {
-                if (!PhotonNetwork.IsMasterClient)
+                synPlaneLog.gameObject.SetActive(true);
+                pannelImage.gameObject.SetActive(true);
+
+                if (time.color == Color.red)
                 {
-                    //spawn.transform.position = FindObjectOfType<ARPlane>().center;
-                    GameObject.Find("FlipTiles(Clone)").transform.position = FindObjectOfType<ARPlane>().center;
-                    //synPlaneLog.text = "player center : " + FindObjectOfType<ARPlane>().center.ToString();
+                    synPlaneLog.fontSize = 150;
+                    if (PhotonNetwork.IsMasterClient)
+                    {
+                        synPlaneLog.text = "You Win!!";
+                        synPlaneLog.color = Color.red;
+                    }
+                    else
+                    {
+                        synPlaneLog.text = "You Lose!!";
+                        synPlaneLog.color = Color.blue;
+                    }
+                }
+                else if (time.color == Color.blue)
+                {
+                    if (PhotonNetwork.IsMasterClient)
+                    {
+                        synPlaneLog.text = "You Lose!!";
+                        synPlaneLog.color = Color.blue;
+                    }
+                    else
+                    {
+                        synPlaneLog.text = "You Win!!";
+                        synPlaneLog.color = Color.red;
+                    }
                 }
                 else
                 {
+                    synPlaneLog.text = "Draw!!";
+                    synPlaneLog.color = Color.white;
+                }
+            }
+            if(CanSpawn == 2)
+            {
+                //if (!PhotonNetwork.IsMasterClient)
+                //{
+                    //spawn.transform.position = FindObjectOfType<ARPlane>().center;
+                    GameObject.Find("FlipTiles(Clone)").transform.position = FindObjectOfType<ARPlane>().center;
+                    //synPlaneLog.text = "player center : " + FindObjectOfType<ARPlane>().center.ToString();
+                //}
+                //else
+                //{
                     //synPlaneLog.text = "master center : " + FindObjectOfType<ARPlane>().center.ToString();
 
-                }
+                //}
             }
         }
     }
 
     [PunRPC]
-    void canSpawnPlue()
+    void canSpawnPlus()
     {
         if(CanSpawn < 3)
         {
             CanSpawn++;
         }
+    }
+
+    [PunRPC]
+    void timeUpdate()
+    {
+        disTime = true;
+    }
+
+    [PunRPC]
+    void gameStartUpdate()
+    {
+        gameStart = true;
     }
 
     [PunRPC]
