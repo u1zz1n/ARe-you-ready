@@ -51,7 +51,7 @@ public class TrackedImageInfoRuntimeSaveManager : MonoBehaviour
         trackImageManager.referenceLibrary = trackImageManager.CreateRuntimeLibrary(runtimeImageLibrary);
         trackImageManager.maxNumberOfMovingImages = 3;
         trackImageManager.trackedImagePrefab = prefabOnTrack;
-
+        
         trackImageManager.enabled = true;
 
         trackImageManager.trackedImagesChanged += OnTrackedImagesChanged;
