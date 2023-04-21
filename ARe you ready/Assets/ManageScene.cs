@@ -15,16 +15,19 @@ public class ManageScene : MonoBehaviour
 
     public GameObject teamLogo;
 
-    private void Awake() {
+    private void Awake()
+    {
         DontDestroyOnLoad(this.gameObject);
     }
-    private void Start() {
-        if(SceneManager.GetActiveScene().name == "Menu")
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().name == "Menu")
         {
             teamLogo.gameObject.SetActive(false);
         }
     }
-    private void Update() {
+    private void Update()
+    {
         if (SceneManager.GetActiveScene().name == "Menu")
         {
             if (!digipenLogo)
@@ -73,6 +76,16 @@ public class ManageScene : MonoBehaviour
     {
         SoundManager.instance.PlaySfx("UI_Press");
         SceneManager.LoadScene("Menu");
+    }
+    public void mainMenuMulti()
+    {
+        //PhotonNetwork.CurrentRoom.IsOpen = true;
+        //PhotonNetwork.CurrentRoom.IsVisible = true;
+        //if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.AutomaticallySyncScene = true;
+            PhotonNetwork.LoadLevel(7);
+        }
     }
 
     public void Credit()

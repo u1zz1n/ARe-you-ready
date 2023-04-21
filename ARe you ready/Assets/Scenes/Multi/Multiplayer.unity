@@ -7051,7 +7051,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4758999948583165205, guid: 18f1af71aab02dd488288f96ea5f473d, type: 3}
         m_TargetAssemblyTypeName: ManageScene, Assembly-CSharp
-        m_MethodName: mainMenu
+        m_MethodName: mainMenuMulti
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7170,7 +7170,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Main Menu
+  m_Text: Restart
 --- !u!222 &1443177810
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7720,7 +7720,7 @@ RectTransform:
   m_GameObject: {fileID: 1974588933}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5241777, y: 1.5241777, z: 1.5241777}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 585424099}

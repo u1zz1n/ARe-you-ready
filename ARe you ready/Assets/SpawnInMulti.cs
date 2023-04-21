@@ -409,12 +409,15 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
                 //{
                 //spawn.transform.position = FindObjectOfType<ARPlane>().center;
                 GameObject.Find("FlipTiles(Clone)").transform.position = FindObjectOfType<ARPlane>().center;
+                float yDiff = FindObjectOfType<ARPlane>().transform.localPosition.y - (GameObject.Find("FlipTiles(Clone)").GetComponent<BoxCollider>().bounds.min.y);
+                Vector3 spawnPosition = new Vector3(GameObject.Find("FlipTiles(Clone)").transform.position.x, GameObject.Find("FlipTiles(Clone)").transform.position.y + yDiff, GameObject.Find("FlipTiles(Clone)").transform.position.z);
+                GameObject.Find("FlipTiles(Clone)").transform.position = spawnPosition;
                 //synPlaneLog.text = "player center : " + FindObjectOfType<ARPlane>().center.ToString();
                 //}
                 //else
                 //{
                 //synPlaneLog.text = "master center : " + FindObjectOfType<ARPlane>().center.ToString();
-
+                photonView.RPC("canSpawnPlus", RpcTarget.All);
                 //}
             }
         }
