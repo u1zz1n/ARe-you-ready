@@ -9,8 +9,8 @@ public class spawnBall : MonoBehaviour
     [SerializeField]
     GameObject ball;
 
-    [SerializeField]
-    public Text debugLog;
+    //[SerializeField]
+    //public Text debugLog;
 
     private void Awake() {
         PlacingAndDragging.spawnable = false;

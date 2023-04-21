@@ -175,7 +175,7 @@ public class PlacementObject : MonoBehaviour
     {
        if(PlacementAndDragging.forAll == false)
         {
-            float newVal = this.preEachSliderValue - newValue;
+            float newVal = (this.preEachSliderValue - newValue) * 0.3f;
 
             this.Size = newVal;
             this.preEachSliderValue = newValue;
