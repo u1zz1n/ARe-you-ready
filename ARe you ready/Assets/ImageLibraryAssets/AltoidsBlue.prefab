@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4083468583896867215}
   - component: {fileID: 1082199404824030762}
   - component: {fileID: 2945435340153559776}
+  - component: {fileID: 7187981769597099515}
   m_Layer: 0
   m_Name: AltoidsBlue
   m_TagString: Untagged
@@ -83,3 +84,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7187981769597099515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3738187415824874293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c3418925882f1c4ea1a03482be03fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsSelected: 0
+  IsLocked: 0
+  objectSize: 1
+  preSliderValue: 1
+  preEachSliderValue: 1
+  scaleSlider: {fileID: 0}
+  canvas: {fileID: 0}
+  camera: {fileID: 0}
+  aRSessionOrigin: {fileID: 0}
+  originalSlider: {fileID: 0}

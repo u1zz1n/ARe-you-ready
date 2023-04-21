@@ -63,7 +63,9 @@ public class ManageScene : MonoBehaviour
 
     public void BowlingDemo() //MultiPlayer
     {
+
         SceneManager.LoadScene("Rooms");
+
         SoundManager.instance.PlaySfx("UI_Press");
     }
 
@@ -101,4 +103,8 @@ public class ManageScene : MonoBehaviour
         }
     }
 
+    public void RestratScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 }
