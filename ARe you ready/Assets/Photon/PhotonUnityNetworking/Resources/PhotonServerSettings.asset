@@ -52,6 +52,13 @@ MonoBehaviour:
   - canSpawnPlue
   - UpdateText
   - WhosWinner
+  - canSpawnPlus
+  - timeUpdate
+  - gameStartUpdate
+  - PlayBGM
+  - StopBGM
+  - StopSfx
+  - PlaySfx
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

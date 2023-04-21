@@ -46,14 +46,15 @@ public class SharedObject : MonoBehaviourPun/*, IPunObservable*/
                     ShowAndroidToastMessage(hitObject.transform.gameObject.name);
                     if (/*SpawnInMulti.CanChangeColor &&*/ hitObject.transform.gameObject/*.name*/ == this.gameObject/*"MultiInteraction(Clone)"*/)
                     {
-                        if (!SpawnInMulti.result)
+                        if (!SpawnInMulti.result && SpawnInMulti.playBGM)
                         {
                             ShowAndroidToastMessage("CanChanged");
+                            SoundManager.instance.PlaySfx("Flip");
 
                             //PhotonView phtonView = PhotonView.Get(this);
                             //if(PhotonNetwork.LocalPlayer.CustomProperties["MyColor"] == red)
                             //PhotonNetwork.LocalPlayer;
-                            if(PhotonNetwork.IsMasterClient)
+                            if (PhotonNetwork.IsMasterClient)
                                 this.photonView.RPC("RPC_ChangeRed", RpcTarget.All);
                             if (!PhotonNetwork.IsMasterClient)
                                 this.photonView.RPC("RPC_ChangeBlue", RpcTarget.All);

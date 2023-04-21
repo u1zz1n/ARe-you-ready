@@ -99,6 +99,7 @@ public class SoundManager : MonoBehaviour
         bgmPlayer.Stop();
     }
 
+    
 /*
     public void SetBGMVolume(float slider)
     {
