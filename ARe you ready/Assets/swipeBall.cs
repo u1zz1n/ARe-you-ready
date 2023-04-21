@@ -116,10 +116,7 @@ public class swipeBall : MonoBehaviour
                 }
                 rollingSound = false;            
             }
-
         }
-
-        
 
         if(Input.touchCount > 0 && startroll)
         {

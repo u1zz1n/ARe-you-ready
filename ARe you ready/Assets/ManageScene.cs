@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 public class ManageScene : MonoBehaviour
 {
@@ -60,10 +61,11 @@ public class ManageScene : MonoBehaviour
         SoundManager.instance.PlaySfx("UI_Press");
     }
 
-    public void BowlingDemo()
+    public void BowlingDemo() //MultiPlayer
     {
-        //SceneManager.LoadScene("RollBall");
-        SceneManager.LoadScene("Multiplayer");
+
+        SceneManager.LoadScene("Rooms");
+
         SoundManager.instance.PlaySfx("UI_Press");
     }
 
@@ -89,6 +91,16 @@ public class ManageScene : MonoBehaviour
     {
         SoundManager.instance.PlaySfx("UI_Press");
         SceneManager.LoadScene("ObjectTracking");
+    }
+
+    public void MultiPlayer()
+    {
+        SoundManager.instance.PlaySfx("UI_Press");
+        //SceneManager.LoadScene("MultiPlayer");
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel(7);
+        }
     }
 
     public void RestratScene()

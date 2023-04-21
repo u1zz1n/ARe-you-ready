@@ -182,10 +182,6 @@ public class PlacingAndDragging : MonoBehaviour
 
             if(!scanCompleteSfx.isPlaying && !playsfxcheck2)
             {
-                //debugLog.text = "Plane Detecting Success! \n " +
-                //    "Touch the screen to put and dragging pins \n" +
-                //    "then press 'Ball' to spawn ball.";
-
                 debugLog.gameObject.SetActive(true);
                 fisrtTimerCheck = false;
                 debugLog.text = "Plane Detecting Success! \n" + "Touch the screen to put and dragging pins \n" + "then press 'Ball' to spawn ball.";
