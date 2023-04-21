@@ -93,6 +93,8 @@ public class PlacingAndDragging : MonoBehaviour
     float timer3 = 0;
     public Image infoP;
 
+    int planeCount = 0;
+
     private void Awake() {
         spawnable = false;
         changeColor = false;
@@ -106,6 +108,7 @@ public class PlacingAndDragging : MonoBehaviour
     void Start()
     {
         spawnObjectNum = 0;
+        planeCount = 0;
 
         timer1 = 0;
         timer2 = 0;
@@ -170,6 +173,7 @@ public class PlacingAndDragging : MonoBehaviour
                         CanPlayBall.Invoke();
                     }
                     checkPlaneLog.text = "Plane Check : Done!";
+                    planeCount++;
                     //SoundManager.instance.PlaySfx("ScanningComplete");
                 }
                 else
@@ -180,7 +184,27 @@ public class PlacingAndDragging : MonoBehaviour
                 }
             }
 
-            if(!scanCompleteSfx.isPlaying && !playsfxcheck2)
+            if (planeCount != 1)
+            {
+                Debug.Log("find more than one plnae");
+
+                if (planeCount != 1)
+                {
+                    foreach (ARPlane plane in aRPlaneManager.trackables)
+                    {
+                        aRPlaneManager.enabled = false;
+                        plane.gameObject.SetActive(aRPlaneManager.enabled);
+                        planeCount--;
+
+                        if(planeCount == 1)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (!scanCompleteSfx.isPlaying && !playsfxcheck2)
             {
                 debugLog.gameObject.SetActive(true);
                 fisrtTimerCheck = false;

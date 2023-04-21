@@ -199,8 +199,8 @@ public class GPS : MonoBehaviour
             curPlace.latitude = float.Parse(userLa.text);
             curPlace.longitude = float.Parse(userLo.text);
 
-            Debug.Log(userLa.text);
-            Debug.Log(userLo.text); 
+            //Debug.Log(userLa.text);
+            //Debug.Log(userLo.text); 
 
             UpdateLocationForDebug.checkUpdate = false;
         }
@@ -256,7 +256,7 @@ public class GPS : MonoBehaviour
             locationCheck[4] = false;
         }
 
-        Debug.Log(locationCal.Min());
+        //Debug.Log(locationCal.Min());
 
         if (locationCal.Min() == locationCal[0] && locationCheck[0] == true)
         {
