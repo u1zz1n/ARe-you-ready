@@ -25,8 +25,11 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
     private int CanSpawn = 0;
     //static public bool CanChangeColor = false;
 
-    public Text checkPlaneLog;
+    //public Text checkPlaneLog;
     public Text synPlaneLog;
+    public Image pannelImage;
+    float pannelTime = 0f;
+    float startTime = 0f;
 
     ARPlane idealPlaneForMaster;
     ARPlane idealPlaneForPlayer;
@@ -106,7 +109,7 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
 
         FilteredPlane.isBig = false;
 
-        checkPlaneLog.text = "Wait until detecting your world.\n If you can't find the plane for too long \n" + "Please, restart it or move your camera";
+        //checkPlaneLog.text = "Wait until detecting your world.\n If you can't find the plane for too long \n" + "Please, restart it or move your camera";
 
         masterIsDone = false;
         playerIsDone = false;
@@ -124,13 +127,14 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
     }
 
     void Update()
-    {
-       
-
-        checkPlaneLog.text = "Plane Check : Finding...";
+    {      
+        //checkPlaneLog.text = "Plane Check : Finding...";
+        synPlaneLog.text = "Wait until detecting your world.\n Please stand facing the same direction\n If you can't find the plane for too long \n" + "Please, restart it or move your camera";
 
         if (FilteredPlane.isBig)
         {
+            synPlaneLog.text = "Plane found.\n Please wait a moment \n";
+
             foreach (ARPlane plane in aRPlaneManager.trackables)
             {
                 if (plane.extents.x * plane.extents.y >= FilteredPlane.dismenstionsForBigPlanes.x * FilteredPlane.dismenstionsForBigPlanes.y)
@@ -142,7 +146,7 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
                         CanPlayScene.Invoke();
                     }
                     
-                    checkPlaneLog.text = "Plane Check : Done!" + "Then press 'spawn' to spawn box";
+                    //checkPlaneLog.text = "Plane Check : Done!" + "Then press 'spawn' to spawn box";
                 }
                 else
                 {
@@ -157,6 +161,11 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
                 //synPlaneLog.text = "No player";
             }
 
+            if (!masterIsDone || !playerIsDone) //if two player find ideal plane
+            {
+                synPlaneLog.text = "Please wait for another player to find a plane\n";
+            }
+
             if (PhotonNetwork.IsMasterClient)
             {
                 if (!once1)
@@ -164,10 +173,10 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
                     //synPlaneLog.text = "this is master";
                     idealPlaneForMaster = FindObjectOfType<ARPlane>(); //ideal plane that is used for current device
 
-                    if (idealPlaneForMaster == null)
-                    {
-                        synPlaneLog.text = "ideal is null at save master";
-                    }
+                    //if (idealPlaneForMaster == null)
+                    //{
+                    //    synPlaneLog.text = "ideal is null at save master";
+                    //}
 
                     Vector3 planeNormal = idealPlaneForMaster.normal;
                     //photonView.RPC("UpdateIdealPlaneForMaster", RpcTarget.All, idealPlaneForMaster.center, Quaternion.LookRotation(planeNormal), idealPlaneForMaster.extents);
@@ -186,10 +195,10 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
 
                     idealPlaneForPlayer = FindObjectOfType<ARPlane>(); //ideal plane that is used for current device
 
-                    if (idealPlaneForPlayer == null)
-                    {
-                        synPlaneLog.text = "ideal is null at save player";
-                    }
+                    //if (idealPlaneForPlayer == null)
+                    //{
+                    //    synPlaneLog.text = "ideal is null at save player";
+                    //}
 
                     Vector3 planeNormal = idealPlaneForPlayer.normal;
                     //photonView.RPC("UpdateIdealPlaneForPlayer", RpcTarget.All, idealPlaneForPlayer.center, Quaternion.LookRotation(planeNormal), idealPlaneForPlayer.extents);
@@ -203,7 +212,9 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
 
             if (masterIsDone && playerIsDone) //if two player find ideal plane
             {
-                if(!once3)
+                synPlaneLog.text = "All players are ready.\n Press the spawn button to spawn the game object";
+            
+                if (!once3)
                 {
                     //synPlaneLog.text = "Plane Finding is done, you can spawn object";
 
@@ -250,34 +261,52 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
                 }
             }
 
+
+            if(CanSpawn == 2 && !gameStart)
+            {
+                synPlaneLog.text = "Press the game start button to start the game";
+            }
+
             if(once3)
             {
-                if(gameStart)
+                if(spawn != null)
                 {
-                    if(currentTime != 0)
+                    if (gameStart)
                     {
-                        currentTime -= 1 * Time.deltaTime;
-                        time.text = currentTime.ToString("0");
+                        pannelTime += Time.deltaTime;
+                        synPlaneLog.text = "Click on the cube for a given time to change it to your own color \n The Player who turns more cubes into own color after the end of time wins.";
 
-                        photonView.RPC("UpdateText", RpcTarget.All);
-                    }
+                        if (pannelTime > 5)
+                        {
+                            synPlaneLog.gameObject.SetActive(false);
+                            pannelImage.gameObject.SetActive(false);
 
-                    if (currentTime <= 0)
-                    {
-                        currentTime = 0;
-                    }
+                            if (currentTime != 0)
+                            {
+                                currentTime -= 1 * Time.deltaTime;
+                                time.text = currentTime.ToString("0");
 
-                    if(currentTime == 0 && !result)
-                    {
-                        result = true;
-                        OnClick_Count();
-                        photonView.RPC("WhosWinner", RpcTarget.All);
+                                photonView.RPC("UpdateText", RpcTarget.All);
+                            }
+
+                            if (currentTime <= 0)
+                            {
+                                currentTime = 0;
+                            }
+
+                            if (currentTime == 0 && !result)
+                            {
+                                result = true;
+                                OnClick_Count();
+                                photonView.RPC("WhosWinner", RpcTarget.All);
+                            }
+                        }
                     }
                 }
 
                 if (CanSpawn == 1 && Input.touchCount > 0)
                 {
-                    checkPlaneLog.text = "You can spawn the box. Please touch the screen where you want to place box";
+                    //checkPlaneLog.text = "You can spawn the box. Please touch the screen where you want to place box";
 
                     Touch touch = Input.GetTouch(0);
 
@@ -323,11 +352,11 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
                 {
                     //spawn.transform.position = FindObjectOfType<ARPlane>().center;
                     GameObject.Find("FlipTiles(Clone)").transform.position = FindObjectOfType<ARPlane>().center;
-                    synPlaneLog.text = "player center : " + FindObjectOfType<ARPlane>().center.ToString();
+                    //synPlaneLog.text = "player center : " + FindObjectOfType<ARPlane>().center.ToString();
                 }
                 else
                 {
-                    synPlaneLog.text = "master center : " + FindObjectOfType<ARPlane>().center.ToString();
+                    //synPlaneLog.text = "master center : " + FindObjectOfType<ARPlane>().center.ToString();
 
                 }
             }
@@ -337,7 +366,10 @@ public class SpawnInMulti : MonoBehaviourPun, IPunObservable
     [PunRPC]
     void canSpawnPlue()
     {
-        CanSpawn++;
+        if(CanSpawn < 3)
+        {
+            CanSpawn++;
+        }
     }
 
     [PunRPC]
