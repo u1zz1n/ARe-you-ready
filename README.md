@@ -1,13 +1,9 @@
 # ARe-you-ready
 Gam400_AReyouready_JellyMolly
 
-ARe you ready is an augmented reality simulation Android mobile app that allows us to enjoy AR features with simple mini-games. This project was created with AR Foundation, unity, and pun2 for multiplayer.
+## 🔸ARe You Ready?
+ARe you ready는 AR 기능을 즐길 수 있는 미니 게임을 포함한 안드로이드 증강현실 시뮬레이터입니다. 유저의 카메라에 담긴 현실 세계를 기반으로 가상 물체를 조화롭게 디스플레이하는 기능과 함께 볼링 시뮬레이션, 멀티플레이어 미니 게임, AR 학생증과 같은 다양한 시뮬레이션을 가능하게 합니다. 이 프로젝트는 AR Foundation, Unity 3D, PUN2를 활용하여 창작되었습니다.    
+AR 엔지니어이자 게임플레이 프로그래머로서 이 프로젝트에 참여하였습니다.   
 
-This project includes:
-
-1. Multiplayer simulation
-Players can join with various players through the lobby room network system, and all game objects are synchronized so that their changes are shown equally to all players at the same time. Each player can change the color of the cube to the color that represents themselves by clicking on the cube, and the player who paints the most cubes in their color within a set time wins. it is a multiplayer AR simulation game.
-2. Bowling simulation
-Players can play a bowling game with simple physics by placing bowling pins and balls based on the real world using AR features like plane detection and object placement. When the bowling pin is placed, the shape of the bowling pin is determined as a unique object by calculating the player’s GPS information if the player is at a specific location. For example, if the player is at the coordinates of Starbucks, it is spawned as a mug, and if the player is in the library, it is spawned as a book.
-3. AR student ID card
-By using image tracking, it recognizes the student I previously stored in this project and displays an AR object around it. AR objects sense and track the movement of the recognized image.
+## 🔸기능 소개    
+### 1. 멀티플레이어 AR 시뮬레이션    
